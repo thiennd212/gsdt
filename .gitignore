@@ -91,6 +91,9 @@ external/
 # Git worktrees (local development only)
 worktrees/
 
+# k6 raw output (large JSONL files, not summary)
+tests/performance/results/baseline-*.json
+
 # Frontend (web/) build artifacts
 web/node_modules/
 web/dist/
