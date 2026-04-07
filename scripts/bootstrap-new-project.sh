@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # =============================================================================
-# AqtCoreFW → New Project Bootstrap Script (Self-Healing)
+# GSDT → New Project Bootstrap Script (Self-Healing)
 # =============================================================================
 # Usage:
 #   bash scripts/bootstrap-new-project.sh [--yes] <NewName> <TargetDir> [modules-to-remove...]

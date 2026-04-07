@@ -1,0 +1,12 @@
+<Project>
+  <!-- Import parent props (src/Directory.Build.props) -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <!-- Global usings for SharedKernel types used across all module Domain/Application projects -->
+  <ItemGroup>
+    <Using Include="GSDT.SharedKernel.Domain" />
+    <Using Include="GSDT.SharedKernel.Domain.Events" />
+    <Using Include="GSDT.SharedKernel.Compliance" />
+    <Using Include="GSDT.SharedKernel.Errors" />
+  </ItemGroup>
+</Project>

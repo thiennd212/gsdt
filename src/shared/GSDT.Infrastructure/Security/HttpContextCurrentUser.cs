@@ -29,4 +29,10 @@ public sealed class HttpContextCurrentUser(IHttpContextAccessor httpContextAcces
         .Select(c => c.Value).ToArray() ?? [];
 
     public bool IsAuthenticated => User?.Identity?.IsAuthenticated ?? false;
+
+    public Guid? ManagingAuthorityId => Guid.TryParse(
+        User?.FindFirstValue("managing_authority_id"), out var mid) ? mid : null;
+
+    public Guid? ProjectOwnerId => Guid.TryParse(
+        User?.FindFirstValue("project_owner_id"), out var pid) ? pid : null;
 }

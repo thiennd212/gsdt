@@ -6,6 +6,7 @@ namespace GSDT.Integration.Application.Commands.CreatePartner;
 public sealed class CreatePartnerCommandHandler(
     IPartnerRepository repository,
     ICurrentUser currentUser,
+    IDomainEventPublisher eventPublisher)
     : IRequestHandler<CreatePartnerCommand, Result<PartnerDto>>
 {
     public async Task<Result<PartnerDto>> Handle(
@@ -17,7 +18,7 @@ public sealed class CreatePartnerCommandHandler(
             request.Endpoint, request.AuthScheme);
 
         await repository.AddAsync(partner, cancellationToken);
-        await eventPublisher.PublishAsync(partner.DomainEvents, cancellationToken);
+        await eventPublisher.PublishEventsAsync(partner.DomainEvents, cancellationToken);
         partner.ClearDomainEvents();
 
         return Result.Ok(MapToDto(partner));

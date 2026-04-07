@@ -38,5 +38,7 @@
     <ProjectReference Include="..\..\modules\integration\GSDT.Integration.Application\GSDT.Integration.Application.csproj" />
     <ProjectReference Include="..\..\modules\integration\GSDT.Integration.Infrastructure\GSDT.Integration.Infrastructure.csproj" />
     <ProjectReference Include="..\..\modules\integration\GSDT.Integration.Presentation\GSDT.Integration.Presentation.csproj" />
+    <ProjectReference Include="..\..\modules\investment-projects\GSDT.InvestmentProjects.Infrastructure\GSDT.InvestmentProjects.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\investment-projects\GSDT.InvestmentProjects.Presentation\GSDT.InvestmentProjects.Presentation.csproj" />
   </ItemGroup>
 </Project>

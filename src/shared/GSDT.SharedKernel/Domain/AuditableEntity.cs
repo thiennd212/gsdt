@@ -1,8 +1,21 @@
+using GSDT.SharedKernel.Domain.Events;
+
 namespace GSDT.SharedKernel.Domain;
 
-/// <summary>Extends Entity with user audit trail and data classification (QĐ742).</summary>
+/// <summary>
+/// Extends Entity with user audit trail, data classification (QĐ742), and
+/// optional domain event collection for aggregate roots.
+/// Subclasses that implement IAggregateRoot use AddDomainEvent / ClearDomainEvents;
+/// the OutboxInterceptor drains IExternalDomainEvent entries to the outbox on SaveChanges.
+/// </summary>
 public abstract class AuditableEntity<TId> : Entity<TId>
 {
+    /// <summary>Backing store for domain events — populated via AddDomainEvent.</summary>
+    protected readonly List<IDomainEvent> _domainEvents = new();
+
+    /// <summary>Read-only view of collected domain events — consumed by OutboxInterceptor and publishers.</summary>
+    public IReadOnlyList<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
+
     public Guid CreatedBy { get; private set; }
     public Guid? ModifiedBy { get; private set; }
 
@@ -16,4 +29,7 @@ public abstract class AuditableEntity<TId> : Entity<TId>
         ModifiedBy = userId;
         MarkUpdated();
     }
+
+    /// <summary>Appends a domain event — called from aggregate business methods.</summary>
+    public void AddDomainEvent(IDomainEvent domainEvent) => _domainEvents.Add(domainEvent);
 }

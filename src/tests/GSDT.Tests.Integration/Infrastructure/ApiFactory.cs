@@ -1,6 +1,3 @@
-using StackExchange.Redis;
-
-
 namespace GSDT.Tests.Integration.Infrastructure;
 
 /// <summary>
@@ -91,13 +88,10 @@ public class ApiFactory(DatabaseFixture db) : WebApplicationFactory<Program>
             OverrideDbContextForTest<MasterDataDbContext>(services, testSql, "masterdata");
             OverrideDbContextForTest<AuditDbContext>(services, testSql, "audit");
             OverrideDbContextForTest<FilesDbContext>(services, testSql, "files");
-            OverrideDbContextForTest<FormsDbContext>(services, testSql, "forms");
-            OverrideDbContextForTest<WorkflowDbContext>(services, testSql, "workflow");
+            // NOTE: FormsDbContext, WorkflowDbContext, AiDbContext, ReportingDbContext — modules not yet implemented
             OverrideDbContextForTest<NotificationsDbContext>(services, testSql, "notifications");
             OverrideDbContextForTest<OrgDbContext>(services, testSql, "organization");
             OverrideDbContextForTest<SystemParamsDbContext>(services, testSql, "config");
-            OverrideDbContextForTest<AiDbContext>(services, testSql, "ai");
-            OverrideDbContextForTest<ReportingDbContext>(services, testSql, "reporting");
             OverrideDbContextForTest<WebhookDbContext>(services, testSql, "webhooks");
             OverrideDbContextForTest<MessagingDbContext>(services, testSql);
             OverrideDbContextForTest<ApiKeyDbContext>(services, testSql, "gateway");
@@ -126,13 +120,10 @@ public class ApiFactory(DatabaseFixture db) : WebApplicationFactory<Program>
             sp.GetService<MasterDataDbContext>(),         // masterdata schema
             sp.GetService<AuditDbContext>(),              // audit schema
             sp.GetService<FilesDbContext>(),              // files schema
-            sp.GetService<FormsDbContext>(),              // forms schema
-            sp.GetService<WorkflowDbContext>(),           // workflow schema
+            // NOTE: FormsDbContext, WorkflowDbContext, AiDbContext, ReportingDbContext — modules not yet implemented
             sp.GetService<NotificationsDbContext>(),      // notifications schema
             sp.GetService<OrgDbContext>(),                // organization schema
             sp.GetService<SystemParamsDbContext>(),       // config schema — before SystemParamSeeder
-            sp.GetService<AiDbContext>(),                 // ai schema
-            sp.GetService<ReportingDbContext>(),          // reporting schema
             sp.GetService<WebhookDbContext>(),            // shared: webhooks
             sp.GetService<MessagingDbContext>(),          // shared: outbox / messaging
             sp.GetService<ApiKeyDbContext>(),             // shared: api keys

@@ -32,7 +32,7 @@ import type {
   PatchApiV1NotificationsIdReadParams,
   ProblemDetails,
   SendNotificationCommand
-} from '../aqtCoreFWApiV1.schemas';
+} from '../gsdtApiV1.schemas';
 
 import { apiClientMutator } from '../../../core/api/api-client';
 

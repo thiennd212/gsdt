@@ -26,7 +26,7 @@ import type {
 import type {
   ProblemDetails,
   VerifyTotpRequest
-} from '../aqtCoreFWApiV1.schemas';
+} from '../gsdtApiV1.schemas';
 
 import { apiClientMutator } from '../../../core/api/api-client';
 

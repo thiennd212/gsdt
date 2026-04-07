@@ -1,3 +1,6 @@
+// Explicit alias pins SignatureVerificationResult to the Files.Domain version,
+// preventing CS0104 ambiguity when GSDT.SharedKernel.Contracts.Clients is in global scope.
+using SignatureVerificationResult = GSDT.Files.Domain.Services.SignatureVerificationResult;
 
 namespace GSDT.Files.Infrastructure.Security;
 

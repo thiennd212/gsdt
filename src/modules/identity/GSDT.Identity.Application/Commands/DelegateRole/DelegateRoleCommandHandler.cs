@@ -7,14 +7,16 @@ public sealed class DelegateRoleCommandHandler : IRequestHandler<DelegateRoleCom
 {
     private readonly IDelegationRepository _delegations;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IDomainEventPublisher _events;
 
     public DelegateRoleCommandHandler(
         IDelegationRepository delegations,
-        UserManager<ApplicationUser> userManager)
+        UserManager<ApplicationUser> userManager,
+        IDomainEventPublisher events)
     {
         _delegations = delegations;
-        _events = events;
         _userManager = userManager;
+        _events = events;
     }
 
     public async Task<Result<Guid>> Handle(DelegateRoleCommand cmd, CancellationToken ct)
@@ -75,7 +77,7 @@ public sealed class DelegateRoleCommandHandler : IRequestHandler<DelegateRoleCom
         await _delegations.AddAsync(delegation, ct);
         await _delegations.SaveChangesAsync(ct);
 
-        await _events.PublishAsync(
+        await _events.PublishEventsAsync(
             [new DelegationGrantedEvent(delegation.Id, cmd.DelegatorId, cmd.DelegateId, cmd.ActorId)], ct);
 
         return Result.Ok(delegation.Id);

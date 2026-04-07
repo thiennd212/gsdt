@@ -1,4 +1,5 @@
 using FluentResults;
+using GSDT.SharedKernel.Application.Pagination;
 
 namespace GSDT.SharedKernel.Api;
 

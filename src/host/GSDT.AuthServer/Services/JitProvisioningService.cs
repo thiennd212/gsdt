@@ -84,6 +84,7 @@ public sealed class JitProvisioningService(
         }
 
         // 3. Create new user + ExternalIdentity in a single transaction
+        await using var transaction = await dbContext.Database.BeginTransactionAsync(ct);
         try
         {
             var user = new ApplicationUser

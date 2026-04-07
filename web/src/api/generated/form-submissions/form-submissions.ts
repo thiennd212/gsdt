@@ -28,7 +28,7 @@ import type {
   GetApiV1FormsSubmissionsParams,
   ProblemDetails,
   SubmitFormRequest
-} from '../aqtCoreFWApiV1.schemas';
+} from '../gsdtApiV1.schemas';
 
 import { apiClientMutator } from '../../../core/api/api-client';
 

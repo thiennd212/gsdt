@@ -42,7 +42,7 @@ public sealed class DelegateRoleCommandHandlerTests
             Substitute.For<IServiceProvider>(),
             Substitute.For<ILogger<UserManager<ApplicationUser>>>());
 
-        _sut = new DelegateRoleCommandHandler(_delegations, _events, _userManager);
+        _sut = new DelegateRoleCommandHandler(_delegations, _userManager, _events);
     }
 
     // --- Happy path ---
@@ -74,7 +74,7 @@ public sealed class DelegateRoleCommandHandlerTests
             Arg.Is<UserDelegation>(d => d.DelegatorId == DelegatorId && d.DelegateId == DelegateId),
             Arg.Any<CancellationToken>());
         await _delegations.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
-        await _events.Received(1).PublishAsync(Arg.Any<IReadOnlyList<GSDT.SharedKernel.Domain.Events.IDomainEvent>>(), Arg.Any<CancellationToken>());
+        await _events.Received(1).PublishEventsAsync(Arg.Any<IReadOnlyList<GSDT.SharedKernel.Domain.Events.IDomainEvent>>(), Arg.Any<CancellationToken>());
     }
 
     // --- Validation guards ---

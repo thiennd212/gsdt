@@ -29,7 +29,7 @@ import type {
   PostApiV1AdminOrgStaffUserIdAssignParams,
   PostApiV1AdminOrgStaffUserIdTransferParams,
   TransferStaffRequest
-} from '../aqtCoreFWApiV1.schemas';
+} from '../gsdtApiV1.schemas';
 
 import { apiClientMutator } from '../../../core/api/api-client';
 

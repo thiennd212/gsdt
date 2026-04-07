@@ -6,7 +6,11 @@ namespace GSDT.Identity.Application.Commands.LockUser;
 public sealed class LockUserCommandHandler : IRequestHandler<LockUserCommand, Result>
 {
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly IDomainEventPublisher _events;
 
+    public LockUserCommandHandler(
+        UserManager<ApplicationUser> userManager,
+        IDomainEventPublisher events)
     {
         _userManager = userManager;
         _events = events;
@@ -29,7 +33,7 @@ public sealed class LockUserCommandHandler : IRequestHandler<LockUserCommand, Re
 
         await _userManager.UpdateAsync(user);
 
-        await _events.PublishAsync([new UserLockedEvent(cmd.UserId, cmd.Lock, cmd.ActorId)], ct);
+        await _events.PublishEventsAsync([new UserLockedEvent(cmd.UserId, cmd.Lock, cmd.ActorId)], ct);
         return Result.Ok();
     }
 }

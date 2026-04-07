@@ -29,7 +29,7 @@ import type {
   GetApiV1AdminDeadLettersParams,
   ProblemDetails,
   QuarantineRequest
-} from '../aqtCoreFWApiV1.schemas';
+} from '../gsdtApiV1.schemas';
 
 import { apiClientMutator } from '../../../core/api/api-client';
 

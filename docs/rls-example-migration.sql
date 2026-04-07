@@ -1,5 +1,5 @@
 -- =============================================================================
--- RLS Example Migration Pattern — AqtCoreFW
+-- RLS Example Migration Pattern — GSDT
 -- =============================================================================
 -- PURPOSE: Demonstrates how to apply SQL Server Row-Level Security to module
 --          tables. Copy this pattern into your EF migration's Up()/Down() via:

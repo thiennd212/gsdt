@@ -8,8 +8,11 @@ public sealed class BulkImportUsersCommandHandler
 {
     private readonly UserManager<ApplicationUser> _userManager;
 
+    private readonly IDomainEventPublisher _events;
+
     public BulkImportUsersCommandHandler(
         UserManager<ApplicationUser> userManager,
+        IDomainEventPublisher events)
     {
         _userManager = userManager;
         _events = events;
@@ -59,7 +62,7 @@ public sealed class BulkImportUsersCommandHandler
                 if (!string.IsNullOrEmpty(row.InitialRole))
                     await _userManager.AddToRoleAsync(user, row.InitialRole);
 
-                await _events.PublishAsync(
+                await _events.PublishEventsAsync(
                     [new UserCreatedEvent(user.Id, user.FullName, user.Email!, user.TenantId)], ct);
 
                 successCount++;

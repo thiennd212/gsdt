@@ -8,9 +8,12 @@ public sealed class RevokeDelegationCommandHandler : IRequestHandler<RevokeDeleg
     private readonly IDelegationRepository _delegations;
     private readonly ICacheService _cache;
 
+    private readonly IDomainEventPublisher _events;
+
     public RevokeDelegationCommandHandler(
         IDelegationRepository delegations,
         ICacheService cache,
+        IDomainEventPublisher events)
     {
         _delegations = delegations;
         _cache = cache;
@@ -35,7 +38,7 @@ public sealed class RevokeDelegationCommandHandler : IRequestHandler<RevokeDeleg
         // Invalidate delegation cache so ClaimsEnrichmentTransformer picks up change within TTL
         await _cache.RemoveAsync($"delegation:{delegation.DelegateId}", ct);
 
-        await _events.PublishAsync(
+        await _events.PublishEventsAsync(
             [new DelegationRevokedEvent(cmd.DelegationId, delegation.DelegatorId, delegation.DelegateId, cmd.ActorId)], ct);
 
         return Result.Ok();

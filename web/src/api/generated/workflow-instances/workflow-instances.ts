@@ -29,7 +29,7 @@ import type {
   GetApiV1WorkflowInstancesIdAvailableTransitionsParams,
   GetApiV1WorkflowInstancesIdParams,
   ProblemDetails
-} from '../aqtCoreFWApiV1.schemas';
+} from '../gsdtApiV1.schemas';
 
 import { apiClientMutator } from '../../../core/api/api-client';
 

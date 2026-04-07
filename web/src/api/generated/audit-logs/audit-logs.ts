@@ -23,7 +23,7 @@ import type {
   GetApiV1AuditLogsParams,
   GetApiV1AuditLogsVerifyChainParams,
   GetApiV1AuditStatisticsParams
-} from '../aqtCoreFWApiV1.schemas';
+} from '../gsdtApiV1.schemas';
 
 import { apiClientMutator } from '../../../core/api/api-client';
 

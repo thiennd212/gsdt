@@ -8,8 +8,11 @@ public sealed class RegisterUserCommandHandler
 {
     private readonly UserManager<ApplicationUser> _userManager;
 
+    private readonly IDomainEventPublisher _events;
+
     public RegisterUserCommandHandler(
         UserManager<ApplicationUser> userManager,
+        IDomainEventPublisher events)
     {
         _userManager = userManager;
         _events = events;
@@ -40,7 +43,7 @@ public sealed class RegisterUserCommandHandler
             return Result.Fail(errors);
         }
 
-        await _events.PublishAsync(
+        await _events.PublishEventsAsync(
             [new UserCreatedEvent(user.Id, user.FullName, user.Email!, user.TenantId)], ct);
 
         return Result.Ok(user.Id);

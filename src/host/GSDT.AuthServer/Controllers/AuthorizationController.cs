@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore;  // OpenIddictServerAspNetCoreHelpers.GetOpenIddictServerRequest (OpenIddict 7.x moved helper class to Microsoft.AspNetCore namespace)
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using static OpenIddict.Abstractions.OpenIddictConstants;

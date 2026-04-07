@@ -66,7 +66,7 @@ public sealed class ResetPasswordCommandHandlerTests
 
         await _sut.Handle(new ResetPasswordCommand(UserId, UserId), CancellationToken.None);
 
-        await _events.Received(1).PublishAsync(
+        await _events.Received(1).PublishEventsAsync(
             Arg.Is<IEnumerable<IDomainEvent>>(e =>
                 e.OfType<PasswordResetRequestedEvent>().Any(p => p.UserId == UserId)),
             Arg.Any<CancellationToken>());
