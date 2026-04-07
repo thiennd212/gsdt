@@ -1,0 +1,1337 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "cases": "Cases",
+    "inbox": "Inbox",
+    "forms": "Forms",
+    "files": "Files",
+    "notifications": "Notifications",
+    "aiSearch": "AI Search",
+    "roles": "Roles",
+    "audit": "Audit",
+    "settings": "Settings",
+    "admin": "Administration",
+    "users": "Users",
+    "systemParams": "System Parameters",
+    "masterData": "Master Data",
+    "organization": "Organization",
+    "apiKeys": "API Keys",
+    "webhooks": "Webhook Logs",
+    "backup": "Backup/Restore",
+    "reports": "Reports",
+    "healthCheck": "System Health",
+    "profile": "My Profile",
+    "abacRules": "ABAC Rules",
+    "delegations": "Delegations",
+    "accessReviews": "Access Reviews",
+    "sessions": "Sessions",
+    "workflow": "Workflow",
+    "notificationTemplates": "Notification Templates",
+    "rules": "Rule Sets",
+    "templates": "Templates",
+    "jobs": "Job Monitor",
+    "aiAdmin": "AI Admin",
+    "copilot": "AI Copilot",
+    "chat": "Chat",
+    "signatures": "Signatures",
+    "search": "Search",
+    "integration": "Integration",
+    "integrationPartners": "Partners",
+    "integrationContracts": "Contracts",
+    "integrationMessageLogs": "Message Logs",
+    "menus": "Menus",
+    "consent": "Data Consent",
+    "rtbf": "Data Erasure (RTBF)",
+    "credentialPolicies": "Credential Policies",
+    "externalIdentities": "External Identities",
+    "jitProviderConfigs": "JIT SSO Config",
+    "groups": "User Groups",
+    "dataScopes": "Data Scopes",
+    "sodRules": "SoD Rules",
+    "policyRules": "Access Policies",
+    "adminIdentity": "Identity & Access",
+    "adminContent": "Content & Workflow",
+    "adminSystem": "System",
+    "adminIntegration": "Integration",
+    "adminOverview": "Admin Overview"
+  },
+  "common": {
+    "add": "Add New",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "save": "Save",
+    "cancel": "Cancel",
+    "reload": "Reload",
+    "confirm": "Confirm",
+    "close": "Close",
+    "back": "Back",
+    "loading": "Loading...",
+    "noData": "No data",
+    "success": "Success",
+    "error": "Error",
+    "warning": "Warning",
+    "authenticating": "Authenticating...",
+    "yes": "Yes",
+    "no": "No",
+    "items": "records",
+    "total": "Total",
+    "filtered": "Filtered",
+    "bulkDeletePartialFail": "{{failed}}/{{total}} items failed to delete",
+    "pagination": {
+      "showTotal": "Total {{total}} records"
+    }
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout",
+    "username": "Username",
+    "password": "Password"
+  },
+  "backup": {
+    "title": "System Backup & Restore",
+    "triggerBackup": "Backup Now",
+    "triggerDrill": "Restore Drill",
+    "confirmBackup": "Start a full database backup?",
+    "confirmDrill": "Start a restore drill? This creates a backup, restores to temp DB, verifies, then cleans up.",
+    "backupStarted": "Backup job started",
+    "drillStarted": "Restore drill started",
+    "noRecords": "No backup records yet",
+    "typeBackup": "Backup",
+    "typeDrill": "Restore Drill",
+    "col": {
+      "type": "Type",
+      "status": "Status",
+      "size": "Size",
+      "startedAt": "Started",
+      "completedAt": "Completed",
+      "error": "Error"
+    }
+  },
+  "webhooks": {
+    "title": "Webhook Delivery Logs",
+    "selectSubscription": "Select webhook subscription...",
+    "selectPrompt": "Select a subscription to view delivery logs.",
+    "refresh": "Refresh",
+    "sendTest": "Send Test Ping",
+    "noDeliveries": "No delivery attempts found",
+    "col": {
+      "eventType": "Event Type",
+      "attempt": "Attempt",
+      "status": "Status",
+      "statusCode": "HTTP Code",
+      "error": "Error",
+      "attemptedAt": "Attempted At"
+    }
+  },
+  "forms": {
+    "createTemplate": "Create Template",
+    "deleteConfirm": "Delete this template?",
+    "templateName": "Template Name",
+    "templateDescription": "Description",
+    "builder": {
+      "palette": {
+        "search": "Search fields..."
+      },
+      "category": {
+        "basic": "Basic",
+        "reference": "Reference",
+        "complex": "Complex",
+        "computed": "Computed",
+        "layout": "Layout"
+      },
+      "fieldTypes": {
+        "Text": "Text",
+        "Number": "Number",
+        "Date": "Date",
+        "Textarea": "Textarea",
+        "Boolean": "Boolean",
+        "File": "File",
+        "Signature": "Signature",
+        "RichText": "Rich Text",
+        "EnumRef": "Dropdown",
+        "InternalRef": "Internal Ref",
+        "ExternalRef": "External Ref",
+        "TableField": "Table",
+        "AddressField": "Address",
+        "DateRange": "Date Range",
+        "Formula": "Formula",
+        "Section": "Section",
+        "Label": "Label",
+        "Divider": "Divider"
+      },
+      "canvas": {
+        "emptyHint": "Drag fields from the palette to start building your form",
+        "required": "Required field",
+        "deleteConfirm": "Remove this field from the form?"
+      },
+      "toolbar": {
+        "preview": "Preview"
+      },
+      "properties": {
+        "title": "Field Properties",
+        "emptyHint": "Select a field to edit its properties",
+        "readOnlyHint": "Read-only — template is not in Draft status",
+        "labelVi": "Label (Vietnamese)",
+        "labelViRequired": "Vietnamese label is required",
+        "labelEn": "Label (English)",
+        "required": "Required",
+        "isPii": "Contains PII data",
+        "validationSection": "Validation Rules",
+        "optionsSection": "Options",
+        "dataSourceSection": "Data Source",
+        "formulaSection": "Formula Expression",
+        "availableFields": "Available fields",
+        "invalidJson": "Invalid JSON format"
+      },
+      "validation": {
+        "minLength": "Min Length",
+        "maxLength": "Max Length",
+        "min": "Minimum",
+        "max": "Maximum",
+        "pattern": "Pattern (regex)",
+        "patternInvalid": "Invalid regular expression",
+        "maxSizeMb": "Max File Size",
+        "allowedExtensions": "Allowed Extensions"
+      },
+      "options": {
+        "value": "Value",
+        "labelVi": "Label VI",
+        "labelEn": "Label EN",
+        "valueRequired": "Value is required",
+        "labelViRequired": "Vietnamese label is required",
+        "addOption": "Add Option"
+      }
+    }
+  },
+  "workflow": {
+    "title": "Workflow Management",
+    "createTitle": "Create Workflow",
+    "namePlaceholder": "Enter workflow name...",
+    "entityTypePlaceholder": "e.g. Case, Form...",
+    "description": "Description",
+    "definitionKey": "Definition Key",
+    "version": "Version",
+    "isLatest": "Latest Version",
+    "status": "Status",
+    "active": "Active",
+    "inactive": "Inactive",
+    "activate": "Activate",
+    "deactivate": "Deactivate",
+    "activateConfirm": "Activate this workflow?",
+    "deactivateConfirm": "Deactivate this workflow?",
+    "activated": "Workflow activated",
+    "deactivated": "Workflow deactivated",
+    "clone": "Clone",
+    "cloneConfirm": "Clone workflow as new version?",
+    "cloneSuccess": "Cloned successfully",
+    "tabs": {
+      "general": "General",
+      "designer": "Visual Designer",
+      "states": "States",
+      "transitions": "Transitions",
+      "notifications": "Notifications",
+      "assignments": "Assignment Rules"
+    },
+    "stateName": "State Name (code)",
+    "displayNameVi": "Display Name (Vietnamese)",
+    "displayNameEn": "Display Name (English)",
+    "isInitial": "Initial State",
+    "isFinal": "Final State",
+    "initial": "Initial",
+    "final": "Final",
+    "color": "Color",
+    "sortOrder": "Sort Order",
+    "type": "Type",
+    "addState": "Add State",
+    "editState": "Edit State",
+    "fromState": "From State",
+    "toState": "To State",
+    "selectState": "Select state...",
+    "actionName": "Action Name (code)",
+    "actionLabelVi": "Action Label (VI)",
+    "actionLabelEn": "Action Label (EN)",
+    "requiredRole": "Required Role",
+    "requiredRolePlaceholder": "Leave empty = anyone can execute",
+    "conditions": "Conditions (JSON)",
+    "addTransition": "Add Transition",
+    "editTransition": "Edit Transition",
+    "notifChannel": "Channel",
+    "recipientType": "Recipient Type",
+    "recipientValue": "Recipient Value",
+    "recipientValuePlaceholder": "Role code, User ID, or 'creator'",
+    "notifSubject": "Subject",
+    "notifBody": "Body (Liquid template)",
+    "addNotification": "Add Notification",
+    "assignmentRules": "Workflow Assignment Rules",
+    "addRule": "Add Rule",
+    "entityType": "Entity Type",
+    "entitySubType": "Entity Sub-Type",
+    "specificity": "Specificity",
+    "priority": "Priority",
+    "effectiveFrom": "Effective From",
+    "effectiveUntil": "Effective Until",
+    "definition": "Workflow Definition",
+    "selectDefinition": "Select definition...",
+    "designer": {
+      "addState": "Add State",
+      "autoLayout": "Auto Layout",
+      "save": "Save",
+      "undo": "Undo",
+      "unsavedChanges": "Unsaved changes",
+      "saved": "Design saved",
+      "properties": "Properties",
+      "noSelection": "Select a state or transition to edit"
+    },
+    "col": {
+      "name": "Name",
+      "entityType": "Entity Type",
+      "states": "States",
+      "transitions": "Transitions",
+      "createdAt": "Created At"
+    },
+    "inbox": {
+      "title": "Workflow Inbox",
+      "empty": "No tasks",
+      "allStatuses": "All Statuses",
+      "allPriorities": "All Priorities",
+      "col": {
+        "title": "Title",
+        "status": "Status",
+        "priority": "Priority",
+        "dueDate": "Due Date",
+        "createdAt": "Created"
+      },
+      "status": { "open": "Open", "inProgress": "In Progress", "done": "Done", "cancelled": "Cancelled" },
+      "priority": { "low": "Low", "normal": "Normal", "high": "High", "urgent": "Urgent" },
+      "taskDetail": "Task Detail",
+      "complete": "Complete",
+      "reassign": "Reassign",
+      "reassignTo": "Reassign To",
+      "reason": "Reason"
+    },
+    "instance": {
+      "title": "Instance Monitoring",
+      "detail": "Instance Detail",
+      "activeInstances": "Active Instances",
+      "completedToday": "Completed Today",
+      "slaBreachRate": "SLA Breach Rate",
+      "avgTime": "Avg Time",
+      "col": {
+        "entityType": "Entity Type",
+        "entityId": "Entity ID",
+        "currentState": "Current State",
+        "startedAt": "Started",
+        "dueAt": "Due",
+        "status": "Status"
+      },
+      "active": "Active",
+      "completed": "Completed",
+      "transitions": "Transitions",
+      "duration": "Duration",
+      "noHistory": "No transition history yet"
+    }
+  },
+  "profile": {
+    "changePassword": "Change Password",
+    "currentPassword": "Current Password",
+    "newPassword": "New Password",
+    "confirmPassword": "Confirm New Password",
+    "currentPasswordRequired": "Current password is required",
+    "newPasswordRequired": "New password is required",
+    "newPasswordMin": "Password must be at least 8 characters",
+    "confirmPasswordRequired": "Please confirm your new password",
+    "passwordMismatch": "Passwords do not match",
+    "passwordChanged": "Password changed successfully",
+    "passwordError": "Failed to change password. Check your current password.",
+    "save": "Save Password"
+  },
+  "page": {
+    "topbar": {
+      "appTitle": "GSDT Admin"
+    },
+    "adminDashboard": {
+      "title": "Admin Overview",
+      "health": "System Health",
+      "users": "Total Users",
+      "sessions": "Active Sessions",
+      "jobs": "Pending Jobs",
+      "quickActions": "Quick Actions",
+      "recentActivity": "Recent Activity",
+      "createUser": "Create User",
+      "viewJobs": "View Jobs",
+      "healthCheck": "Health Check",
+      "systemParams": "System Params",
+      "noActivity": "No recent activity",
+      "refresh": "Refresh"
+    },
+    "dashboard": {
+      "title": "System Overview",
+      "loading": "Loading data...",
+      "errorMessage": "Unable to load dashboard data",
+      "errorDescription": "Please try again or contact an administrator.",
+      "retry": "Try again",
+      "refresh": "Refresh",
+      "kpi": {
+        "totalCases": "Total Cases",
+        "totalCasesAria": "Total cases: {{count}}",
+        "openCases": "In Progress",
+        "openCasesAria": "In progress: {{count}}",
+        "closedCases": "Closed",
+        "closedCasesAria": "Closed: {{count}}",
+        "avgResolution": "Avg. Resolution Time (days)",
+        "avgResolutionAria": "Average resolution time: {{days}} days"
+      },
+      "chart": {
+        "casesByStatus": "Cases by Status",
+        "casesByType": "Cases by Type",
+        "monthlyTrend": "Monthly Trend",
+        "topAssignees": "Officer Performance (Top 10)",
+        "noData": "No data",
+        "newCases": "New Cases",
+        "closedCases": "Closed",
+        "countAxis": "Count",
+        "colAssigneeName": "Officer",
+        "colAssigned": "Assigned",
+        "colClosed": "Closed",
+        "colAvgResolution": "Avg. Resolution (days)"
+      }
+    },
+    "cases": {
+      "title": "Cases",
+      "searchPlaceholder": "Search case number, title...",
+      "createBtn": "Create Case",
+      "selected": "selected",
+      "approveSelected": "Approve Selected",
+      "rejectSelected": "Reject Selected",
+      "batchApproveConfirm": "Approve {{count}} selected case(s)? This action cannot be undone.",
+      "batchRejectConfirm": "Reject {{count}} selected case(s)? This action cannot be undone.",
+      "filter": {
+        "status": "Status",
+        "priority": "Priority",
+        "type": "Case Type"
+      },
+      "col": {
+        "caseNumber": "Case Number",
+        "title": "Title",
+        "type": "Type",
+        "status": "Status",
+        "priority": "Priority",
+        "department": "Department",
+        "createdAt": "Created At"
+      },
+      "workflow": {
+        "submitBtn": "Submit Case",
+        "submitConfirm": "Submit this case?",
+        "submitSuccess": "Case submitted",
+        "submitError": "Failed to submit case",
+        "assignBtn": "Assign",
+        "assignModalTitle": "Assign Case",
+        "assignSuccess": "Case assigned",
+        "assignError": "Failed to assign case",
+        "assigneeIdLabel": "Officer ID",
+        "assigneeIdRequired": "Enter officer ID",
+        "assigneeIdPlaceholder": "UUID of the handling officer",
+        "departmentLabel": "Department",
+        "departmentRequired": "Enter department",
+        "departmentPlaceholder": "Department name",
+        "approveBtn": "Approve",
+        "approveModalTitle": "Approve Case",
+        "approveConfirmBtn": "Confirm Approval",
+        "approveSuccess": "Case approved",
+        "approveError": "Failed to approve case",
+        "approveReasonPlaceholder": "Enter approval reason...",
+        "rejectBtn": "Reject",
+        "rejectModalTitle": "Reject Case",
+        "rejectConfirmBtn": "Confirm Rejection",
+        "rejectSuccess": "Case rejected",
+        "rejectError": "Failed to reject case",
+        "rejectReasonLabel": "Rejection reason",
+        "rejectReasonRequired": "Enter rejection reason",
+        "rejectReasonPlaceholder": "Enter rejection reason...",
+        "reasonLabel": "Reason / Notes",
+        "reasonRequired": "Enter reason",
+        "closeBtn": "Close Case",
+        "closeConfirm": "Close this case?",
+        "closeSuccess": "Case closed",
+        "closeError": "Failed to close case"
+      },
+      "comments": {
+        "empty": "No comments yet",
+        "placeholder": "Write a comment... (use @ to mention users)",
+        "mentionBtn": "@ Mention user",
+        "mentionSearch": "Search users...",
+        "mentionCount": "{{count}} user(s) mentioned",
+        "submitBtn": "Post comment",
+        "addSuccess": "Comment added",
+        "addError": "Failed to add comment"
+      },
+      "create": {
+        "modalTitle": "Create New Case",
+        "okBtn": "Create Case",
+        "successMessage": "Case {{caseNumber}} created",
+        "titleLabel": "Title",
+        "titleRequired": "Please enter a title",
+        "titlePlaceholder": "Enter case title...",
+        "descriptionLabel": "Description",
+        "descriptionRequired": "Please enter a description",
+        "descriptionPlaceholder": "Describe the case in detail...",
+        "typeLabel": "Case Type",
+        "typeRequired": "Select a case type",
+        "typeSelectPlaceholder": "Select type...",
+        "priorityLabel": "Priority",
+        "priorityRequired": "Select a priority",
+        "prioritySelectPlaceholder": "Select priority..."
+      },
+      "batchApproveReason": "Batch approved",
+      "batchRejectReason": "Batch rejected",
+      "batchPartialFailure": "{{failed}} case(s) failed",
+      "status": {
+        "Draft": "Draft",
+        "Submitted": "Submitted",
+        "UnderReview": "Under Review",
+        "ReturnedForRevision": "Returned for Revision",
+        "Approved": "Approved",
+        "Rejected": "Rejected",
+        "Closed": "Closed"
+      },
+      "priority": {
+        "Low": "Low",
+        "Medium": "Medium",
+        "High": "High",
+        "Critical": "Critical"
+      },
+      "type": {
+        "Application": "Application",
+        "Complaint": "Complaint",
+        "Request": "Request",
+        "Report": "Report"
+      }
+    },
+    "caseDetail": {
+      "backToList": "Case List",
+      "errorMessage": "Unable to load case",
+      "sectionInfo": "Case Information",
+      "sectionComments": "Comments",
+      "workflow": {
+        "draft": "Draft",
+        "submitted": "Submitted",
+        "underReview": "Under Review",
+        "verdict": "Verdict",
+        "closed": "Closed"
+      },
+      "label": {
+        "type": "Case Type",
+        "createdAt": "Created At",
+        "department": "Handling Department",
+        "assignedAt": "Assigned At",
+        "resolutionReason": "Resolution Reason",
+        "description": "Description"
+      }
+    },
+    "forms": {
+      "title": "Form Templates",
+      "empty": "No form templates yet",
+      "notFound": "Form template not found",
+      "emptySubmissions": "No submissions yet",
+      "showTotal": "{{count}} forms",
+      "col": {
+        "code": "Code",
+        "name": "Form Name",
+        "status": "Status",
+        "fieldCount": "Fields",
+        "submissionsCount": "Submissions",
+        "createdAt": "Created At"
+      },
+      "status": {
+        "Draft": "Draft",
+        "Materializing": "Processing",
+        "Active": "Active",
+        "Inactive": "Inactive"
+      },
+      "detail": {
+        "notFound": "Form template not found",
+        "publishBtn": "Publish",
+        "fieldsSection": "Field List",
+        "submissionsSection": "Submissions ({{count}})",
+        "noSubmissions": "No submissions yet",
+        "analyticsTab": "Analytics",
+        "versionDiffTab": "Version Diff",
+        "col": {
+          "order": "Order",
+          "name": "Field Name",
+          "label": "Label",
+          "fieldType": "Type",
+          "isRequired": "Required",
+          "reorder": "Reorder",
+          "submittedBy": "Submitted By",
+          "submittedAt": "Submitted At",
+          "status": "Status",
+          "actions": "Actions"
+        },
+        "submission": {
+          "filterByStatus": "Filter by status",
+          "statusPending": "Pending",
+          "statusApproved": "Approved",
+          "statusRejected": "Rejected",
+          "bulkApprove": "Bulk Approve ({{count}})",
+          "bulkReject": "Bulk Reject ({{count}})",
+          "exportCsv": "CSV",
+          "approveConfirm": "Approve this submission?",
+          "bulkApproveConfirm": "Approve {{count}} submissions?",
+          "rejectTitle": "Reject Submission",
+          "bulkRejectTitle": "Bulk Reject ({{count}})",
+          "rejectReasonPlaceholder": "Reason for rejection (required)",
+          "rejectBtn": "Reject",
+          "rejectAllBtn": "Reject All",
+          "approveFailedMsg": "Approve failed",
+          "rejectFailedMsg": "Reject failed",
+          "bulkApproveFailedMsg": "Bulk approve failed",
+          "bulkRejectFailedMsg": "Bulk reject failed",
+          "bulkApproveSuccessMsg": "Approved {{count}}",
+          "bulkRejectSuccessMsg": "Rejected {{count}}",
+          "pdfExportFailedMsg": "PDF export failed",
+          "exportFailedMsg": "Export failed"
+        },
+        "analytics": {
+          "unavailable": "Analytics unavailable",
+          "total": "Total",
+          "pending": "Pending",
+          "approved": "Approved",
+          "rejected": "Rejected",
+          "dateCol": "Date",
+          "submissionsCol": "Submissions",
+          "noData": "No submissions in last 30 days"
+        },
+        "versionDiff": {
+          "fromVersion": "From version:",
+          "toVersion": "To version:",
+          "compareBtn": "Compare",
+          "fieldKeyCol": "Field Key",
+          "labelViCol": "Label (VI)",
+          "addedInCol": "Added In",
+          "changeCol": "Change",
+          "noChanges": "No field changes between these versions",
+          "loadError": "Failed to load diff"
+        }
+      }
+    },
+    "audit": {
+      "title": "System Audit",
+      "tab": {
+        "logs": "Audit Logs",
+        "login": "Login History",
+        "incidents": "Security Incidents"
+      },
+      "detail": {
+        "title": "Audit Log Detail",
+        "timestamp": "Timestamp",
+        "userName": "User",
+        "userId": "User ID",
+        "action": "Action",
+        "moduleName": "Module",
+        "resourceType": "Resource Type",
+        "resourceId": "Resource ID",
+        "ipAddress": "IP Address",
+        "tenantId": "Tenant ID",
+        "correlationId": "Correlation ID",
+        "changesSection": "Change Details",
+        "noChanges": "No change data available for this record."
+      }
+    },
+    "files": {
+      "title": "Files",
+      "upload": "Upload",
+      "download": "Download",
+      "empty": "No files yet",
+      "showTotal": "{{count}} files",
+      "uploadSuccess": "Upload successful",
+      "uploadError": "Upload failed",
+      "dragHint": "Drag and drop a file here or click to select",
+      "maxSize": "Maximum 50MB per file",
+      "col": {
+        "fileName": "File Name",
+        "contentType": "Type",
+        "sizeBytes": "Size",
+        "virusScan": "Virus Scan",
+        "uploadedBy": "Uploaded By",
+        "uploadedAt": "Uploaded At"
+      },
+      "scanStatus": {
+        "Pending": "Scanning",
+        "Clean": "Clean",
+        "Infected": "Infected",
+        "Failed": "Scan Failed"
+      }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "newTag": "New",
+      "markRead": "Mark as Read",
+      "markAllRead": "Mark All as Read",
+      "empty": "No notifications",
+      "viewAll": "View all",
+      "showTotal": "{{count}} notifications",
+      "col": {
+        "title": "Title",
+        "body": "Content",
+        "createdAt": "Time"
+      }
+    },
+    "inbox": {
+      "title": "Work Inbox",
+      "process": "Process",
+      "empty": "No cases pending action",
+      "col": {
+        "caseNumber": "Case Number",
+        "title": "Title",
+        "action": "Required Action",
+        "status": "Status",
+        "priority": "Priority",
+        "assignedAt": "Assigned At",
+        "actions": "Actions"
+      },
+      "actionLabel": {
+        "Submitted": "Pending Assignment",
+        "UnderReview": "Pending Approval / Rejection",
+        "ReturnedForRevision": "Pending Revision"
+      }
+    },
+    "reports": {
+      "definitions": {
+        "title": "Report Templates",
+        "btnCreate": "Create Template",
+        "btnRun": "Run",
+        "empty": "No report templates yet",
+        "createError": "Unable to create report template.",
+        "modalCreateTitle": "Create Report Template",
+        "colName": "Report Name",
+        "colDescription": "Description",
+        "colFormat": "Format",
+        "colStatus": "Status",
+        "colCreatedAt": "Created At",
+        "statusActive": "Active",
+        "statusInactive": "Inactive",
+        "runStartedHint": "Report is being processed (ID: {{id}}). Check \"Export History\" to track progress.",
+        "fieldNameEn": "Name (EN)",
+        "fieldNameVi": "Name (VI)"
+      },
+      "executions": {
+        "title": "Export History",
+        "btnRun": "Run Report",
+        "btnDownload": "Download",
+        "emptySession": "No reports in this session. Click \"Run Report\" to start.",
+        "colDefinition": "Report Template",
+        "colRequestedAt": "Requested At",
+        "colStatus": "Status",
+        "colCompletedAt": "Completed At",
+        "colError": "Error",
+        "statusQueued": "Queued",
+        "statusRunning": "Running",
+        "statusDone": "Done",
+        "statusFailed": "Failed"
+      }
+    },
+    "ai": {
+      "title": "AI Search",
+      "nlqHint": "Enter a question in natural language to query data",
+      "nlqPlaceholder": "e.g. Total cases this month by type",
+      "btnSend": "Send",
+      "btnRun": "Run",
+      "resultTitle": "Result",
+      "rows": "rows",
+      "catalogTitle": "Query Library",
+      "catalogEmpty": "No saved queries yet",
+      "colQueryName": "Query Name",
+      "colDescription": "Description",
+      "colCategory": "Category"
+    },
+    "admin": {
+      "users": {
+        "title": "User Management",
+        "searchPlaceholder": "Search name, email...",
+        "filterRole": "Filter by role",
+        "filterStatus": "Filter by status",
+        "create": "Create User",
+        "createTitle": "Create New User",
+        "editTitle": "Edit User",
+        "createOkBtn": "Create",
+        "createSuccess": "User created successfully",
+        "updateSuccess": "User updated successfully",
+        "fullNameRequired": "Please enter full name",
+        "fullNamePlaceholder": "John Doe",
+        "emailRequired": "Please enter email",
+        "emailInvalid": "Invalid email address",
+        "phoneLabel": "Phone Number",
+        "departmentLabel": "Department",
+        "departmentPlaceholder": "Engineering",
+        "rolesRequired": "Select at least one role",
+        "rolesPlaceholder": "Select roles",
+        "tempPasswordLabel": "Temporary Password",
+        "tempPasswordPlaceholder": "Leave blank to auto-generate",
+        "col": {
+          "fullName": "Full Name",
+          "email": "Email",
+          "roles": "Roles",
+          "status": "Status",
+          "mfa": "MFA",
+          "actions": "Actions"
+        },
+        "mfa": {
+          "on": "On",
+          "off": "Off"
+        },
+        "deleteConfirm": {
+          "title": "Delete this user?",
+          "description": "This action cannot be undone."
+        }
+      },
+      "systemParams": {
+        "title": "System Parameters",
+        "tab": {
+          "params": "System Parameters",
+          "flags": "Feature Flags",
+          "announcements": "Announcements"
+        },
+        "params": {
+          "colKey": "Key",
+          "colValue": "Value",
+          "colDescription": "Description",
+          "colCategory": "Category",
+          "colActions": "Actions",
+          "saveSuccess": "Parameter \"{{key}}\" saved",
+          "saveFail": "Save failed",
+          "tooltipEncrypted": "Encrypted value — edit with care",
+          "tooltipEdit": "Edit"
+        },
+        "flags": {
+          "colName": "Name",
+          "colKey": "Key",
+          "colDescription": "Description",
+          "colEnabled": "On/Off",
+          "updateFail": "Update failed",
+          "toggleOn": "enabled",
+          "toggleOff": "disabled",
+          "toggleSuccess": "{{name}} {{state}}"
+        },
+        "announcements": {
+          "colTitle": "Title",
+          "colStatus": "Status",
+          "colStartDate": "Start",
+          "colEndDate": "End",
+          "colActions": "Actions",
+          "btnCreate": "Create Announcement",
+          "modalTitle": "New Announcement",
+          "fieldTitle": "Title",
+          "fieldContent": "Content",
+          "fieldDateRange": "Display Period",
+          "titlePlaceholder": "System maintenance announcement",
+          "contentPlaceholder": "Announcement content...",
+          "deleteConfirm": "Delete this announcement?",
+          "createSuccess": "Announcement created successfully"
+        }
+      },
+      "masterData": {
+        "title": "Administrative Master Data",
+        "selectProvince": "Select province / city",
+        "selectDistrict": "Select district",
+        "card": {
+          "provinces": "Provinces / Cities",
+          "districts": "Districts",
+          "wards": "Wards / Communes"
+        },
+        "col": {
+          "code": "Code",
+          "provinceName": "Province / City",
+          "districtName": "District",
+          "wardName": "Ward / Commune",
+          "districtCount": "Districts",
+          "wardCount": "Wards",
+          "actions": "Actions"
+        },
+        "create": "Add",
+        "edit": "Edit",
+        "createSuccess": "Record created",
+        "updateSuccess": "Record updated",
+        "deleteSuccess": "Record deleted",
+        "saveFail": "Save failed",
+        "deleteConfirm": {
+          "title": "Delete this record?",
+          "description": "This action cannot be undone."
+        }
+      },
+      "notificationTemplates": {
+        "title": "Notification Templates",
+        "create": "New Template",
+        "createTitle": "Create Notification Template",
+        "editTitle": "Edit Notification Template",
+        "createSuccess": "Template created",
+        "updateSuccess": "Template updated",
+        "deleteSuccess": "Template deleted",
+        "saveFail": "Save failed",
+        "col": {
+          "key": "Template Key",
+          "channel": "Channel",
+          "subject": "Subject",
+          "createdAt": "Created At",
+          "actions": "Actions"
+        },
+        "field": {
+          "key": "Template Key",
+          "channel": "Channel",
+          "subject": "Subject Template",
+          "body": "Body Template"
+        },
+        "deleteConfirm": {
+          "title": "Delete this template?",
+          "description": "This action cannot be undone."
+        }
+      },
+      "org": {
+        "title": "Organization Structure",
+        "selectHint": "Select a unit in the chart to view details.",
+        "card": {
+          "tree": "Org Chart",
+          "detail": "Unit Details",
+          "staff": "Staff in Unit"
+        },
+        "label": {
+          "name": "Name",
+          "code": "Code",
+          "level": "Level",
+          "childCount": "Sub-units",
+          "staffCount": "Staff",
+          "description": "Description"
+        }
+      },
+      "apiKeys": {
+        "title": "API Key Management",
+        "create": "Create API Key",
+        "col": {
+          "name": "Name",
+          "prefix": "Prefix (masked)",
+          "scopes": "Scopes",
+          "status": "Status",
+          "createdAt": "Created At",
+          "expiresAt": "Expires At",
+          "actions": "Actions"
+        },
+        "status": {
+          "active": "Active",
+          "revoked": "Revoked"
+        },
+        "revokeConfirm": {
+          "title": "Revoke this API Key?",
+          "description": "The key will be disabled immediately.",
+          "ok": "Revoke"
+        }
+      }
+    }
+  },
+  "error": {
+    "notFound": {
+      "subTitle": "The page you are looking for does not exist.",
+      "backHome": "Back to Home"
+    },
+    "forbidden": {
+      "subTitle": "You do not have permission to access this page.",
+      "back": "Go Back"
+    },
+    "boundary": {
+      "title": "An error occurred",
+      "subTitle": "An unexpected error occurred. Please try again or return to the home page.",
+      "reload": "Reload page",
+      "backHome": "Back to Home"
+    },
+    "loadFailed": "An error occurred while loading data",
+    "http": {
+      "badRequest": "Invalid request.",
+      "unauthorized": "Your session has expired. Please log in again.",
+      "forbidden": "Access denied",
+      "forbiddenDetail": "You do not have permission to perform this action.",
+      "notFound": "Resource not found.",
+      "conflict": "Data has been changed by another user. Please reload the page.",
+      "unprocessable": "Invalid data. Please check and try again.",
+      "tooManyRequests": "Too many requests. Please try again later.",
+      "serverError": "System error. Please contact your administrator.",
+      "unknown": "An unknown error occurred."
+    }
+  },
+  "delegation": {
+    "actingAs": "Acting on behalf of:",
+    "exit": "Exit delegation"
+  },
+  "abacRules": {
+    "title": "ABAC Rules",
+    "createTitle": "Create ABAC Rule",
+    "deleteConfirm": "Delete this rule?",
+    "tenantIdPlaceholder": "Leave blank for global",
+    "col": {
+      "resource": "Resource",
+      "action": "Action",
+      "attributeKey": "Attribute Key",
+      "attributeValue": "Attribute Value",
+      "effect": "Effect",
+      "tenantId": "Tenant"
+    }
+  },
+  "delegations": {
+    "title": "Delegation Management",
+    "createTitle": "Create Delegation",
+    "revokeConfirm": "Revoke this delegation?",
+    "activeOnly": "Active only",
+    "all": "All",
+    "active": "Active",
+    "inactive": "Inactive",
+    "validRange": "Valid Range",
+    "userIdPlaceholder": "Enter user ID",
+    "col": {
+      "delegator": "Delegator",
+      "delegate": "Delegate",
+      "validFrom": "Valid From",
+      "validTo": "Valid To",
+      "reason": "Reason",
+      "status": "Status"
+    }
+  },
+  "accessReviews": {
+    "title": "Access Reviews",
+    "noPending": "No pending access reviews",
+    "approveConfirm": "Approve this access request?",
+    "rejectConfirm": "Reject this access request?",
+    "col": {
+      "user": "User",
+      "resourceType": "Resource Type",
+      "resourceId": "Resource ID",
+      "permission": "Permission",
+      "requestedBy": "Requested By",
+      "requestedAt": "Requested At",
+      "status": "Status",
+      "actions": "Actions"
+    }
+  },
+  "audit": {
+    "col": {
+      "timestamp": "Timestamp",
+      "user": "User",
+      "ipAddress": "IP Address",
+      "result": "Result",
+      "failureReason": "Failure Reason",
+      "userAgent": "User Agent",
+      "incidentType": "Incident Type",
+      "severity": "Severity",
+      "description": "Description",
+      "status": "Status"
+    },
+    "loginSuccess": "Success",
+    "loginFail": "Failed",
+    "emptyLogin": "No login data yet",
+    "emptyIncidents": "No security incidents yet",
+    "incidentStatus": {
+      "Open": "Open",
+      "Investigating": "Investigating",
+      "Resolved": "Resolved",
+      "Closed": "Closed"
+    }
+  },
+  "org": {
+    "emptyStaff": "No staff assigned to this unit",
+    "col": {
+      "fullName": "Full Name",
+      "roleInUnit": "Role in Unit",
+      "assignedAt": "Assigned At"
+    }
+  },
+  "sessions": {
+    "title": "Active Sessions",
+    "noSessions": "No active sessions",
+    "filterPlaceholder": "Filter by user ID...",
+    "revoke": "Revoke session",
+    "revokeAll": "Revoke all sessions for user",
+    "revokeConfirm": "Revoke this session?",
+    "revokeAllConfirm": "Revoke ALL sessions for this user?",
+    "col": {
+      "user": "User",
+      "email": "Email",
+      "ipAddress": "IP Address",
+      "userAgent": "User Agent",
+      "createdAt": "Created At",
+      "expiresAt": "Expires At",
+      "actions": "Actions"
+    }
+  },
+  "roles": {
+    "title": "Roles & Permissions",
+    "authModel": "Authorization Model",
+    "rbacDesc": "Role-Based Access Control — Access based on assigned roles (Admin, GovOfficer, Citizen, ...)",
+    "abacDesc": "Attribute-Based Access Control — Access based on attributes (department, clearance level, ...)",
+    "systemAdminDesc": "System Administrator — full access to all features",
+    "adminDesc": "Administrator — manage users, system configuration",
+    "govOfficerDesc": "Government Officer — process cases, audit, manage documents",
+    "citizenDesc": "Citizen — submit and track cases",
+    "viewerDesc": "Viewer — public read-only access, no write permissions"
+  },
+  "menus": {
+    "title": "Menu Management",
+    "createTitle": "Create Menu Item",
+    "editTitle": "Edit Menu Item",
+    "noParent": "— Top level —",
+    "col": {
+      "code": "Code",
+      "title": "Title",
+      "parent": "Parent",
+      "icon": "Icon",
+      "route": "Route",
+      "sortOrder": "Order",
+      "permissions": "Required Permissions",
+      "active": "Active"
+    }
+  },
+  "rules": {
+    "title": "Rule Sets",
+    "createTitle": "Create Rule Set",
+    "editTitle": "Edit Rule Set",
+    "deleteConfirm": "Delete this rule set?",
+    "activateConfirm": "Activate this rule set?",
+    "deprecateConfirm": "Deprecate this rule set? It will no longer be used.",
+    "backToList": "Rule Sets",
+    "notFound": "Rule set not found",
+    "noDecisionTables": "No decision tables defined",
+    "invalidJson": "Invalid JSON — please check the syntax",
+    "testError": "Evaluation failed",
+    "testInputLabel": "Input JSON",
+    "evaluateBtn": "Evaluate",
+    "resultTitle": "Result",
+    "matched": "Matched",
+    "noMatch": "No Match",
+    "outputLabel": "Output",
+    "matchedRules": "Matched Rules",
+    "inputCols": "Input columns",
+    "outputCols": "Output columns",
+    "tab": {
+      "rules": "Rules",
+      "decisionTables": "Decision Tables",
+      "test": "Test Runner",
+      "designer": "Visual Designer"
+    },
+    "col": {
+      "name": "Name",
+      "version": "Version",
+      "status": "Status",
+      "description": "Description",
+      "updatedAt": "Updated At",
+      "ruleName": "Rule Name",
+      "priority": "Priority",
+      "condition": "Condition",
+      "action": "Action",
+      "expression": "Expression",
+      "failureAction": "Failure Action",
+      "enabled": "Enabled"
+    },
+    "designer": {
+      "saved": "Changes saved successfully",
+      "unsavedChanges": "{{count}} unsaved change(s)",
+      "readOnly": "Read-only — only Draft rule sets can be edited",
+      "editRule": "Edit Rule",
+      "expression": "Expression",
+      "failureAction": "Failure Action",
+      "enabled": "Enabled",
+      "startNode": "Start Evaluation",
+      "endNode": "End"
+    }
+  },
+  "templates": {
+    "title": "Document Templates",
+    "createTitle": "Create Template",
+    "editTitle": "Edit Template",
+    "deleteConfirm": "Delete this template?",
+    "previewTitle": "Generate Preview",
+    "previewBtn": "Preview",
+    "previewHint": "Enter JSON data to render the template, then download the result.",
+    "downloadBtn": "Download",
+    "invalidJson": "Invalid JSON — please check the syntax",
+    "previewError": "Preview generation failed",
+    "col": {
+      "name": "Name",
+      "contentType": "Content Type",
+      "version": "Version",
+      "description": "Description",
+      "updatedAt": "Updated At",
+      "body": "Template Body (Scriban)"
+    }
+  },
+  "search": {
+    "title": "Unified Search",
+    "placeholder": "Search across cases, files, forms...",
+    "hint": "Type at least 2 characters to search",
+    "error": "Search failed — please try again",
+    "noResults": "No results found",
+    "resultCount": "{{count}} results",
+    "updatedAt": "Updated"
+  },
+  "jobs": {
+    "title": "Job Monitor",
+    "retryBtn": "Retry",
+    "retryConfirm": "Retry this dead letter message?",
+    "retrySuccess": "Retry queued",
+    "retryError": "Retry failed",
+    "deleteConfirm": "Delete this dead letter?",
+    "tab": {
+      "recurring": "Recurring Jobs",
+      "history": "Execution History",
+      "deadLetters": "Dead Letter Queue"
+    },
+    "col": {
+      "name": "Job Name",
+      "jobName": "Job Name",
+      "cron": "Cron Expression",
+      "status": "Status",
+      "lastRun": "Last Run",
+      "nextRun": "Next Run",
+      "lastError": "Last Error",
+      "startedAt": "Started At",
+      "duration": "Duration",
+      "error": "Error",
+      "messageType": "Message Type",
+      "failedAt": "Failed At",
+      "retryCount": "Retries"
+    }
+  },
+  "copilot": {
+    "title": "AI Copilot",
+    "selectModel": "Select model...",
+    "clearBtn": "Clear",
+    "emptyHint": "Ask a question to get started",
+    "inputPlaceholder": "Type your message...",
+    "sendBtn": "Send",
+    "sendHint": "Ctrl+Enter to send",
+    "sidebar": {
+      "title": "AI Copilot",
+      "toggle": "Open AI Copilot"
+    }
+  },
+  "chat": {
+    "title": "Chat",
+    "noConversations": "No conversations yet",
+    "noMessages": "No messages",
+    "conversationsLabel": "Conversations",
+    "selectConversation": "Select a conversation to start chatting",
+    "inputPlaceholder": "Type a message...",
+    "sendHint": "Ctrl+Enter to send",
+    "sendError": "Failed to send message"
+  },
+  "signatures": {
+    "title": "Signature Requests",
+    "createTitle": "Create Signature Request",
+    "detailTitle": "Signature Request Detail",
+    "cancelConfirm": "Cancel this signature request?",
+    "createSuccess": "Signature request created",
+    "signersSection": "Signers",
+    "signersLabel": "Signer IDs (comma-separated)",
+    "signersHint": "Enter user IDs separated by commas",
+    "expiresAt": "Expires",
+    "expiresAtLabel": "Expiry Date",
+    "documentIdPlaceholder": "Document UUID",
+    "col": {
+      "title": "Title",
+      "document": "Document",
+      "documentId": "Document ID",
+      "status": "Status",
+      "signerCount": "Signers",
+      "createdAt": "Created At",
+      "order": "Order",
+      "signerName": "Signer",
+      "email": "Email",
+      "signerStatus": "Status",
+      "signedAt": "Signed At"
+    }
+  },
+  "aiAdmin": {
+    "title": "AI Administration",
+    "createModelTitle": "Add AI Model Profile",
+    "editModelTitle": "Edit AI Model Profile",
+    "deleteModelConfirm": "Delete this model profile?",
+    "createPromptTitle": "Create Prompt Template",
+    "editPromptTitle": "Edit Prompt Template",
+    "deletePromptConfirm": "Delete this prompt template?",
+    "tab": {
+      "models": "Model Profiles",
+      "prompts": "Prompt Templates"
+    },
+    "col": {
+      "name": "Name",
+      "provider": "Provider",
+      "modelId": "Model ID",
+      "isDefault": "Default",
+      "tokenBudget": "Token Budget",
+      "promptName": "Template Name",
+      "description": "Description",
+      "templateText": "Template Text",
+      "createdAt": "Created At"
+    }
+  },
+  "integration": {
+    "partners": {
+      "title": "Integration Partners",
+      "createTitle": "Add Partner",
+      "editTitle": "Edit Partner",
+      "detailTitle": "Partner Detail",
+      "confirmDelete": "Delete this partner?",
+      "confirmSuspend": "Suspend this partner?",
+      "suspend": "Suspend",
+      "activate": "Activate",
+      "col": {
+        "name": "Name",
+        "code": "Code",
+        "email": "Contact Email",
+        "phone": "Phone",
+        "endpoint": "Endpoint",
+        "authScheme": "Auth Scheme",
+        "status": "Status",
+        "createdAt": "Created At"
+      }
+    },
+    "contracts": {
+      "title": "Data Exchange Contracts",
+      "createTitle": "Add Contract",
+      "detailTitle": "Contract Detail",
+      "selectPartner": "Select partner",
+      "confirmActivate": "Activate this contract?",
+      "confirmTerminate": "Terminate this contract?",
+      "activate": "Activate",
+      "terminate": "Terminate",
+      "col": {
+        "title": "Title",
+        "partnerId": "Partner",
+        "description": "Description",
+        "effectiveDate": "Effective Date",
+        "expiryDate": "Expiry Date",
+        "status": "Status",
+        "dataScope": "Data Scope",
+        "createdAt": "Created At"
+      }
+    },
+    "messageLogs": {
+      "title": "Integration Message Logs",
+      "createTitle": "Log Message",
+      "detailTitle": "Message Detail",
+      "logMessage": "Log Message",
+      "contractIdPlaceholder": "Contract ID (optional)",
+      "direction": {
+        "inbound": "Inbound",
+        "outbound": "Outbound"
+      },
+      "col": {
+        "messageType": "Message Type",
+        "direction": "Direction",
+        "status": "Status",
+        "partnerId": "Partner",
+        "contractId": "Contract",
+        "sentAt": "Sent At",
+        "acknowledgedAt": "Acknowledged At",
+        "correlationId": "Correlation ID",
+        "payload": "Payload"
+      }
+    }
+  }
+}

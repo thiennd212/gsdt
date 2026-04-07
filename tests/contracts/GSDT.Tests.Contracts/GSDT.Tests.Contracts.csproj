@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.Tests.Contracts</AssemblyName>
+    <RootNamespace>GSDT.Tests.Contracts</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="NSubstitute" />
+    <PackageReference Include="coverlet.collector" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+    <!-- Domain projects (events) -->
+    <ProjectReference Include="..\..\..\src\modules\cases\GSDT.Cases.Domain\GSDT.Cases.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\files\GSDT.Files.Domain\GSDT.Files.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\identity\GSDT.Identity.Domain\GSDT.Identity.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\notifications\GSDT.Notifications.Domain\GSDT.Notifications.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\workflow\GSDT.Workflow.Domain\GSDT.Workflow.Domain.csproj" />
+    <!-- Application projects (DTOs) -->
+    <ProjectReference Include="..\..\..\src\modules\audit\GSDT.Audit.Application\GSDT.Audit.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\cases\GSDT.Cases.Application\GSDT.Cases.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\files\GSDT.Files.Application\GSDT.Files.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\forms\GSDT.Forms.Application\GSDT.Forms.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\identity\GSDT.Identity.Application\GSDT.Identity.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\notifications\GSDT.Notifications.Application\GSDT.Notifications.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\organization\GSDT.Organization\GSDT.Organization.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\reporting\GSDT.Reporting.Application\GSDT.Reporting.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\workflow\GSDT.Workflow.Application\GSDT.Workflow.Application.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Snapshots\*.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.MasterData.Application</AssemblyName>
+    <RootNamespace>GSDT.MasterData.Application</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="FluentResults" />
+    <PackageReference Include="Dapper" />
+    <PackageReference Include="MassTransit" />
+    <ProjectReference Include="..\GSDT.MasterData.Domain\GSDT.MasterData.Domain.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+  </ItemGroup>
+</Project>

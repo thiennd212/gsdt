@@ -1,0 +1,48 @@
+import { useEffect, useRef } from 'react';
+import { useAuth } from './use-auth';
+import { usePermissions } from './use-permissions';
+import { userManager } from './auth-provider';
+import { Spin } from 'antd';
+import type { ReactNode } from 'react';
+
+interface RouteGuardProps {
+  children: ReactNode;
+  requiredRoles?: string[];
+  requiredPermissions?: string[];
+}
+
+// RouteGuard: auto-redirects to OIDC provider if unauthenticated; shows 403 if missing roles/permissions
+export function RouteGuard({ children, requiredRoles, requiredPermissions }: RouteGuardProps) {
+  const { isAuthenticated, isLoading } = useAuth();
+  const { hasRole, hasPermission } = usePermissions();
+  const redirecting = useRef(false);
+
+  useEffect(() => {
+    if (!isLoading && !isAuthenticated && !redirecting.current) {
+      redirecting.current = true;
+      userManager.signinRedirect();
+    }
+  }, [isLoading, isAuthenticated]);
+
+  if (isLoading || !isAuthenticated) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <Spin size="large" />
+      </div>
+    );
+  }
+
+  const missingRole = requiredRoles?.some((r) => !hasRole(r));
+  const missingPerm = requiredPermissions?.some((p) => !hasPermission(p));
+
+  if (missingRole || missingPerm) {
+    return (
+      <div style={{ padding: 48, textAlign: 'center' }}>
+        <h2>403 — Không có quyền truy cập</h2>
+        <p>Bạn không có quyền xem trang này.</p>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
+}

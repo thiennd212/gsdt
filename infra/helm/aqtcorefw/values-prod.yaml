@@ -1,0 +1,43 @@
+# Production environment overrides
+replicaCount: 3
+
+image:
+  tag: prod-latest
+
+ingress:
+  hosts:
+    - host: api.gsdt.gov.vn
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: gsdt-prod-tls
+      hosts:
+        - api.gsdt.gov.vn
+
+config:
+  authAuthorityUrl: "https://auth.gsdt.gov.vn"
+
+autoscaling:
+  enabled: true
+  minReplicas: 3
+  maxReplicas: 20
+  targetCPUUtilizationPercentage: 60
+
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+  limits:
+    cpu: 2000m
+    memory: 1024Mi
+
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 2
+
+metrics:
+  serviceMonitor:
+    enabled: true
+    labels:
+      release: prometheus

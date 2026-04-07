@@ -1,0 +1,94 @@
+<Solution>
+  <Folder Name="/host/">
+    <Project Path="host/GSDT.Api/GSDT.Api.csproj" />
+    <Project Path="host/GSDT.AuthServer/GSDT.AuthServer.csproj" />
+  </Folder>
+  <Folder Name="/modules/" />
+  <Folder Name="/modules/integration/">
+    <Project Path="modules/integration/GSDT.Integration.Domain/GSDT.Integration.Domain.csproj" />
+    <Project Path="modules/integration/GSDT.Integration.Application/GSDT.Integration.Application.csproj" />
+    <Project Path="modules/integration/GSDT.Integration.Infrastructure/GSDT.Integration.Infrastructure.csproj" />
+    <Project Path="modules/integration/GSDT.Integration.Presentation/GSDT.Integration.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/modules/files/">
+    <Project Path="modules/files/GSDT.Files.Domain/GSDT.Files.Domain.csproj" />
+    <Project Path="modules/files/GSDT.Files.Application/GSDT.Files.Application.csproj" />
+    <Project Path="modules/files/GSDT.Files.Infrastructure/GSDT.Files.Infrastructure.csproj" />
+    <Project Path="modules/files/GSDT.Files.Presentation/GSDT.Files.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/modules/masterdata/">
+    <Project Path="modules/masterdata/GSDT.MasterData.Domain/GSDT.MasterData.Domain.csproj" />
+    <Project Path="modules/masterdata/GSDT.MasterData.Application/GSDT.MasterData.Application.csproj" />
+    <Project Path="modules/masterdata/GSDT.MasterData.Infrastructure/GSDT.MasterData.Infrastructure.csproj" />
+    <Project Path="modules/masterdata/GSDT.MasterData.Presentation/GSDT.MasterData.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/modules/organization/">
+    <Project Path="modules/organization/GSDT.Organization.Domain/GSDT.Organization.Domain.csproj" />
+    <Project Path="modules/organization/GSDT.Organization.Application/GSDT.Organization.Application.csproj" />
+    <Project Path="modules/organization/GSDT.Organization.Infrastructure/GSDT.Organization.Infrastructure.csproj" />
+    <Project Path="modules/organization/GSDT.Organization.Presentation/GSDT.Organization.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/modules/systemparams/">
+    <Project Path="modules/systemparams/GSDT.SystemParams.Domain/GSDT.SystemParams.Domain.csproj" />
+    <Project Path="modules/systemparams/GSDT.SystemParams.Application/GSDT.SystemParams.Application.csproj" />
+    <Project Path="modules/systemparams/GSDT.SystemParams.Infrastructure/GSDT.SystemParams.Infrastructure.csproj" />
+    <Project Path="modules/systemparams/GSDT.SystemParams.Presentation/GSDT.SystemParams.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/modules/identity/">
+    <Project Path="modules/identity/GSDT.Identity.Domain/GSDT.Identity.Domain.csproj" />
+    <Project Path="modules/identity/GSDT.Identity.Application/GSDT.Identity.Application.csproj" />
+    <Project Path="modules/identity/GSDT.Identity.Infrastructure/GSDT.Identity.Infrastructure.csproj" />
+    <Project Path="modules/identity/GSDT.Identity.Presentation/GSDT.Identity.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/modules/audit/">
+    <Project Path="modules/audit/GSDT.Audit.Domain/GSDT.Audit.Domain.csproj" />
+    <Project Path="modules/audit/GSDT.Audit.Application/GSDT.Audit.Application.csproj" />
+    <Project Path="modules/audit/GSDT.Audit.Infrastructure/GSDT.Audit.Infrastructure.csproj" />
+    <Project Path="modules/audit/GSDT.Audit.Presentation/GSDT.Audit.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/modules/notifications/">
+    <Project Path="modules/notifications/GSDT.Notifications.Application/GSDT.Notifications.Application.csproj" />
+    <Project Path="modules/notifications/GSDT.Notifications.Domain/GSDT.Notifications.Domain.csproj" />
+    <Project Path="modules/notifications/GSDT.Notifications.Infrastructure/GSDT.Notifications.Infrastructure.csproj" />
+    <Project Path="modules/notifications/GSDT.Notifications.Presentation/GSDT.Notifications.Presentation.csproj" />
+  </Folder>
+  <Folder Name="/shared/">
+    <Project Path="shared/GSDT.Infrastructure/GSDT.Infrastructure.csproj" />
+    <Project Path="shared/GSDT.SharedKernel.Contracts/GSDT.SharedKernel.Contracts.csproj" />
+    <Project Path="shared/GSDT.SharedKernel/GSDT.SharedKernel.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/GSDT.Tests.Integration/GSDT.Tests.Integration.csproj" />
+  </Folder>
+  <Project Path="../tests/integration/GSDT.Audit.Integration.Tests/GSDT.Audit.Integration.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.Concurrency.Tests/GSDT.Concurrency.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.Files.Integration.Tests/GSDT.Files.Integration.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.Notifications.Integration.Tests/GSDT.Notifications.Integration.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.Organization.Integration.Tests/GSDT.Organization.Integration.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.Resilience.Tests/GSDT.Resilience.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.TenantIsolation.Tests/GSDT.TenantIsolation.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Audit.Application.Tests/GSDT.Audit.Application.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Identity.Application.Tests/GSDT.Identity.Application.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Notifications.Application.Tests/GSDT.Notifications.Application.Tests.csproj" />
+  <Project Path="../tests/contracts/GSDT.Tests.Contracts/GSDT.Tests.Contracts.csproj" />
+  <Project Path="../tests/unit/GSDT.Files.Domain.Tests/GSDT.Files.Domain.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Audit.Domain.Tests/GSDT.Audit.Domain.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Files.Application.Tests/GSDT.Files.Application.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Files.Infrastructure.Tests/GSDT.Files.Infrastructure.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Notifications.Infrastructure.Tests/GSDT.Notifications.Infrastructure.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Organization.Tests/GSDT.Organization.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.SharedKernel.Tests/GSDT.SharedKernel.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.SystemParams.Tests/GSDT.SystemParams.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.MasterData.Tests/GSDT.MasterData.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Identity.Domain.Tests/GSDT.Identity.Domain.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Identity.Infrastructure.Tests/GSDT.Identity.Infrastructure.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Audit.Infrastructure.Tests/GSDT.Audit.Infrastructure.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.Cache.Integration.Tests/GSDT.Cache.Integration.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.Installation.Tests/GSDT.Installation.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.Messaging.Integration.Tests/GSDT.Messaging.Integration.Tests.csproj" />
+  <Project Path="../tests/integration/GSDT.BackgroundJobs.Integration.Tests/GSDT.BackgroundJobs.Integration.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Infrastructure.Extensions.Tests/GSDT.Infrastructure.Extensions.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Integration.Domain.Tests/GSDT.Integration.Domain.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.Integration.Application.Tests/GSDT.Integration.Application.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.AuthServer.Tests/GSDT.AuthServer.Tests.csproj" />
+</Solution>

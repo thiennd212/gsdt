@@ -1,0 +1,30 @@
+# Staging environment overrides
+replicaCount: 1
+
+image:
+  tag: staging-latest
+
+ingress:
+  hosts:
+    - host: api-staging.gsdt.internal
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: gsdt-staging-tls
+      hosts:
+        - api-staging.gsdt.internal
+
+config:
+  authAuthorityUrl: "https://auth-staging.gsdt.internal"
+
+autoscaling:
+  enabled: false
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi

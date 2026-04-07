@@ -1,0 +1,1337 @@
+{
+  "nav": {
+    "dashboard": "Tổng quan",
+    "cases": "Hồ sơ",
+    "inbox": "Xử lý",
+    "forms": "Biểu mẫu",
+    "files": "Tệp tin",
+    "notifications": "Thông báo",
+    "aiSearch": "Truy vấn AI",
+    "roles": "Phân quyền",
+    "audit": "Kiểm toán",
+    "settings": "Cài đặt",
+    "admin": "Quản trị",
+    "users": "Người dùng",
+    "systemParams": "Tham số hệ thống",
+    "masterData": "Danh mục",
+    "organization": "Cơ cấu tổ chức",
+    "apiKeys": "API Keys",
+    "webhooks": "Nhật ký Webhook",
+    "backup": "Sao lưu/Khôi phục",
+    "reports": "Báo cáo",
+    "healthCheck": "Sức khỏe hệ thống",
+    "profile": "Hồ sơ cá nhân",
+    "abacRules": "Quy tắc ABAC",
+    "delegations": "Ủy quyền",
+    "accessReviews": "Duyệt quyền truy cập",
+    "sessions": "Phiên đăng nhập",
+    "workflow": "Quy trình",
+    "notificationTemplates": "Mẫu thông báo",
+    "rules": "Bộ quy tắc",
+    "templates": "Biểu mẫu tài liệu",
+    "jobs": "Giám sát tiến trình",
+    "aiAdmin": "Quản trị AI",
+    "copilot": "AI Copilot",
+    "chat": "Nhắn tin",
+    "signatures": "Ký số",
+    "search": "Tìm kiếm",
+    "integration": "Liên thông",
+    "integrationPartners": "Đối tác",
+    "integrationContracts": "Hợp đồng",
+    "integrationMessageLogs": "Nhật ký tin nhắn",
+    "menus": "Menu",
+    "consent": "Đồng ý dữ liệu",
+    "rtbf": "Xoá dữ liệu (RTBF)",
+    "credentialPolicies": "Chính sách mật khẩu",
+    "externalIdentities": "Liên kết bên ngoài",
+    "jitProviderConfigs": "Cấu hình JIT SSO",
+    "groups": "Nhóm người dùng",
+    "dataScopes": "Phạm vi dữ liệu",
+    "sodRules": "Quy tắc SoD",
+    "policyRules": "Chính sách truy cập",
+    "adminIdentity": "Danh tính & Quyền",
+    "adminContent": "Nội dung & Quy trình",
+    "adminSystem": "Hệ thống",
+    "adminIntegration": "Tích hợp",
+    "adminOverview": "Bảng điều khiển"
+  },
+  "common": {
+    "add": "Thêm mới",
+    "edit": "Sửa",
+    "delete": "Xoá",
+    "search": "Tìm kiếm",
+    "save": "Lưu",
+    "cancel": "Huỷ",
+    "reload": "Tải lại",
+    "confirm": "Xác nhận",
+    "close": "Đóng",
+    "back": "Quay lại",
+    "loading": "Đang tải...",
+    "noData": "Không có dữ liệu",
+    "success": "Thành công",
+    "error": "Lỗi",
+    "warning": "Cảnh báo",
+    "authenticating": "Đang xác thực...",
+    "yes": "Có",
+    "no": "Không",
+    "items": "bản ghi",
+    "total": "Tổng số",
+    "filtered": "Đã lọc",
+    "bulkDeletePartialFail": "{{failed}}/{{total}} mục xóa thất bại",
+    "pagination": {
+      "showTotal": "Tổng {{total}} bản ghi"
+    }
+  },
+  "auth": {
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu"
+  },
+  "backup": {
+    "title": "Sao lưu & Khôi phục hệ thống",
+    "triggerBackup": "Sao lưu ngay",
+    "triggerDrill": "Diễn tập khôi phục",
+    "confirmBackup": "Bắt đầu sao lưu toàn bộ CSDL?",
+    "confirmDrill": "Bắt đầu diễn tập khôi phục? Quá trình: sao lưu → khôi phục vào DB tạm → kiểm tra → dọn dẹp.",
+    "backupStarted": "Đã bắt đầu sao lưu",
+    "drillStarted": "Đã bắt đầu diễn tập khôi phục",
+    "noRecords": "Chưa có bản ghi sao lưu",
+    "typeBackup": "Sao lưu",
+    "typeDrill": "Diễn tập",
+    "col": {
+      "type": "Loại",
+      "status": "Trạng thái",
+      "size": "Dung lượng",
+      "startedAt": "Bắt đầu",
+      "completedAt": "Hoàn thành",
+      "error": "Lỗi"
+    }
+  },
+  "webhooks": {
+    "title": "Nhật ký gửi Webhook",
+    "selectSubscription": "Chọn webhook...",
+    "selectPrompt": "Chọn webhook để xem lịch sử gửi.",
+    "refresh": "Làm mới",
+    "sendTest": "Gửi test",
+    "noDeliveries": "Chưa có lần gửi nào",
+    "col": {
+      "eventType": "Loại sự kiện",
+      "attempt": "Lần thử",
+      "status": "Trạng thái",
+      "statusCode": "Mã HTTP",
+      "error": "Lỗi",
+      "attemptedAt": "Thời gian"
+    }
+  },
+  "forms": {
+    "createTemplate": "Tạo mẫu",
+    "deleteConfirm": "Xóa mẫu này?",
+    "templateName": "Tên mẫu",
+    "templateDescription": "Mô tả",
+    "builder": {
+      "palette": {
+        "search": "Tìm kiếm trường..."
+      },
+      "category": {
+        "basic": "Cơ bản",
+        "reference": "Tham chiếu",
+        "complex": "Phức tạp",
+        "computed": "Tính toán",
+        "layout": "Bố cục"
+      },
+      "fieldTypes": {
+        "Text": "Văn bản",
+        "Number": "Số",
+        "Date": "Ngày tháng",
+        "Textarea": "Văn bản dài",
+        "Boolean": "Có/Không",
+        "File": "Tệp đính kèm",
+        "Signature": "Chữ ký",
+        "RichText": "Văn bản dài",
+        "EnumRef": "Danh sách chọn",
+        "InternalRef": "Tham chiếu nội bộ",
+        "ExternalRef": "Tham chiếu ngoài",
+        "TableField": "Bảng dữ liệu",
+        "AddressField": "Địa chỉ",
+        "DateRange": "Khoảng ngày",
+        "Formula": "Công thức",
+        "Section": "Phân đoạn",
+        "Label": "Nhãn",
+        "Divider": "Đường phân cách"
+      },
+      "canvas": {
+        "emptyHint": "Kéo các trường từ bảng bên trái vào đây để xây dựng biểu mẫu",
+        "required": "Trường bắt buộc",
+        "deleteConfirm": "Xóa trường này khỏi biểu mẫu?"
+      },
+      "toolbar": {
+        "preview": "Xem trước"
+      },
+      "properties": {
+        "title": "Thuộc tính trường",
+        "emptyHint": "Chọn một trường để chỉnh sửa thuộc tính",
+        "readOnlyHint": "Chỉ xem — biểu mẫu không ở trạng thái Nháp",
+        "labelVi": "Nhãn (Tiếng Việt)",
+        "labelViRequired": "Nhãn tiếng Việt là bắt buộc",
+        "labelEn": "Nhãn (Tiếng Anh)",
+        "required": "Bắt buộc",
+        "isPii": "Chứa dữ liệu cá nhân (PII)",
+        "validationSection": "Quy tắc xác thực",
+        "optionsSection": "Danh sách tùy chọn",
+        "dataSourceSection": "Nguồn dữ liệu",
+        "formulaSection": "Biểu thức công thức",
+        "availableFields": "Các trường khả dụng",
+        "invalidJson": "Định dạng JSON không hợp lệ"
+      },
+      "validation": {
+        "minLength": "Độ dài tối thiểu",
+        "maxLength": "Độ dài tối đa",
+        "min": "Giá trị tối thiểu",
+        "max": "Giá trị tối đa",
+        "pattern": "Mẫu (regex)",
+        "patternInvalid": "Biểu thức chính quy không hợp lệ",
+        "maxSizeMb": "Kích thước tệp tối đa",
+        "allowedExtensions": "Định dạng cho phép"
+      },
+      "options": {
+        "value": "Giá trị",
+        "labelVi": "Nhãn VI",
+        "labelEn": "Nhãn EN",
+        "valueRequired": "Giá trị là bắt buộc",
+        "labelViRequired": "Nhãn tiếng Việt là bắt buộc",
+        "addOption": "Thêm tùy chọn"
+      }
+    }
+  },
+  "workflow": {
+    "title": "Quản lý quy trình",
+    "createTitle": "Tạo quy trình",
+    "namePlaceholder": "Nhập tên quy trình...",
+    "entityTypePlaceholder": "VD: Case, Form...",
+    "description": "Mô tả",
+    "definitionKey": "Mã định danh",
+    "version": "Phiên bản",
+    "isLatest": "Phiên bản mới nhất",
+    "status": "Trạng thái",
+    "active": "Hoạt động",
+    "inactive": "Ngưng",
+    "activate": "Kích hoạt",
+    "deactivate": "Ngưng hoạt động",
+    "activateConfirm": "Kích hoạt quy trình này?",
+    "deactivateConfirm": "Ngưng quy trình này?",
+    "activated": "Đã kích hoạt",
+    "deactivated": "Đã ngưng hoạt động",
+    "clone": "Nhân bản",
+    "cloneConfirm": "Nhân bản quy trình thành phiên bản mới?",
+    "cloneSuccess": "Đã nhân bản thành công",
+    "tabs": {
+      "general": "Tổng quan",
+      "designer": "Thiết kế trực quan",
+      "states": "Các bước",
+      "transitions": "Chuyển bước",
+      "notifications": "Thông báo",
+      "assignments": "Gán quy trình"
+    },
+    "stateName": "Tên bước (mã)",
+    "displayNameVi": "Tên hiển thị (Tiếng Việt)",
+    "displayNameEn": "Tên hiển thị (English)",
+    "isInitial": "Bước bắt đầu",
+    "isFinal": "Bước kết thúc",
+    "initial": "Bắt đầu",
+    "final": "Kết thúc",
+    "color": "Màu sắc",
+    "sortOrder": "Thứ tự",
+    "type": "Loại",
+    "addState": "Thêm bước",
+    "editState": "Sửa bước",
+    "fromState": "Từ bước",
+    "toState": "Đến bước",
+    "selectState": "Chọn bước...",
+    "actionName": "Tên hành động (mã)",
+    "actionLabelVi": "Nhãn hành động (VI)",
+    "actionLabelEn": "Nhãn hành động (EN)",
+    "requiredRole": "Vai trò bắt buộc",
+    "requiredRolePlaceholder": "Để trống = ai cũng thực hiện được",
+    "conditions": "Điều kiện (JSON)",
+    "addTransition": "Thêm chuyển bước",
+    "editTransition": "Sửa chuyển bước",
+    "notifChannel": "Kênh",
+    "recipientType": "Loại người nhận",
+    "recipientValue": "Giá trị người nhận",
+    "recipientValuePlaceholder": "Role code, User ID, hoặc 'creator'",
+    "notifSubject": "Tiêu đề",
+    "notifBody": "Nội dung (Liquid template)",
+    "addNotification": "Thêm thông báo",
+    "assignmentRules": "Quy tắc gán quy trình",
+    "addRule": "Thêm quy tắc",
+    "entityType": "Loại thực thể",
+    "entitySubType": "Phân loại con",
+    "specificity": "Mức cụ thể",
+    "priority": "Ưu tiên",
+    "effectiveFrom": "Hiệu lực từ",
+    "effectiveUntil": "Hiệu lực đến",
+    "definition": "Quy trình",
+    "selectDefinition": "Chọn quy trình...",
+    "designer": {
+      "addState": "Thêm bước",
+      "autoLayout": "Tự động sắp xếp",
+      "save": "Lưu",
+      "undo": "Hoàn tác",
+      "unsavedChanges": "Có thay đổi chưa lưu",
+      "saved": "Đã lưu thiết kế",
+      "properties": "Thuộc tính",
+      "noSelection": "Chọn bước hoặc chuyển bước để chỉnh sửa"
+    },
+    "col": {
+      "name": "Tên",
+      "entityType": "Loại thực thể",
+      "states": "Bước",
+      "transitions": "Chuyển bước",
+      "createdAt": "Ngày tạo"
+    },
+    "inbox": {
+      "title": "Hộp công việc",
+      "empty": "Không có công việc nào",
+      "allStatuses": "Tất cả trạng thái",
+      "allPriorities": "Tất cả ưu tiên",
+      "col": {
+        "title": "Tiêu đề",
+        "status": "Trạng thái",
+        "priority": "Ưu tiên",
+        "dueDate": "Hạn xử lý",
+        "createdAt": "Ngày tạo"
+      },
+      "status": { "open": "Mở", "inProgress": "Đang xử lý", "done": "Hoàn thành", "cancelled": "Đã hủy" },
+      "priority": { "low": "Thấp", "normal": "Bình thường", "high": "Cao", "urgent": "Khẩn cấp" },
+      "taskDetail": "Chi tiết công việc",
+      "complete": "Hoàn thành",
+      "reassign": "Chuyển giao",
+      "reassignTo": "Chuyển cho",
+      "reason": "Lý do"
+    },
+    "instance": {
+      "title": "Giám sát quy trình",
+      "detail": "Chi tiết tiến trình",
+      "activeInstances": "Đang hoạt động",
+      "completedToday": "Hoàn thành hôm nay",
+      "slaBreachRate": "Tỷ lệ trễ SLA",
+      "avgTime": "Thời gian TB",
+      "col": {
+        "entityType": "Loại thực thể",
+        "entityId": "Mã thực thể",
+        "currentState": "Trạng thái hiện tại",
+        "startedAt": "Bắt đầu",
+        "dueAt": "Hạn xử lý",
+        "status": "Tình trạng"
+      },
+      "active": "Hoạt động",
+      "completed": "Hoàn thành",
+      "transitions": "Chuyển trạng thái",
+      "duration": "Thời lượng",
+      "noHistory": "Chưa có lịch sử chuyển trạng thái"
+    }
+  },
+  "profile": {
+    "changePassword": "Đổi mật khẩu",
+    "currentPassword": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu mới",
+    "currentPasswordRequired": "Vui lòng nhập mật khẩu hiện tại",
+    "newPasswordRequired": "Vui lòng nhập mật khẩu mới",
+    "newPasswordMin": "Mật khẩu phải có ít nhất 8 ký tự",
+    "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu mới",
+    "passwordMismatch": "Mật khẩu xác nhận không khớp",
+    "passwordChanged": "Đổi mật khẩu thành công",
+    "passwordError": "Đổi mật khẩu thất bại. Kiểm tra lại mật khẩu hiện tại.",
+    "save": "Lưu mật khẩu"
+  },
+  "page": {
+    "topbar": {
+      "appTitle": "GSDT Admin"
+    },
+    "adminDashboard": {
+      "title": "Tổng quan quản trị",
+      "health": "Sức khỏe hệ thống",
+      "users": "Tổng người dùng",
+      "sessions": "Phiên đang hoạt động",
+      "jobs": "Công việc chờ xử lý",
+      "quickActions": "Thao tác nhanh",
+      "recentActivity": "Hoạt động gần đây",
+      "createUser": "Tạo người dùng",
+      "viewJobs": "Xem công việc",
+      "healthCheck": "Kiểm tra sức khỏe",
+      "systemParams": "Cấu hình hệ thống",
+      "noActivity": "Không có hoạt động gần đây",
+      "refresh": "Làm mới"
+    },
+    "dashboard": {
+      "title": "Tổng quan hệ thống",
+      "loading": "Đang tải dữ liệu...",
+      "errorMessage": "Không thể tải dữ liệu dashboard",
+      "errorDescription": "Vui lòng thử lại hoặc liên hệ quản trị viên.",
+      "retry": "Thử lại",
+      "refresh": "Làm mới",
+      "kpi": {
+        "totalCases": "Tổng hồ sơ",
+        "totalCasesAria": "Tổng hồ sơ: {{count}}",
+        "openCases": "Đang xử lý",
+        "openCasesAria": "Đang xử lý: {{count}}",
+        "closedCases": "Đã đóng",
+        "closedCasesAria": "Đã đóng: {{count}}",
+        "avgResolution": "TB giải quyết (ngày)",
+        "avgResolutionAria": "Thời gian giải quyết trung bình: {{days}} ngày"
+      },
+      "chart": {
+        "casesByStatus": "Hồ sơ theo trạng thái",
+        "casesByType": "Hồ sơ theo loại",
+        "monthlyTrend": "Xu hướng theo tháng",
+        "topAssignees": "Hiệu suất cán bộ (Top 10)",
+        "noData": "Không có dữ liệu",
+        "newCases": "Hồ sơ mới",
+        "closedCases": "Đã đóng",
+        "countAxis": "Số lượng",
+        "colAssigneeName": "Cán bộ xử lý",
+        "colAssigned": "Được giao",
+        "colClosed": "Đã đóng",
+        "colAvgResolution": "TB giải quyết (ngày)"
+      }
+    },
+    "cases": {
+      "title": "Hồ sơ",
+      "searchPlaceholder": "Tìm số hồ sơ, tiêu đề...",
+      "createBtn": "Tạo hồ sơ",
+      "selected": "đã chọn",
+      "approveSelected": "Duyệt đã chọn",
+      "rejectSelected": "Từ chối đã chọn",
+      "batchApproveConfirm": "Duyệt {{count}} hồ sơ đã chọn? Hành động không thể hoàn tác.",
+      "batchRejectConfirm": "Từ chối {{count}} hồ sơ đã chọn? Hành động không thể hoàn tác.",
+      "filter": {
+        "status": "Trạng thái",
+        "priority": "Ưu tiên",
+        "type": "Loại hồ sơ"
+      },
+      "col": {
+        "caseNumber": "Số hồ sơ",
+        "title": "Tiêu đề",
+        "type": "Loại",
+        "status": "Trạng thái",
+        "priority": "Ưu tiên",
+        "department": "Phòng ban",
+        "createdAt": "Ngày tạo"
+      },
+      "workflow": {
+        "submitBtn": "Nộp hồ sơ",
+        "submitConfirm": "Nộp hồ sơ này?",
+        "submitSuccess": "Đã nộp hồ sơ",
+        "submitError": "Nộp hồ sơ thất bại",
+        "assignBtn": "Phân công",
+        "assignModalTitle": "Phân công hồ sơ",
+        "assignSuccess": "Đã phân công",
+        "assignError": "Phân công thất bại",
+        "assigneeIdLabel": "Mã cán bộ",
+        "assigneeIdRequired": "Nhập mã cán bộ",
+        "assigneeIdPlaceholder": "UUID của cán bộ xử lý",
+        "departmentLabel": "Phòng ban",
+        "departmentRequired": "Nhập phòng ban",
+        "departmentPlaceholder": "Tên phòng ban",
+        "approveBtn": "Duyệt",
+        "approveModalTitle": "Duyệt hồ sơ",
+        "approveConfirmBtn": "Xác nhận duyệt",
+        "approveSuccess": "Đã duyệt hồ sơ",
+        "approveError": "Duyệt hồ sơ thất bại",
+        "approveReasonPlaceholder": "Nhập lý do duyệt...",
+        "rejectBtn": "Từ chối",
+        "rejectModalTitle": "Từ chối hồ sơ",
+        "rejectConfirmBtn": "Xác nhận từ chối",
+        "rejectSuccess": "Đã từ chối hồ sơ",
+        "rejectError": "Từ chối thất bại",
+        "rejectReasonLabel": "Lý do từ chối",
+        "rejectReasonRequired": "Nhập lý do từ chối",
+        "rejectReasonPlaceholder": "Nhập lý do từ chối...",
+        "reasonLabel": "Lý do / Ghi chú",
+        "reasonRequired": "Nhập lý do",
+        "closeBtn": "Đóng hồ sơ",
+        "closeConfirm": "Đóng hồ sơ này?",
+        "closeSuccess": "Đã đóng hồ sơ",
+        "closeError": "Đóng hồ sơ thất bại"
+      },
+      "comments": {
+        "empty": "Chưa có bình luận",
+        "placeholder": "Nhập bình luận... (dùng @ để nhắc người dùng)",
+        "mentionBtn": "@ Nhắc người dùng",
+        "mentionSearch": "Tìm người dùng...",
+        "mentionCount": "{{count}} người được nhắc",
+        "submitBtn": "Gửi bình luận",
+        "addSuccess": "Đã thêm bình luận",
+        "addError": "Thêm bình luận thất bại"
+      },
+      "create": {
+        "modalTitle": "Tạo hồ sơ mới",
+        "okBtn": "Tạo hồ sơ",
+        "successMessage": "Đã tạo hồ sơ {{caseNumber}}",
+        "titleLabel": "Tiêu đề",
+        "titleRequired": "Vui lòng nhập tiêu đề",
+        "titlePlaceholder": "Nhập tiêu đề hồ sơ...",
+        "descriptionLabel": "Mô tả",
+        "descriptionRequired": "Vui lòng nhập mô tả",
+        "descriptionPlaceholder": "Mô tả chi tiết nội dung hồ sơ...",
+        "typeLabel": "Loại hồ sơ",
+        "typeRequired": "Chọn loại hồ sơ",
+        "typeSelectPlaceholder": "Chọn loại...",
+        "priorityLabel": "Mức độ ưu tiên",
+        "priorityRequired": "Chọn mức độ ưu tiên",
+        "prioritySelectPlaceholder": "Chọn mức độ..."
+      },
+      "batchApproveReason": "Duyệt hàng loạt",
+      "batchRejectReason": "Từ chối hàng loạt",
+      "batchPartialFailure": "{{failed}} hồ sơ thất bại",
+      "status": {
+        "Draft": "Bản nháp",
+        "Submitted": "Đã nộp",
+        "UnderReview": "Đang xem xét",
+        "ReturnedForRevision": "Trả lại chỉnh sửa",
+        "Approved": "Đã duyệt",
+        "Rejected": "Từ chối",
+        "Closed": "Đã đóng"
+      },
+      "priority": {
+        "Low": "Thấp",
+        "Medium": "Trung bình",
+        "High": "Cao",
+        "Critical": "Khẩn cấp"
+      },
+      "type": {
+        "Application": "Đơn đăng ký",
+        "Complaint": "Khiếu nại",
+        "Request": "Yêu cầu",
+        "Report": "Báo cáo"
+      }
+    },
+    "caseDetail": {
+      "backToList": "Danh sách hồ sơ",
+      "errorMessage": "Không tải được hồ sơ",
+      "sectionInfo": "Thông tin hồ sơ",
+      "sectionComments": "Bình luận",
+      "workflow": {
+        "draft": "Bản nháp",
+        "submitted": "Đã nộp",
+        "underReview": "Đang xem xét",
+        "verdict": "Phán quyết",
+        "closed": "Đã đóng"
+      },
+      "label": {
+        "type": "Loại hồ sơ",
+        "createdAt": "Ngày tạo",
+        "department": "Phòng ban xử lý",
+        "assignedAt": "Ngày phân công",
+        "resolutionReason": "Lý do xử lý",
+        "description": "Mô tả"
+      }
+    },
+    "forms": {
+      "title": "Biểu mẫu",
+      "empty": "Chưa có biểu mẫu nào",
+      "notFound": "Không tìm thấy biểu mẫu",
+      "emptySubmissions": "Chưa có lượt nộp nào",
+      "showTotal": "{{count}} biểu mẫu",
+      "col": {
+        "code": "Mã",
+        "name": "Tên biểu mẫu",
+        "status": "Trạng thái",
+        "fieldCount": "Số trường",
+        "submissionsCount": "Lượt nộp",
+        "createdAt": "Ngày tạo"
+      },
+      "status": {
+        "Draft": "Nháp",
+        "Materializing": "Đang xử lý",
+        "Active": "Hoạt động",
+        "Inactive": "Ngưng hoạt động"
+      },
+      "detail": {
+        "notFound": "Không tìm thấy biểu mẫu",
+        "publishBtn": "Xuất bản",
+        "fieldsSection": "Danh sách trường",
+        "submissionsSection": "Lượt nộp ({{count}})",
+        "noSubmissions": "Chưa có lượt nộp nào",
+        "analyticsTab": "Phân tích",
+        "versionDiffTab": "So sánh phiên bản",
+        "col": {
+          "order": "Thứ tự",
+          "name": "Tên trường",
+          "label": "Nhãn",
+          "fieldType": "Kiểu",
+          "isRequired": "Bắt buộc",
+          "reorder": "Sắp xếp",
+          "submittedBy": "Người nộp",
+          "submittedAt": "Ngày nộp",
+          "status": "Trạng thái",
+          "actions": "Thao tác"
+        },
+        "submission": {
+          "filterByStatus": "Lọc theo trạng thái",
+          "statusPending": "Chờ duyệt",
+          "statusApproved": "Đã duyệt",
+          "statusRejected": "Đã từ chối",
+          "bulkApprove": "Duyệt hàng loạt ({{count}})",
+          "bulkReject": "Từ chối hàng loạt ({{count}})",
+          "exportCsv": "CSV",
+          "approveConfirm": "Duyệt lượt nộp này?",
+          "bulkApproveConfirm": "Duyệt {{count}} lượt nộp?",
+          "rejectTitle": "Từ chối lượt nộp",
+          "bulkRejectTitle": "Từ chối hàng loạt ({{count}})",
+          "rejectReasonPlaceholder": "Lý do từ chối (bắt buộc)",
+          "rejectBtn": "Từ chối",
+          "rejectAllBtn": "Từ chối tất cả",
+          "approveFailedMsg": "Duyệt thất bại",
+          "rejectFailedMsg": "Từ chối thất bại",
+          "bulkApproveFailedMsg": "Duyệt hàng loạt thất bại",
+          "bulkRejectFailedMsg": "Từ chối hàng loạt thất bại",
+          "bulkApproveSuccessMsg": "Đã duyệt {{count}}",
+          "bulkRejectSuccessMsg": "Đã từ chối {{count}}",
+          "pdfExportFailedMsg": "Xuất PDF thất bại",
+          "exportFailedMsg": "Xuất dữ liệu thất bại"
+        },
+        "analytics": {
+          "unavailable": "Không có dữ liệu phân tích",
+          "total": "Tổng",
+          "pending": "Chờ duyệt",
+          "approved": "Đã duyệt",
+          "rejected": "Đã từ chối",
+          "dateCol": "Ngày",
+          "submissionsCol": "Lượt nộp",
+          "noData": "Không có dữ liệu trong 30 ngày qua"
+        },
+        "versionDiff": {
+          "fromVersion": "Từ phiên bản:",
+          "toVersion": "Đến phiên bản:",
+          "compareBtn": "So sánh",
+          "fieldKeyCol": "Tên trường",
+          "labelViCol": "Nhãn (VI)",
+          "addedInCol": "Thêm vào",
+          "changeCol": "Thay đổi",
+          "noChanges": "Không có thay đổi trường giữa hai phiên bản",
+          "loadError": "Lỗi khi tải diff"
+        }
+      }
+    },
+    "audit": {
+      "title": "Kiểm toán hệ thống",
+      "tab": {
+        "logs": "Nhật ký kiểm toán",
+        "login": "Đăng nhập",
+        "incidents": "Sự cố bảo mật"
+      },
+      "detail": {
+        "title": "Chi tiết nhật ký kiểm toán",
+        "timestamp": "Thời gian",
+        "userName": "Người dùng",
+        "userId": "User ID",
+        "action": "Hành động",
+        "moduleName": "Module",
+        "resourceType": "Loại tài nguyên",
+        "resourceId": "ID tài nguyên",
+        "ipAddress": "Địa chỉ IP",
+        "tenantId": "Tenant ID",
+        "correlationId": "Correlation ID",
+        "changesSection": "Chi tiết thay đổi",
+        "noChanges": "Không có dữ liệu thay đổi cho bản ghi này."
+      }
+    },
+    "files": {
+      "title": "Tệp tin",
+      "upload": "Tải lên",
+      "download": "Tải về",
+      "empty": "Chưa có tệp nào",
+      "showTotal": "{{count}} tệp",
+      "uploadSuccess": "Tải lên thành công",
+      "uploadError": "Tải lên thất bại",
+      "dragHint": "Kéo thả tệp vào đây hoặc nhấn để chọn",
+      "maxSize": "Tối đa 50MB mỗi tệp",
+      "col": {
+        "fileName": "Tên tệp",
+        "contentType": "Loại",
+        "sizeBytes": "Kích thước",
+        "virusScan": "Quét virus",
+        "uploadedBy": "Người tải",
+        "uploadedAt": "Ngày tải"
+      },
+      "scanStatus": {
+        "Pending": "Đang quét",
+        "Clean": "Sạch",
+        "Infected": "Nhiễm virus",
+        "Failed": "Lỗi quét"
+      }
+    },
+    "notifications": {
+      "title": "Thông báo",
+      "newTag": "Mới",
+      "markRead": "Đánh dấu đã đọc",
+      "markAllRead": "Đánh dấu tất cả đã đọc",
+      "empty": "Không có thông báo nào",
+      "viewAll": "Xem tất cả",
+      "showTotal": "{{count}} thông báo",
+      "col": {
+        "title": "Tiêu đề",
+        "body": "Nội dung",
+        "createdAt": "Thời gian"
+      }
+    },
+    "inbox": {
+      "title": "Hộp thư xử lý",
+      "process": "Xử lý",
+      "empty": "Không có hồ sơ cần xử lý",
+      "col": {
+        "caseNumber": "Số hồ sơ",
+        "title": "Tiêu đề",
+        "action": "Hành động cần thực hiện",
+        "status": "Trạng thái",
+        "priority": "Ưu tiên",
+        "assignedAt": "Ngày phân công",
+        "actions": "Thao tác"
+      },
+      "actionLabel": {
+        "Submitted": "Chờ phân công",
+        "UnderReview": "Chờ duyệt / từ chối",
+        "ReturnedForRevision": "Chờ chỉnh sửa"
+      }
+    },
+    "reports": {
+      "definitions": {
+        "title": "Mẫu báo cáo",
+        "btnCreate": "Tạo mẫu",
+        "btnRun": "Chạy",
+        "empty": "Chưa có mẫu báo cáo nào",
+        "createError": "Không thể tạo mẫu báo cáo.",
+        "modalCreateTitle": "Tạo mẫu báo cáo",
+        "colName": "Tên báo cáo",
+        "colDescription": "Mô tả",
+        "colFormat": "Định dạng",
+        "colStatus": "Trạng thái",
+        "colCreatedAt": "Ngày tạo",
+        "statusActive": "Đang dùng",
+        "statusInactive": "Vô hiệu",
+        "runStartedHint": "Báo cáo đang được xử lý (ID: {{id}}). Xem \"Lịch sử xuất\" để theo dõi tiến trình.",
+        "fieldNameEn": "Tên (EN)",
+        "fieldNameVi": "Tên (VI)"
+      },
+      "executions": {
+        "title": "Lịch sử xuất báo cáo",
+        "btnRun": "Chạy báo cáo",
+        "btnDownload": "Tải xuống",
+        "emptySession": "Chưa có báo cáo nào trong phiên này. Nhấn \"Chạy báo cáo\" để bắt đầu.",
+        "colDefinition": "Mẫu báo cáo",
+        "colRequestedAt": "Yêu cầu lúc",
+        "colStatus": "Trạng thái",
+        "colCompletedAt": "Hoàn thành lúc",
+        "colError": "Lỗi",
+        "statusQueued": "Đang chờ",
+        "statusRunning": "Đang chạy",
+        "statusDone": "Hoàn thành",
+        "statusFailed": "Lỗi"
+      }
+    },
+    "ai": {
+      "title": "Truy vấn AI",
+      "nlqHint": "Nhập câu hỏi bằng tiếng Việt để truy vấn dữ liệu",
+      "nlqPlaceholder": "Ví dụ: Tổng số hồ sơ tháng này theo từng loại",
+      "btnSend": "Gửi",
+      "btnRun": "Chạy",
+      "resultTitle": "Kết quả",
+      "rows": "dòng",
+      "catalogTitle": "Thư viện truy vấn",
+      "catalogEmpty": "Chưa có truy vấn nào được lưu",
+      "colQueryName": "Tên truy vấn",
+      "colDescription": "Mô tả",
+      "colCategory": "Danh mục"
+    },
+    "admin": {
+      "users": {
+        "title": "Quản lý người dùng",
+        "searchPlaceholder": "Tìm tên, email...",
+        "filterRole": "Lọc vai trò",
+        "filterStatus": "Lọc trạng thái",
+        "create": "Tạo người dùng",
+        "createTitle": "Tạo người dùng mới",
+        "editTitle": "Chỉnh sửa người dùng",
+        "createOkBtn": "Tạo",
+        "createSuccess": "Tạo người dùng thành công",
+        "updateSuccess": "Cập nhật người dùng thành công",
+        "fullNameRequired": "Vui lòng nhập họ tên",
+        "fullNamePlaceholder": "Nguyễn Văn A",
+        "emailRequired": "Vui lòng nhập email",
+        "emailInvalid": "Email không hợp lệ",
+        "phoneLabel": "Số điện thoại",
+        "departmentLabel": "Phòng ban",
+        "departmentPlaceholder": "Phòng Kỹ thuật",
+        "rolesRequired": "Chọn ít nhất một vai trò",
+        "rolesPlaceholder": "Chọn vai trò",
+        "tempPasswordLabel": "Mật khẩu tạm thời",
+        "tempPasswordPlaceholder": "Để trống để hệ thống tự sinh",
+        "col": {
+          "fullName": "Họ và tên",
+          "email": "Email",
+          "roles": "Vai trò",
+          "status": "Trạng thái",
+          "mfa": "MFA",
+          "actions": "Thao tác"
+        },
+        "mfa": {
+          "on": "Bật",
+          "off": "Tắt"
+        },
+        "deleteConfirm": {
+          "title": "Xóa người dùng này?",
+          "description": "Hành động không thể hoàn tác."
+        }
+      },
+      "systemParams": {
+        "title": "Tham số hệ thống",
+        "tab": {
+          "params": "Tham số hệ thống",
+          "flags": "Feature Flags",
+          "announcements": "Thông báo"
+        },
+        "params": {
+          "colKey": "Khóa",
+          "colValue": "Giá trị",
+          "colDescription": "Mô tả",
+          "colCategory": "Danh mục",
+          "colActions": "Thao tác",
+          "saveSuccess": "Đã lưu tham số \"{{key}}\"",
+          "saveFail": "Lưu thất bại",
+          "tooltipEncrypted": "Giá trị mã hóa — chỉnh sửa cẩn thận",
+          "tooltipEdit": "Chỉnh sửa"
+        },
+        "flags": {
+          "colName": "Tên",
+          "colKey": "Khóa",
+          "colDescription": "Mô tả",
+          "colEnabled": "Bật/Tắt",
+          "updateFail": "Cập nhật thất bại",
+          "toggleOn": "bật",
+          "toggleOff": "tắt",
+          "toggleSuccess": "{{name}} đã {{state}}"
+        },
+        "announcements": {
+          "colTitle": "Tiêu đề",
+          "colStatus": "Trạng thái",
+          "colStartDate": "Bắt đầu",
+          "colEndDate": "Kết thúc",
+          "colActions": "Thao tác",
+          "btnCreate": "Tạo thông báo",
+          "modalTitle": "Tạo thông báo mới",
+          "fieldTitle": "Tiêu đề",
+          "fieldContent": "Nội dung",
+          "fieldDateRange": "Thời gian hiển thị",
+          "titlePlaceholder": "Thông báo bảo trì hệ thống",
+          "contentPlaceholder": "Nội dung thông báo...",
+          "deleteConfirm": "Xóa thông báo này?",
+          "createSuccess": "Tạo thông báo thành công"
+        }
+      },
+      "masterData": {
+        "title": "Danh mục hành chính",
+        "selectProvince": "Chọn tỉnh / thành phố",
+        "selectDistrict": "Chọn quận / huyện",
+        "card": {
+          "provinces": "Danh sách tỉnh / thành phố",
+          "districts": "Danh sách quận / huyện",
+          "wards": "Danh sách xã / phường / thị trấn"
+        },
+        "col": {
+          "code": "Mã",
+          "provinceName": "Tên tỉnh / thành phố",
+          "districtName": "Tên quận / huyện",
+          "wardName": "Tên xã / phường / thị trấn",
+          "districtCount": "Số huyện",
+          "wardCount": "Số xã",
+          "actions": "Thao tác"
+        },
+        "create": "Thêm",
+        "edit": "Sửa",
+        "createSuccess": "Đã tạo bản ghi",
+        "updateSuccess": "Đã cập nhật",
+        "deleteSuccess": "Đã xóa",
+        "saveFail": "Lưu thất bại",
+        "deleteConfirm": {
+          "title": "Xóa bản ghi này?",
+          "description": "Hành động không thể hoàn tác."
+        }
+      },
+      "notificationTemplates": {
+        "title": "Mẫu thông báo",
+        "create": "Tạo mẫu",
+        "createTitle": "Tạo mẫu thông báo",
+        "editTitle": "Chỉnh sửa mẫu thông báo",
+        "createSuccess": "Đã tạo mẫu",
+        "updateSuccess": "Đã cập nhật mẫu",
+        "deleteSuccess": "Đã xóa mẫu",
+        "saveFail": "Lưu thất bại",
+        "col": {
+          "key": "Khóa mẫu",
+          "channel": "Kênh",
+          "subject": "Tiêu đề",
+          "createdAt": "Ngày tạo",
+          "actions": "Thao tác"
+        },
+        "field": {
+          "key": "Khóa mẫu",
+          "channel": "Kênh",
+          "subject": "Mẫu tiêu đề",
+          "body": "Mẫu nội dung"
+        },
+        "deleteConfirm": {
+          "title": "Xóa mẫu thông báo này?",
+          "description": "Hành động không thể hoàn tác."
+        }
+      },
+      "org": {
+        "title": "Cơ cấu tổ chức",
+        "selectHint": "Chọn một đơn vị trong sơ đồ để xem chi tiết.",
+        "card": {
+          "tree": "Sơ đồ tổ chức",
+          "detail": "Thông tin đơn vị",
+          "staff": "Nhân sự trong đơn vị"
+        },
+        "label": {
+          "name": "Tên",
+          "code": "Mã",
+          "level": "Cấp độ",
+          "childCount": "Đơn vị con",
+          "staffCount": "Nhân sự",
+          "description": "Mô tả"
+        }
+      },
+      "apiKeys": {
+        "title": "Quản lý API Keys",
+        "create": "Tạo API Key",
+        "col": {
+          "name": "Tên",
+          "prefix": "Prefix (masked)",
+          "scopes": "Scopes",
+          "status": "Trạng thái",
+          "createdAt": "Tạo lúc",
+          "expiresAt": "Hết hạn",
+          "actions": "Thao tác"
+        },
+        "status": {
+          "active": "Hoạt động",
+          "revoked": "Đã thu hồi"
+        },
+        "revokeConfirm": {
+          "title": "Thu hồi API Key này?",
+          "description": "Key sẽ bị vô hiệu hóa ngay lập tức.",
+          "ok": "Thu hồi"
+        }
+      }
+    }
+  },
+  "error": {
+    "notFound": {
+      "subTitle": "Trang bạn tìm kiếm không tồn tại.",
+      "backHome": "Về trang chủ"
+    },
+    "forbidden": {
+      "subTitle": "Bạn không có quyền truy cập trang này.",
+      "back": "Quay lại"
+    },
+    "boundary": {
+      "title": "Đã xảy ra lỗi",
+      "subTitle": "Một lỗi không mong muốn đã xảy ra. Vui lòng thử lại hoặc quay về trang chủ.",
+      "reload": "Tải lại trang",
+      "backHome": "Về trang chủ"
+    },
+    "loadFailed": "Đã xảy ra lỗi khi tải dữ liệu",
+    "http": {
+      "badRequest": "Yêu cầu không hợp lệ.",
+      "unauthorized": "Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.",
+      "forbidden": "Không có quyền truy cập",
+      "forbiddenDetail": "Bạn không có quyền thực hiện thao tác này.",
+      "notFound": "Không tìm thấy tài nguyên.",
+      "conflict": "Dữ liệu đã bị thay đổi bởi người dùng khác. Vui lòng tải lại trang.",
+      "unprocessable": "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.",
+      "tooManyRequests": "Quá nhiều yêu cầu. Vui lòng thử lại sau.",
+      "serverError": "Lỗi hệ thống. Vui lòng liên hệ quản trị viên.",
+      "unknown": "Đã xảy ra lỗi không xác định."
+    }
+  },
+  "delegation": {
+    "actingAs": "Đang thao tác thay mặt:",
+    "exit": "Thoát uỷ quyền"
+  },
+  "abacRules": {
+    "title": "Quy tắc ABAC",
+    "createTitle": "Tạo quy tắc ABAC",
+    "deleteConfirm": "Xoá quy tắc này?",
+    "tenantIdPlaceholder": "Để trống cho toàn hệ thống",
+    "col": {
+      "resource": "Tài nguyên",
+      "action": "Hành động",
+      "attributeKey": "Thuộc tính",
+      "attributeValue": "Giá trị",
+      "effect": "Hiệu lực",
+      "tenantId": "Tenant"
+    }
+  },
+  "delegations": {
+    "title": "Quản lý ủy quyền",
+    "createTitle": "Tạo ủy quyền",
+    "revokeConfirm": "Thu hồi ủy quyền này?",
+    "activeOnly": "Đang hiệu lực",
+    "all": "Tất cả",
+    "active": "Hiệu lực",
+    "inactive": "Hết hạn",
+    "validRange": "Thời hạn",
+    "userIdPlaceholder": "Nhập ID người dùng",
+    "col": {
+      "delegator": "Người ủy quyền",
+      "delegate": "Người được ủy quyền",
+      "validFrom": "Từ ngày",
+      "validTo": "Đến ngày",
+      "reason": "Lý do",
+      "status": "Trạng thái"
+    }
+  },
+  "accessReviews": {
+    "title": "Duyệt quyền truy cập",
+    "noPending": "Không có yêu cầu nào đang chờ",
+    "approveConfirm": "Duyệt yêu cầu quyền này?",
+    "rejectConfirm": "Từ chối yêu cầu quyền này?",
+    "col": {
+      "user": "Người dùng",
+      "resourceType": "Loại tài nguyên",
+      "resourceId": "ID tài nguyên",
+      "permission": "Quyền",
+      "requestedBy": "Người yêu cầu",
+      "requestedAt": "Thời gian",
+      "status": "Trạng thái",
+      "actions": "Thao tác"
+    }
+  },
+  "audit": {
+    "col": {
+      "timestamp": "Thời gian",
+      "user": "Người dùng",
+      "ipAddress": "Địa chỉ IP",
+      "result": "Kết quả",
+      "failureReason": "Lý do thất bại",
+      "userAgent": "User Agent",
+      "incidentType": "Loại sự cố",
+      "severity": "Mức độ",
+      "description": "Mô tả",
+      "status": "Trạng thái"
+    },
+    "loginSuccess": "Thành công",
+    "loginFail": "Thất bại",
+    "emptyLogin": "Chưa có dữ liệu đăng nhập",
+    "emptyIncidents": "Chưa có sự cố bảo mật nào",
+    "incidentStatus": {
+      "Open": "Mở",
+      "Investigating": "Đang xử lý",
+      "Resolved": "Đã giải quyết",
+      "Closed": "Đóng"
+    }
+  },
+  "org": {
+    "emptyStaff": "Chưa có nhân sự trong đơn vị này",
+    "col": {
+      "fullName": "Họ và tên",
+      "roleInUnit": "Vai trò trong đơn vị",
+      "assignedAt": "Ngày phân công"
+    }
+  },
+  "sessions": {
+    "title": "Phiên đăng nhập",
+    "noSessions": "Không có phiên nào đang hoạt động",
+    "filterPlaceholder": "Lọc theo user ID...",
+    "revoke": "Thu hồi phiên",
+    "revokeAll": "Thu hồi tất cả phiên của người dùng",
+    "revokeConfirm": "Thu hồi phiên đăng nhập này?",
+    "revokeAllConfirm": "Thu hồi TẤT CẢ phiên của người dùng này?",
+    "col": {
+      "user": "Người dùng",
+      "email": "Email",
+      "ipAddress": "Địa chỉ IP",
+      "userAgent": "Trình duyệt",
+      "createdAt": "Tạo lúc",
+      "expiresAt": "Hết hạn",
+      "actions": "Thao tác"
+    }
+  },
+  "roles": {
+    "title": "Phân quyền & Vai trò",
+    "authModel": "Mô hình phân quyền",
+    "rbacDesc": "Role-Based Access Control — Quyền truy cập dựa trên vai trò (Admin, GovOfficer, Citizen, ...)",
+    "abacDesc": "Attribute-Based Access Control — Quyền truy cập dựa trên thuộc tính (phòng ban, cấp mật, ...)",
+    "systemAdminDesc": "Quản trị hệ thống — toàn quyền truy cập tất cả chức năng",
+    "adminDesc": "Quản trị viên — quản lý người dùng, cấu hình hệ thống",
+    "govOfficerDesc": "Cán bộ — xử lý hồ sơ, kiểm toán, quản lý tài liệu",
+    "citizenDesc": "Công dân — nộp và theo dõi hồ sơ",
+    "viewerDesc": "Chỉ xem — truy cập công khai, không có quyền ghi"
+  },
+  "menus": {
+    "title": "Quản lý Menu",
+    "createTitle": "Tạo mục menu",
+    "editTitle": "Sửa mục menu",
+    "noParent": "— Cấp cao nhất —",
+    "col": {
+      "code": "Mã",
+      "title": "Tiêu đề",
+      "parent": "Mục cha",
+      "icon": "Biểu tượng",
+      "route": "Đường dẫn",
+      "sortOrder": "Thứ tự",
+      "permissions": "Quyền yêu cầu",
+      "active": "Kích hoạt"
+    }
+  },
+  "rules": {
+    "title": "Bộ quy tắc",
+    "createTitle": "Tạo bộ quy tắc",
+    "editTitle": "Sửa bộ quy tắc",
+    "deleteConfirm": "Xoá bộ quy tắc này?",
+    "activateConfirm": "Kích hoạt bộ quy tắc này?",
+    "deprecateConfirm": "Ngừng sử dụng bộ quy tắc này?",
+    "backToList": "Danh sách bộ quy tắc",
+    "notFound": "Không tìm thấy bộ quy tắc",
+    "noDecisionTables": "Chưa có bảng quyết định",
+    "invalidJson": "JSON không hợp lệ — vui lòng kiểm tra cú pháp",
+    "testError": "Đánh giá thất bại",
+    "testInputLabel": "JSON đầu vào",
+    "evaluateBtn": "Đánh giá",
+    "resultTitle": "Kết quả",
+    "matched": "Khớp",
+    "noMatch": "Không khớp",
+    "outputLabel": "Đầu ra",
+    "matchedRules": "Quy tắc khớp",
+    "inputCols": "Cột đầu vào",
+    "outputCols": "Cột đầu ra",
+    "tab": {
+      "rules": "Quy tắc",
+      "decisionTables": "Bảng quyết định",
+      "test": "Kiểm thử",
+      "designer": "Thiết kế trực quan"
+    },
+    "col": {
+      "name": "Tên",
+      "version": "Phiên bản",
+      "status": "Trạng thái",
+      "description": "Mô tả",
+      "updatedAt": "Cập nhật",
+      "ruleName": "Tên quy tắc",
+      "priority": "Ưu tiên",
+      "condition": "Điều kiện",
+      "action": "Hành động",
+      "expression": "Biểu thức",
+      "failureAction": "Hành động thất bại",
+      "enabled": "Kích hoạt"
+    },
+    "designer": {
+      "saved": "Đã lưu thay đổi thành công",
+      "unsavedChanges": "{{count}} thay đổi chưa lưu",
+      "readOnly": "Chỉ đọc — chỉ bộ quy tắc ở trạng thái Nháp mới có thể chỉnh sửa",
+      "editRule": "Sửa quy tắc",
+      "expression": "Biểu thức",
+      "failureAction": "Hành động thất bại",
+      "enabled": "Kích hoạt",
+      "startNode": "Bắt đầu đánh giá",
+      "endNode": "Kết thúc"
+    }
+  },
+  "templates": {
+    "title": "Biểu mẫu tài liệu",
+    "createTitle": "Tạo biểu mẫu",
+    "editTitle": "Sửa biểu mẫu",
+    "deleteConfirm": "Xoá biểu mẫu này?",
+    "previewTitle": "Xem trước tài liệu",
+    "previewBtn": "Xem trước",
+    "previewHint": "Nhập dữ liệu JSON để render biểu mẫu, sau đó tải xuống.",
+    "downloadBtn": "Tải xuống",
+    "invalidJson": "JSON không hợp lệ",
+    "previewError": "Tạo xem trước thất bại",
+    "col": {
+      "name": "Tên",
+      "contentType": "Loại tài liệu",
+      "version": "Phiên bản",
+      "description": "Mô tả",
+      "updatedAt": "Cập nhật",
+      "body": "Nội dung biểu mẫu (Scriban)"
+    }
+  },
+  "search": {
+    "title": "Tìm kiếm tổng hợp",
+    "placeholder": "Tìm kiếm hồ sơ, tệp tin, biểu mẫu...",
+    "hint": "Nhập ít nhất 2 ký tự để tìm kiếm",
+    "error": "Tìm kiếm thất bại — vui lòng thử lại",
+    "noResults": "Không tìm thấy kết quả",
+    "resultCount": "{{count}} kết quả",
+    "updatedAt": "Cập nhật"
+  },
+  "jobs": {
+    "title": "Giám sát tiến trình",
+    "retryBtn": "Thử lại",
+    "retryConfirm": "Thử lại tin nhắn này?",
+    "retrySuccess": "Đã đưa vào hàng đợi thử lại",
+    "retryError": "Thử lại thất bại",
+    "deleteConfirm": "Xoá tin nhắn lỗi này?",
+    "tab": {
+      "recurring": "Tiến trình định kỳ",
+      "history": "Lịch sử thực thi",
+      "deadLetters": "Hàng đợi lỗi"
+    },
+    "col": {
+      "name": "Tên tiến trình",
+      "jobName": "Tên tiến trình",
+      "cron": "Biểu thức Cron",
+      "status": "Trạng thái",
+      "lastRun": "Lần chạy cuối",
+      "nextRun": "Lần chạy tiếp",
+      "lastError": "Lỗi cuối",
+      "startedAt": "Bắt đầu",
+      "duration": "Thời gian",
+      "error": "Lỗi",
+      "messageType": "Loại tin nhắn",
+      "failedAt": "Thời điểm lỗi",
+      "retryCount": "Số lần thử"
+    }
+  },
+  "copilot": {
+    "title": "AI Copilot",
+    "selectModel": "Chọn mô hình...",
+    "clearBtn": "Xoá",
+    "emptyHint": "Đặt câu hỏi để bắt đầu",
+    "inputPlaceholder": "Nhập tin nhắn...",
+    "sendBtn": "Gửi",
+    "sendHint": "Ctrl+Enter để gửi",
+    "sidebar": {
+      "title": "AI Copilot",
+      "toggle": "Mở AI Copilot"
+    }
+  },
+  "chat": {
+    "title": "Nhắn tin",
+    "noConversations": "Chưa có cuộc trò chuyện",
+    "noMessages": "Chưa có tin nhắn",
+    "conversationsLabel": "Cuộc trò chuyện",
+    "selectConversation": "Chọn cuộc trò chuyện để bắt đầu nhắn tin",
+    "inputPlaceholder": "Nhập tin nhắn...",
+    "sendHint": "Ctrl+Enter để gửi",
+    "sendError": "Gửi tin nhắn thất bại"
+  },
+  "signatures": {
+    "title": "Yêu cầu ký số",
+    "createTitle": "Tạo yêu cầu ký số",
+    "detailTitle": "Chi tiết yêu cầu ký số",
+    "cancelConfirm": "Huỷ yêu cầu ký số này?",
+    "createSuccess": "Yêu cầu ký số đã được tạo",
+    "signersSection": "Người ký",
+    "signersLabel": "ID người ký (cách nhau bằng dấu phẩy)",
+    "signersHint": "Nhập các user ID cách nhau bằng dấu phẩy",
+    "expiresAt": "Hết hạn",
+    "expiresAtLabel": "Ngày hết hạn",
+    "documentIdPlaceholder": "UUID tài liệu",
+    "col": {
+      "title": "Tiêu đề",
+      "document": "Tài liệu",
+      "documentId": "ID tài liệu",
+      "status": "Trạng thái",
+      "signerCount": "Người ký",
+      "createdAt": "Ngày tạo",
+      "order": "Thứ tự",
+      "signerName": "Người ký",
+      "email": "Email",
+      "signerStatus": "Trạng thái",
+      "signedAt": "Thời điểm ký"
+    }
+  },
+  "aiAdmin": {
+    "title": "Quản trị AI",
+    "createModelTitle": "Thêm hồ sơ mô hình AI",
+    "editModelTitle": "Sửa hồ sơ mô hình AI",
+    "deleteModelConfirm": "Xoá hồ sơ mô hình này?",
+    "createPromptTitle": "Tạo mẫu prompt",
+    "editPromptTitle": "Sửa mẫu prompt",
+    "deletePromptConfirm": "Xoá mẫu prompt này?",
+    "tab": {
+      "models": "Hồ sơ mô hình",
+      "prompts": "Mẫu Prompt"
+    },
+    "col": {
+      "name": "Tên",
+      "provider": "Nhà cung cấp",
+      "modelId": "ID mô hình",
+      "isDefault": "Mặc định",
+      "tokenBudget": "Ngân sách token",
+      "promptName": "Tên mẫu",
+      "description": "Mô tả",
+      "templateText": "Nội dung mẫu",
+      "createdAt": "Ngày tạo"
+    }
+  },
+  "integration": {
+    "partners": {
+      "title": "Đối tác liên thông",
+      "createTitle": "Thêm đối tác",
+      "editTitle": "Sửa đối tác",
+      "detailTitle": "Chi tiết đối tác",
+      "confirmDelete": "Xoá đối tác này?",
+      "confirmSuspend": "Tạm ngưng đối tác này?",
+      "suspend": "Tạm ngưng",
+      "activate": "Kích hoạt",
+      "col": {
+        "name": "Tên",
+        "code": "Mã",
+        "email": "Email liên hệ",
+        "phone": "Điện thoại",
+        "endpoint": "Endpoint",
+        "authScheme": "Xác thực",
+        "status": "Trạng thái",
+        "createdAt": "Ngày tạo"
+      }
+    },
+    "contracts": {
+      "title": "Hợp đồng trao đổi dữ liệu",
+      "createTitle": "Thêm hợp đồng",
+      "detailTitle": "Chi tiết hợp đồng",
+      "selectPartner": "Chọn đối tác",
+      "confirmActivate": "Kích hoạt hợp đồng này?",
+      "confirmTerminate": "Chấm dứt hợp đồng này?",
+      "activate": "Kích hoạt",
+      "terminate": "Chấm dứt",
+      "col": {
+        "title": "Tiêu đề",
+        "partnerId": "Đối tác",
+        "description": "Mô tả",
+        "effectiveDate": "Ngày hiệu lực",
+        "expiryDate": "Ngày hết hạn",
+        "status": "Trạng thái",
+        "dataScope": "Phạm vi dữ liệu",
+        "createdAt": "Ngày tạo"
+      }
+    },
+    "messageLogs": {
+      "title": "Nhật ký tin nhắn liên thông",
+      "createTitle": "Ghi nhật ký tin nhắn",
+      "detailTitle": "Chi tiết tin nhắn",
+      "logMessage": "Ghi tin nhắn",
+      "contractIdPlaceholder": "ID hợp đồng (tuỳ chọn)",
+      "direction": {
+        "inbound": "Đến",
+        "outbound": "Đi"
+      },
+      "col": {
+        "messageType": "Loại tin nhắn",
+        "direction": "Chiều",
+        "status": "Trạng thái",
+        "partnerId": "Đối tác",
+        "contractId": "Hợp đồng",
+        "sentAt": "Thời gian gửi",
+        "acknowledgedAt": "Thời gian xác nhận",
+        "correlationId": "Correlation ID",
+        "payload": "Nội dung"
+      }
+    }
+  }
+}

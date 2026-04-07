@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.Identity.Presentation</AssemblyName>
+    <RootNamespace>GSDT.Identity.Presentation</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentResults" />
+    <ProjectReference Include="..\GSDT.Identity.Application\GSDT.Identity.Application.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+  </ItemGroup>
+</Project>

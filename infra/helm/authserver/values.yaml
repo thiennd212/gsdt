@@ -1,0 +1,82 @@
+# GSDT AuthServer Helm values
+# OpenIddict Authorization Server — separate deployment from API
+
+replicaCount: 1
+
+image:
+  repository: nexus.internal:5000/gsdt/authserver
+  tag: latest
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - name: nexus-registry-secret
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 5000
+
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+  hosts:
+    - host: auth.gsdt.internal
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: gsdt-auth-tls
+      hosts:
+        - auth.gsdt.internal
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 256Mi
+
+# No autoscaling — AuthServer is low-traffic (token + login only)
+autoscaling:
+  enabled: false
+
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1001
+  fsGroup: 1001
+
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 5000
+  initialDelaySeconds: 20
+  periodSeconds: 15
+
+readinessProbe:
+  httpGet:
+    path: /health
+    port: 5000
+  initialDelaySeconds: 10
+  periodSeconds: 10
+
+env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: Production
+  - name: Urls
+    value: "http://+:5000"
+  - name: ConnectionStrings__DefaultConnection
+    valueFrom:
+      secretKeyRef:
+        name: gsdt-secrets
+        key: db-connection-string
+  # IssuerUri must match the public URL clients use
+  - name: Auth__IssuerUri
+    valueFrom:
+      configMapKeyRef:
+        name: gsdt-auth-config
+        key: issuer-uri
+
+config:
+  issuerUri: "https://auth.gsdt.internal"

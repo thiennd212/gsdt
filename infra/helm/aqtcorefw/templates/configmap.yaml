@@ -1,0 +1,13 @@
+{{/* GSDT — Kubernetes ConfigMap for non-secret app configuration */}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "gsdt.configMapName" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "gsdt.labels" . | nindent 4 }}
+data:
+  ASPNETCORE_ENVIRONMENT: {{ .Values.config.aspnetcoreEnvironment | default "Production" | quote }}
+  Logging__LogLevel__Default: {{ .Values.config.logLevelDefault | default "Information" | quote }}
+  Redis__ConnectionString: {{ .Values.config.redisConnectionString | default "" | quote }}
+  AI__Ollama__Enabled: {{ .Values.config.aiOllamaEnabled | default false | toString | quote }}

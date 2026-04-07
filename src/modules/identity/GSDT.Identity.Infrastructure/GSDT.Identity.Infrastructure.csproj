@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.Identity.Infrastructure</AssemblyName>
+    <RootNamespace>GSDT.Identity.Infrastructure</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Dapper" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="OpenIddict.AspNetCore" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" />
+    <PackageReference Include="OpenIddict.Validation.SystemNetHttp" />
+    <PackageReference Include="Otp.NET" />
+    <PackageReference Include="StackExchange.Redis" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentResults" />
+    <PackageReference Include="Hangfire.Core" />
+    <ProjectReference Include="..\GSDT.Identity.Application\GSDT.Identity.Application.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.Infrastructure\GSDT.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

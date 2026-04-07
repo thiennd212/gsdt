@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <AssemblyName>GSDT.Api</AssemblyName>
+    <RootNamespace>GSDT.Api</RootNamespace>
+    <UserSecretsId>gsdt-api-dev</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" />
+    <PackageReference Include="Yarp.ReverseProxy" />
+    <PackageReference Include="Asp.Versioning.Mvc" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Scalar.AspNetCore" />
+    <ProjectReference Include="..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\shared\GSDT.SharedKernel.Contracts\GSDT.SharedKernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\modules\notifications\GSDT.Notifications.Application\GSDT.Notifications.Application.csproj" />
+    <ProjectReference Include="..\..\modules\notifications\GSDT.Notifications.Infrastructure\GSDT.Notifications.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\notifications\GSDT.Notifications.Presentation\GSDT.Notifications.Presentation.csproj" />
+    <ProjectReference Include="..\..\modules\audit\GSDT.Audit.Application\GSDT.Audit.Application.csproj" />
+    <ProjectReference Include="..\..\modules\audit\GSDT.Audit.Infrastructure\GSDT.Audit.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\audit\GSDT.Audit.Presentation\GSDT.Audit.Presentation.csproj" />
+    <ProjectReference Include="..\..\modules\identity\GSDT.Identity.Application\GSDT.Identity.Application.csproj" />
+    <ProjectReference Include="..\..\modules\identity\GSDT.Identity.Infrastructure\GSDT.Identity.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\identity\GSDT.Identity.Presentation\GSDT.Identity.Presentation.csproj" />
+    <ProjectReference Include="..\..\modules\masterdata\GSDT.MasterData.Infrastructure\GSDT.MasterData.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\masterdata\GSDT.MasterData.Presentation\GSDT.MasterData.Presentation.csproj" />
+    <ProjectReference Include="..\..\modules\organization\GSDT.Organization.Infrastructure\GSDT.Organization.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\organization\GSDT.Organization.Presentation\GSDT.Organization.Presentation.csproj" />
+    <ProjectReference Include="..\..\modules\systemparams\GSDT.SystemParams.Infrastructure\GSDT.SystemParams.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\systemparams\GSDT.SystemParams.Presentation\GSDT.SystemParams.Presentation.csproj" />
+    <ProjectReference Include="..\..\modules\files\GSDT.Files.Application\GSDT.Files.Application.csproj" />
+    <ProjectReference Include="..\..\modules\files\GSDT.Files.Infrastructure\GSDT.Files.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\files\GSDT.Files.Presentation\GSDT.Files.Presentation.csproj" />
+    <ProjectReference Include="..\..\modules\integration\GSDT.Integration.Application\GSDT.Integration.Application.csproj" />
+    <ProjectReference Include="..\..\modules\integration\GSDT.Integration.Infrastructure\GSDT.Integration.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\modules\integration\GSDT.Integration.Presentation\GSDT.Integration.Presentation.csproj" />
+  </ItemGroup>
+</Project>

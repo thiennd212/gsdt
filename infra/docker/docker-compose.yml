@@ -1,0 +1,152 @@
+# GSDT local development infrastructure
+# Usage: docker compose up -d
+# Credentials are dev-only — production secrets sourced from Vault.
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "YourStrong!Passw0rd"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools18/bin/sqlcmd -C -U sa -P "YourStrong!Passw0rd" -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  rabbitmq:
+    image: rabbitmq:4-management
+    environment:
+      RABBITMQ_DEFAULT_USER: gov
+      RABBITMQ_DEFAULT_PASS: gov123
+    ports:
+      - "5672:5672"   # AMQP
+      - "15672:15672" # Management UI (http://localhost:15672)
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+
+  authserver:
+    build:
+      context: ../../src
+      dockerfile: host/GSDT.AuthServer/Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Urls: "http://+:5000"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=GSDT;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=true"
+      # IssuerUri must match what API uses for validation (host.docker.internal)
+      # FE uses http://localhost:5000 via port mapping (same host IP)
+      Auth__IssuerUri: "http://host.docker.internal:5000"
+    depends_on:
+      - sqlserver
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "5001:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - api
+
+  api:
+    build:
+      context: ../../
+      dockerfile: src/host/GSDT.Api/Dockerfile
+    # No host port — nginx is the only entry point
+    expose:
+      - "8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      # Pool size 200 per replica: 3 replicas × 200 = 600 total connections (well within SQL Server max)
+      ConnectionStrings__Default: "Server=sqlserver,1433;Database=GSDT;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=true;MultipleActiveResultSets=true;Min Pool Size=10;Max Pool Size=200;Connection Lifetime=120;Connect Timeout=15"
+      Redis__ConnectionString: "redis:6379"
+      Bus__Transport: "InMemory"
+      # Must match issuer in AuthServer discovery doc (http://localhost:5000)
+      # host.docker.internal resolves to host machine → reaches AuthServer via port mapping
+      Auth__AuthorityUrl: "http://host.docker.internal:5000"
+      # Disable YARP InProcess — nginx is the gateway in Docker
+      Gateway__Mode: "Disabled"
+      # .NET thread pool: pre-warm enough threads for 500 CCU / num_replicas
+      DOTNET_SYSTEM_THREADING_THREADPOOL_MIN_THREADS: "200"
+      # k6 test API key seeder — only first replica needs to seed
+      SEED_TEST_APIKEY: "true"
+      TEST_TENANT_ID: "00000000-0000-0000-0000-000000000001"
+      TEST_USER_ID: "00000000-0000-0000-0000-000000000002"
+    restart: on-failure:3
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      rabbitmq:
+        condition: service_started
+      authserver:
+        condition: service_started
+
+  web:
+    build:
+      context: ../../web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - api
+    restart: on-failure:3
+    healthcheck:
+      test: wget -qO- http://localhost/index.html || exit 1
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  qdrant:
+    image: qdrant/qdrant:v1.12.0
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    environment:
+      QDRANT__SERVICE__HTTP_PORT: 6333
+    profiles: ["ai"]
+
+  ollama:
+    image: ollama/ollama:latest
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_models:/root/.ollama
+    profiles: ["ai"]
+
+  ollama-init:
+    image: curlimages/curl:latest
+    depends_on:
+      ollama:
+        condition: service_started
+    restart: "no"
+    profiles: ["ai"]
+    command: >
+      sh -c "sleep 10 &&
+             curl -s -X POST http://ollama:11434/api/pull -d '{\"name\":\"nomic-embed-text\"}' &&
+             curl -s -X POST http://ollama:11434/api/pull -d '{\"name\":\"qwen2.5:7b\"}' &&
+             echo 'Ollama models ready'"
+
+volumes:
+  sqlserver_data:
+  redis_data:
+  rabbitmq_data:
+  qdrant_storage:
+  ollama_models:

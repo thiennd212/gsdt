@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.Files.Presentation</AssemblyName>
+    <RootNamespace>GSDT.Files.Presentation</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
+    <ProjectReference Include="..\GSDT.Files.Application\GSDT.Files.Application.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.Notifications.Application</AssemblyName>
+    <RootNamespace>GSDT.Notifications.Application</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="FluentResults" />
+    <ProjectReference Include="..\GSDT.Notifications.Domain\GSDT.Notifications.Domain.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel.Contracts\GSDT.SharedKernel.Contracts.csproj" />
+  </ItemGroup>
+</Project>

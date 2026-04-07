@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.Organization.Application</AssemblyName>
+    <RootNamespace>GSDT.Organization.Application</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="MediatR" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="FluentResults" />
+    <PackageReference Include="Dapper" />
+    <ProjectReference Include="..\GSDT.Organization.Domain\GSDT.Organization.Domain.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+  </ItemGroup>
+</Project>

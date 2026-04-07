@@ -1,0 +1,193 @@
+# GSDT Helm default values
+# Override per environment with values-staging.yaml / values-prod.yaml
+
+replicaCount: 2
+
+image:
+  repository: nexus.internal:5000/gsdt/api
+  tag: latest
+  pullPolicy: IfNotPresent
+  pullSecrets:
+    - name: nexus-registry-secret
+
+nameOverride: ""
+fullnameOverride: ""
+
+# ─── Service ─────────────────────────────────────────────────────────────────
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+# ─── Ingress ─────────────────────────────────────────────────────────────────
+ingress:
+  enabled: true
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "60"
+  hosts:
+    - host: api.gsdt.internal
+      paths:
+        - path: /
+          pathType: Prefix
+  tls:
+    - secretName: gsdt-tls
+      hosts:
+        - api.gsdt.internal
+
+# ─── Resources ───────────────────────────────────────────────────────────────
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 512Mi
+
+# ─── Autoscaling ─────────────────────────────────────────────────────────────
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+# ─── Security Context ────────────────────────────────────────────────────────
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 1001
+  fsGroup: 1001
+  seccompProfile:
+    type: RuntimeDefault
+
+securityContext:
+  readOnlyRootFilesystem: true
+  allowPrivilegeEscalation: false
+  runAsNonRoot: true
+  runAsUser: 1001
+  capabilities:
+    drop:
+      - ALL
+
+# ─── Health Probes ───────────────────────────────────────────────────────────
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8080
+  initialDelaySeconds: 30
+  periodSeconds: 15
+  failureThreshold: 3
+
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: 8080
+  initialDelaySeconds: 15
+  periodSeconds: 10
+  failureThreshold: 3
+
+# ─── Update Strategy ─────────────────────────────────────────────────────────
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxSurge: 1
+    maxUnavailable: 0
+
+# ─── Environment Variables ───────────────────────────────────────────────────
+# Sensitive values must be provided via Vault/K8s secrets — these are placeholders
+env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: Production
+  - name: ConnectionStrings__Default
+    valueFrom:
+      secretKeyRef:
+        name: gsdt-secrets
+        key: db-connection-string
+  - name: Redis__ConnectionString
+    valueFrom:
+      secretKeyRef:
+        name: gsdt-secrets
+        key: redis-connection-string
+  - name: Auth__AuthorityUrl
+    valueFrom:
+      configMapKeyRef:
+        name: gsdt-config
+        key: auth-authority-url
+
+# ─── ConfigMap data (non-secret config) ──────────────────────────────────────
+config:
+  # AuthServer URL — must match issuer in discovery doc
+  # In K8s: use internal service DNS (same cluster) or public URL
+  authAuthorityUrl: "https://auth.gsdt.internal"
+  allowedHosts: "*"
+  # Gateway mode: "Disabled" when behind ingress, "InProcess" for standalone
+  gatewayMode: "Disabled"
+
+# ─── Volume mounts (needed for readOnlyRootFilesystem) ───────────────────────
+extraVolumeMounts:
+  - name: tmp
+    mountPath: /tmp/asp
+  - name: logs
+    mountPath: /app/logs
+
+extraVolumes:
+  - name: tmp
+    emptyDir: {}
+  - name: logs
+    emptyDir: {}
+
+# ─── Blue-Green (optional, toggled by pipeline) ──────────────────────────────
+blueGreen:
+  enabled: false
+
+# ─── Pod disruption budget ───────────────────────────────────────────────────
+podDisruptionBudget:
+  enabled: true
+  minAvailable: 1
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# ─── Vault credentials (fallback — prefer External Secrets Operator in prod) ─
+vault:
+  roleId: ""
+  secretId: ""
+
+# ─── Network Policy ──────────────────────────────────────────────────────────
+networkPolicy:
+  # Enable default-deny ingress + allow-from-ingress-only policy
+  enabled: true
+  # Namespace where ingress-nginx controller runs
+  ingressControllerNamespace: ingress-nginx
+  # Allow Prometheus scraper ingress from monitoring namespace
+  allowPrometheus: true
+  monitoringNamespace: monitoring
+  # Namespace for SQL Server, Redis, RabbitMQ pods
+  dataNamespace: data
+
+# ─── Metrics / Monitoring ──────────────────────────────────────────────────
+metrics:
+  serviceMonitor:
+    enabled: false
+    interval: 30s
+    scrapeTimeout: 10s
+    labels: {}
+
+# ─── Extended config keys (used by configmap.yaml) ───────────────────────────
+# config.authAuthorityUrl and config.allowedHosts already defined above;
+# Keys below override defaults per environment in values-staging.yaml / values-prod.yaml:
+#   config.aspnetcoreEnvironment, config.logLevelDefault, config.redisConnectionString,
+#   config.aiOllamaEnabled
+#
+# Defaults (defined via | default fallback in configmap.yaml):
+#   aspnetcoreEnvironment: "Production"
+#   logLevelDefault: "Information"
+#   redisConnectionString: ""             # set in values-staging/prod
+#   aiOllamaEnabled: false
+#   defaultConnectionString: ""            # injected by pipeline / ESO
+#   logLevelDefault: "Information"
+#   redisConnectionString: ""              # injected by pipeline / ESO
+#   aiOllamaEnabled: false

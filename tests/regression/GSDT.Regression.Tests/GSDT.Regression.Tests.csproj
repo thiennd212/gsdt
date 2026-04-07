@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.Regression.Tests</AssemblyName>
+    <RootNamespace>GSDT.Regression.Tests</RootNamespace>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="NSubstitute" />
+    <PackageReference Include="coverlet.collector" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\cases\GSDT.Cases.Domain\GSDT.Cases.Domain.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\identity\GSDT.Identity.Domain\GSDT.Identity.Domain.csproj" />
+  </ItemGroup>
+</Project>

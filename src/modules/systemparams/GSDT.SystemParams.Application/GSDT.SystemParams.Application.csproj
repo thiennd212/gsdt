@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.SystemParams.Application</AssemblyName>
+    <RootNamespace>GSDT.SystemParams.Application</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
+    <PackageReference Include="StackExchange.Redis" />
+    <ProjectReference Include="..\GSDT.SystemParams.Domain\GSDT.SystemParams.Domain.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel.Contracts\GSDT.SharedKernel.Contracts.csproj" />
+  </ItemGroup>
+</Project>

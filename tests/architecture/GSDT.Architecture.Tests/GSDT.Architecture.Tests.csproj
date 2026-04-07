@@ -1,0 +1,107 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>GSDT.Architecture.Tests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="NSubstitute" />
+    <PackageReference Include="NetArchTest.Rules" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Architecture tests load assemblies reflectively — project refs ensure build order -->
+    <ProjectReference Include="../../../src/shared/GSDT.SharedKernel/GSDT.SharedKernel.csproj" />
+    <!-- Cases -->
+    <ProjectReference Include="../../../src/modules/cases/GSDT.Cases.Domain/GSDT.Cases.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/cases/GSDT.Cases.Application/GSDT.Cases.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/cases/GSDT.Cases.Infrastructure/GSDT.Cases.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/cases/GSDT.Cases.Presentation/GSDT.Cases.Presentation.csproj" />
+    <!-- Identity -->
+    <ProjectReference Include="../../../src/modules/identity/GSDT.Identity.Domain/GSDT.Identity.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/identity/GSDT.Identity.Application/GSDT.Identity.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/identity/GSDT.Identity.Infrastructure/GSDT.Identity.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/identity/GSDT.Identity.Presentation/GSDT.Identity.Presentation.csproj" />
+    <!-- Signature -->
+    <ProjectReference Include="../../../src/modules/signature/GSDT.Signature.Domain/GSDT.Signature.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/signature/GSDT.Signature.Application/GSDT.Signature.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/signature/GSDT.Signature.Infrastructure/GSDT.Signature.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/signature/GSDT.Signature.Presentation/GSDT.Signature.Presentation.csproj" />
+    <!-- Rules -->
+    <ProjectReference Include="../../../src/modules/rules/GSDT.Rules.Domain/GSDT.Rules.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/rules/GSDT.Rules.Application/GSDT.Rules.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/rules/GSDT.Rules.Infrastructure/GSDT.Rules.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/rules/GSDT.Rules.Presentation/GSDT.Rules.Presentation.csproj" />
+    <!-- Collaboration -->
+    <ProjectReference Include="../../../src/modules/collaboration/GSDT.Collaboration.Domain/GSDT.Collaboration.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/collaboration/GSDT.Collaboration.Application/GSDT.Collaboration.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/collaboration/GSDT.Collaboration.Infrastructure/GSDT.Collaboration.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/collaboration/GSDT.Collaboration.Presentation/GSDT.Collaboration.Presentation.csproj" />
+    <!-- Search -->
+    <ProjectReference Include="../../../src/modules/search/GSDT.Search.Domain/GSDT.Search.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/search/GSDT.Search.Application/GSDT.Search.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/search/GSDT.Search.Infrastructure/GSDT.Search.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/search/GSDT.Search.Presentation/GSDT.Search.Presentation.csproj" />
+    <!-- AI -->
+    <ProjectReference Include="../../../src/modules/ai/GSDT.Ai.Domain/GSDT.Ai.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/ai/GSDT.Ai.Application/GSDT.Ai.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/ai/GSDT.Ai.Infrastructure/GSDT.Ai.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/ai/GSDT.Ai.Presentation/GSDT.Ai.Presentation.csproj" />
+    <!-- Audit -->
+    <ProjectReference Include="../../../src/modules/audit/GSDT.Audit.Domain/GSDT.Audit.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/audit/GSDT.Audit.Application/GSDT.Audit.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/audit/GSDT.Audit.Infrastructure/GSDT.Audit.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/audit/GSDT.Audit.Presentation/GSDT.Audit.Presentation.csproj" />
+    <!-- Files -->
+    <ProjectReference Include="../../../src/modules/files/GSDT.Files.Domain/GSDT.Files.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/files/GSDT.Files.Application/GSDT.Files.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/files/GSDT.Files.Infrastructure/GSDT.Files.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/files/GSDT.Files.Presentation/GSDT.Files.Presentation.csproj" />
+    <!-- Forms -->
+    <ProjectReference Include="../../../src/modules/forms/GSDT.Forms.Domain/GSDT.Forms.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/forms/GSDT.Forms.Application/GSDT.Forms.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/forms/GSDT.Forms.Infrastructure/GSDT.Forms.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/forms/GSDT.Forms.Presentation/GSDT.Forms.Presentation.csproj" />
+    <!-- Notifications -->
+    <ProjectReference Include="../../../src/modules/notifications/GSDT.Notifications.Domain/GSDT.Notifications.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/notifications/GSDT.Notifications.Application/GSDT.Notifications.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/notifications/GSDT.Notifications.Infrastructure/GSDT.Notifications.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/notifications/GSDT.Notifications.Presentation/GSDT.Notifications.Presentation.csproj" />
+    <!-- Reporting -->
+    <ProjectReference Include="../../../src/modules/reporting/GSDT.Reporting.Domain/GSDT.Reporting.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/reporting/GSDT.Reporting.Application/GSDT.Reporting.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/reporting/GSDT.Reporting.Infrastructure/GSDT.Reporting.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/reporting/GSDT.Reporting.Presentation/GSDT.Reporting.Presentation.csproj" />
+    <!-- Workflow -->
+    <ProjectReference Include="../../../src/modules/workflow/GSDT.Workflow.Domain/GSDT.Workflow.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/workflow/GSDT.Workflow.Application/GSDT.Workflow.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/workflow/GSDT.Workflow.Infrastructure/GSDT.Workflow.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/workflow/GSDT.Workflow.Presentation/GSDT.Workflow.Presentation.csproj" />
+    <!-- Integration -->
+    <ProjectReference Include="../../../src/modules/integration/GSDT.Integration.Domain/GSDT.Integration.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/integration/GSDT.Integration.Application/GSDT.Integration.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/integration/GSDT.Integration.Infrastructure/GSDT.Integration.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/integration/GSDT.Integration.Presentation/GSDT.Integration.Presentation.csproj" />
+    <!-- MasterData -->
+    <ProjectReference Include="../../../src/modules/masterdata/GSDT.MasterData.Domain/GSDT.MasterData.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/masterdata/GSDT.MasterData.Application/GSDT.MasterData.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/masterdata/GSDT.MasterData.Infrastructure/GSDT.MasterData.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/masterdata/GSDT.MasterData.Presentation/GSDT.MasterData.Presentation.csproj" />
+    <!-- Organization -->
+    <ProjectReference Include="../../../src/modules/organization/GSDT.Organization.Domain/GSDT.Organization.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/organization/GSDT.Organization.Application/GSDT.Organization.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/organization/GSDT.Organization.Infrastructure/GSDT.Organization.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/organization/GSDT.Organization.Presentation/GSDT.Organization.Presentation.csproj" />
+    <!-- SystemParams -->
+    <ProjectReference Include="../../../src/modules/systemparams/GSDT.SystemParams.Domain/GSDT.SystemParams.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/systemparams/GSDT.SystemParams.Application/GSDT.SystemParams.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/systemparams/GSDT.SystemParams.Infrastructure/GSDT.SystemParams.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/systemparams/GSDT.SystemParams.Presentation/GSDT.SystemParams.Presentation.csproj" />
+  </ItemGroup>
+</Project>

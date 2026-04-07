@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.SystemParams.Presentation</AssemblyName>
+    <RootNamespace>GSDT.SystemParams.Presentation</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="FluentValidation" />
+    <ProjectReference Include="..\GSDT.SystemParams.Application\GSDT.SystemParams.Application.csproj" />
+    <ProjectReference Include="..\GSDT.SystemParams.Infrastructure\GSDT.SystemParams.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+  </ItemGroup>
+</Project>

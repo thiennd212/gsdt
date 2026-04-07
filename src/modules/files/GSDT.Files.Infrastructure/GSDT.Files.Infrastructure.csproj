@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>GSDT.Files.Infrastructure</AssemblyName>
+    <RootNamespace>GSDT.Files.Infrastructure</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Hangfire.Core" />
+    <PackageReference Include="Minio" />
+    <PackageReference Include="nClam" />
+    <PackageReference Include="Microsoft.IO.RecyclableMemoryStream" />
+    <PackageReference Include="Scriban" />
+    <ProjectReference Include="..\GSDT.Files.Application\GSDT.Files.Application.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel.Contracts\GSDT.SharedKernel.Contracts.csproj" />
+    <ProjectReference Include="..\..\..\shared\GSDT.Infrastructure\GSDT.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

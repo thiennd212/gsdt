@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>false</IsPackable>
+    <RootNamespace>GSDT.TenantIsolation.Tests</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="FluentAssertions" />
+    <PackageReference Include="NSubstitute" />
+    <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="Testcontainers.MsSql" />
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Infrastructure brings in EF Core, CasesDbContext, migrations, and shared kernel -->
+    <ProjectReference Include="../../../src/modules/cases/GSDT.Cases.Infrastructure/GSDT.Cases.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/cases/GSDT.Cases.Domain/GSDT.Cases.Domain.csproj" />
+  </ItemGroup>
+</Project>

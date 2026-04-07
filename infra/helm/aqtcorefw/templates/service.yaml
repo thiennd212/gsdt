@@ -1,0 +1,17 @@
+{{/* GSDT — Kubernetes Service (ClusterIP) */}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "gsdt.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "gsdt.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+    {{- include "gsdt.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: http
+      protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}

@@ -1,0 +1,498 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_VERSION: '10.0.x'
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+# ─────────────────────────────────────────────────────────────────────────────
+# All .NET jobs share this anchor for restore+build steps (NuGet cache shared)
+# ─────────────────────────────────────────────────────────────────────────────
+jobs:
+  # ───────────────────────────────────────────────────────────────────────────
+  # Job 1 — Build check + Unit tests + Coverage (parallel with integration)
+  # ───────────────────────────────────────────────────────────────────────────
+  unit-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Restore
+        run: dotnet restore src/GSDT.slnx
+
+      - name: Build (warn-as-error)
+        run: dotnet build src/GSDT.slnx --no-restore -c Release /warnaserror
+
+      - name: Test (Unit + Architecture) with coverage
+        run: |
+          dotnet test src/GSDT.slnx \
+            --no-build -c Release \
+            --filter "FullyQualifiedName!~Integration" \
+            --collect:"XPlat Code Coverage" \
+            --logger "trx;LogFileName=unit-results.trx" \
+            --results-directory ./test-results
+
+      - name: Install ReportGenerator
+        run: dotnet tool install --global dotnet-reportgenerator-globaltool || true
+
+      - name: Generate coverage JSON summary
+        run: |
+          reportgenerator \
+            -reports:"test-results/**/coverage.cobertura.xml" \
+            -targetdir:"test-results/coverage-report" \
+            -reporttypes:JsonSummary || true
+
+      - name: Check coverage thresholds
+        run: |
+          if [ -f "test-results/coverage-report/Summary.json" ]; then
+            chmod +x tests/quality-gates/check-coverage.sh
+            tests/quality-gates/check-coverage.sh \
+              test-results/coverage-report/Summary.json 80 70 || \
+              echo "::warning::Coverage below threshold — review coverage report"
+          else
+            echo "::warning::Coverage report not found — skipping threshold check"
+          fi
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: unit-test-results
+          path: |
+            ./test-results/*.trx
+            ./test-results/coverage-report/
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Job 2 — Integration tests with Testcontainers (parallel with unit)
+  # ───────────────────────────────────────────────────────────────────────────
+  integration-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Restore
+        run: dotnet restore src/GSDT.slnx
+
+      - name: Build
+        run: dotnet build src/GSDT.slnx --no-restore -c Release
+
+      - name: Test (Integration — Testcontainers)
+        run: |
+          dotnet test src/GSDT.slnx \
+            --no-build -c Release \
+            --filter "FullyQualifiedName~Integration|Category=Resilience|Category=Installation" \
+            --logger "trx;LogFileName=integration-results.trx" \
+            --results-directory ./test-results
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: integration-test-results
+          path: ./test-results/*.trx
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Job 3 — Quality gates: SCA, secrets, SAST, migration safety (parallel)
+  # ───────────────────────────────────────────────────────────────────────────
+  quality-gates:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Cache NuGet packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.nuget/packages
+          key: nuget-${{ runner.os }}-${{ hashFiles('**/Directory.Packages.props', '**/*.csproj') }}
+          restore-keys: nuget-${{ runner.os }}-
+
+      - name: Restore
+        run: dotnet restore src/GSDT.slnx
+
+      - name: SCA — vulnerable package check
+        env:
+          SECURITY_SCAN_ENFORCE: ${{ vars.SECURITY_SCAN_ENFORCE || 'false' }}
+        run: |
+          mkdir -p reports
+          dotnet list src/GSDT.slnx package \
+            --vulnerable --include-transitive \
+            > reports/vulnerable-packages.txt 2>&1 || true
+          if [ "$SECURITY_SCAN_ENFORCE" = "true" ]; then
+            if grep -qiE '(High|Critical)' reports/vulnerable-packages.txt; then
+              echo "::error::HIGH/CRITICAL vulnerabilities found"
+              cat reports/vulnerable-packages.txt
+              exit 1
+            fi
+          fi
+
+      - name: Secret scan (gitleaks pattern)
+        run: |
+          if grep -rn \
+            -e 'password\s*=\s*"[^"]\{8,\}"' \
+            -e 'secret\s*=\s*"[^"]\{8,\}"' \
+            -e 'apikey\s*=\s*"[^"]\{8,\}"' \
+            --include="*.cs" --include="*.ts" --include="*.json" \
+            --exclude-dir=".git" --exclude-dir="bin" --exclude-dir="obj" \
+            --exclude-dir="node_modules" --exclude-dir="test-results" \
+            --exclude="*appsettings*.json" \
+            . 2>/dev/null; then
+            echo "::warning::Potential hardcoded secret found — review above matches"
+          else
+            echo "Secret scan passed."
+          fi
+
+      - name: DevSecOps — destructive migration gate
+        run: |
+          chmod +x infra/scripts/check-destructive-migrations.sh
+          bash infra/scripts/check-destructive-migrations.sh
+        env:
+          BLOCK_DESTRUCTIVE: ${{ vars.BLOCK_DESTRUCTIVE_MIGRATIONS || 'false' }}
+
+      - name: DevSecOps — Semgrep custom rules
+        run: |
+          if command -v semgrep &>/dev/null; then
+            semgrep --config .semgrep/gsdt-rules.yml src/ \
+              --sarif --output reports/semgrep-results.sarif \
+              --error || echo "::warning::Semgrep findings — review reports/semgrep-results.sarif"
+          else
+            pip install semgrep --quiet 2>/dev/null || true
+            if command -v semgrep &>/dev/null; then
+              semgrep --config .semgrep/gsdt-rules.yml src/ \
+                --sarif --output reports/semgrep-results.sarif \
+                --error || echo "::warning::Semgrep findings — review reports/semgrep-results.sarif"
+            else
+              echo "::warning::Semgrep not available — skipping custom SAST rules"
+            fi
+          fi
+
+      - name: Upload reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: quality-reports
+          path: reports/
+
+      - name: Upload Semgrep SARIF
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semgrep-results
+          path: reports/semgrep-results.sarif
+        continue-on-error: true
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Job 4 — Frontend: type check, unit tests, production build (parallel)
+  # ───────────────────────────────────────────────────────────────────────────
+  frontend:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: web
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npx tsc --noEmit
+
+      - name: Unit tests
+        run: npx vitest run --reporter=json --outputFile=test-results/vitest.json
+
+      - name: Build (production)
+        run: npm run build
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-test-results
+          path: web/test-results/
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # E2E tests (push to main only, after all tests pass)
+  # ───────────────────────────────────────────────────────────────────────────
+  e2e:
+    needs: [unit-tests, integration-tests, frontend]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: false # Disabled until Docker infra fixed (issue #21)
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start backend services
+        working-directory: infra/docker
+        run: docker compose up -d --wait --timeout 60
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
+      - name: Install dependencies
+        working-directory: web
+        run: npm ci
+
+      - name: Install Playwright browsers
+        working-directory: web
+        run: npx playwright install chromium --with-deps
+
+      - name: Run E2E tests
+        working-directory: web
+        run: npx playwright test --reporter=html
+
+      - name: Upload E2E results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: e2e-results
+          path: web/playwright-report/
+
+      - name: Stop services
+        if: always()
+        working-directory: infra/docker
+        run: docker compose down
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Docker build + sign + SBOM (push to main only)
+  # ───────────────────────────────────────────────────────────────────────────
+  docker-build:
+    needs: [unit-tests, integration-tests, frontend]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: false # Disabled until Docker infra fixed (issue #21)
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+      attestations: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET (for SBOM)
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        id: docker-push
+        run: |
+          IMAGE=ghcr.io/${{ github.repository }}:${{ github.sha }}
+          docker build -f src/host/GSDT.Api/Dockerfile -t $IMAGE .
+          docker push $IMAGE
+          DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' $IMAGE | cut -d@ -f2)
+          echo "digest=$DIGEST" >> "$GITHUB_OUTPUT"
+
+      - name: Generate SBOM (CycloneDX)
+        run: |
+          dotnet tool install --global CycloneDX
+          mkdir -p sbom
+          dotnet CycloneDX src/GSDT.slnx --json --out sbom/
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom/
+
+      - name: Install cosign
+        uses: sigstore/cosign-installer@v3
+
+      - name: Sign container image (keyless)
+        run: |
+          IMAGE=ghcr.io/${{ github.repository }}:${{ github.sha }}
+          cosign sign --yes $IMAGE
+
+      - name: Attach SBOM attestation
+        run: |
+          IMAGE=ghcr.io/${{ github.repository }}:${{ github.sha }}
+          cosign attest --yes --type cyclonedx \
+            --predicate sbom/bom.json \
+            $IMAGE
+
+      - name: Build provenance attestation
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-name: ghcr.io/${{ github.repository }}
+          subject-digest: ${{ steps.docker-push.outputs.digest }}
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Docker integration tests — catches CORS, scope, proxy issues
+  # ───────────────────────────────────────────────────────────────────────────
+  docker-integration:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: [unit-tests, integration-tests]
+    if: false # Disabled until Docker infra fixed (issue #21)
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start Docker services
+        working-directory: infra/docker
+        run: docker compose up -d --build --wait --wait-timeout 120
+
+      - name: Wait for services to be healthy
+        run: |
+          echo "Waiting for services..."
+          sleep 15
+          docker ps --format "table {{.Names}}\t{{.Status}}"
+
+      - name: Run smoke tests
+        run: bash infra/docker/smoke-test.sh
+
+      - name: Setup Node.js for Playwright
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install Playwright
+        working-directory: web
+        run: |
+          npm ci
+          npx playwright install chromium --with-deps
+
+      - name: Run Docker integration E2E
+        working-directory: web
+        env:
+          DOCKER_RUNNING: 'true'
+        run: npx playwright test e2e/docker-integration.spec.ts --reporter=list
+
+      - name: Tear down Docker
+        if: always()
+        working-directory: infra/docker
+        run: docker compose down -v
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Performance smoke test (k6, push to main only)
+  # ───────────────────────────────────────────────────────────────────────────
+  perf-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: docker-integration
+    if: false # Disabled until Docker infra fixed (issue #21)
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Start Docker services
+        working-directory: infra/docker
+        run: docker compose up -d --wait --timeout 60
+
+      - name: Run k6 smoke test (if k6 available)
+        run: |
+          if command -v k6 &> /dev/null; then
+            k6 run tests/performance/smoke-test.js \
+              --env API_URL=http://localhost:5001 \
+              --out json=test-results/k6-smoke.json
+          else
+            echo "k6 not installed — installing via snap..."
+            sudo snap install k6 2>/dev/null || \
+            (curl -s https://dl.k6.io/key.gpg | sudo gpg --dearmor -o /usr/share/keyrings/k6.gpg && \
+             echo "deb [signed-by=/usr/share/keyrings/k6.gpg] https://dl.k6.io/deb stable main" | sudo tee /etc/apt/sources.list.d/k6.list && \
+             sudo apt-get update -qq && sudo apt-get install -y k6) || \
+            echo "::warning::k6 unavailable — skipping performance smoke test"
+            if command -v k6 &> /dev/null && [ -f tests/performance/smoke-test.js ]; then
+              k6 run tests/performance/smoke-test.js \
+                --env API_URL=http://localhost:5001 \
+                --out json=test-results/k6-smoke.json
+            fi
+          fi
+
+      - name: Upload k6 results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: k6-smoke-results
+          path: test-results/k6-smoke.json
+        continue-on-error: true
+
+      - name: Tear down Docker
+        if: always()
+        working-directory: infra/docker
+        run: docker compose down -v
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # Release approval gate (release branches only)
+  # ───────────────────────────────────────────────────────────────────────────
+  release-approval:
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests, frontend, quality-gates]
+    if: startsWith(github.ref, 'refs/heads/release/')
+    environment:
+      name: release-approval
+    timeout-minutes: 60
+
+    steps:
+      - name: Release gate passed
+        run: |
+          echo "All quality gates passed. Release approved by: ${{ github.actor }}"
+          echo "Branch: ${{ github.ref }}"
+          echo "SHA: ${{ github.sha }}"
+          echo "Timestamp: $(date -u +%Y-%m-%dT%H:%M:%SZ)"

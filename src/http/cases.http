@@ -1,0 +1,115 @@
+### ==== CASES API ====
+# Docs: http://localhost:5000/scalar/v1
+# Base routes:
+#   /api/v1/cases        — authenticated case CRUD + workflow transitions
+#   /public/cases        — anonymous citizen tracking (no auth required)
+#
+# Case lifecycle: Draft → Submitted → UnderReview → Approved/Rejected → Closed
+
+# ── Authenticated Case Endpoints ─────────────────────────────────────────────
+
+### List cases for a tenant (required: tenantId)
+GET {{baseUrl}}/api/v1/cases?tenantId={{tenantId}}&page=1&pageSize=20
+Authorization: Bearer {{token}}
+
+###
+
+### List cases with filters (status, type, priority, date range)
+GET {{baseUrl}}/api/v1/cases?tenantId={{tenantId}}&status=Submitted&priority=High&page=1&pageSize=20
+Authorization: Bearer {{token}}
+
+###
+
+### Get case detail by ID
+GET {{baseUrl}}/api/v1/cases/00000000-0000-0000-0000-000000000001?tenantId={{tenantId}}
+Authorization: Bearer {{token}}
+
+###
+
+### Create case (starts in Draft status)
+# CaseType enum: LandDispute, EnvironmentalComplaint, BusinessLicense, Other
+# CasePriority enum: Low, Normal, High, Critical
+POST {{baseUrl}}/api/v1/cases
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "tenantId": "00000000-0000-0000-0000-000000000001",
+  "title": "Land boundary dispute - Plot 123",
+  "description": "Applicant disputes the boundary of Plot 123 with neighbouring Plot 124.",
+  "type": "LandDispute",
+  "priority": "Normal"
+}
+
+###
+
+### Submit draft case for review
+POST {{baseUrl}}/api/v1/cases/00000000-0000-0000-0000-000000000001/submit?tenantId={{tenantId}}
+Authorization: Bearer {{token}}
+
+###
+
+### Assign case to a reviewer (Admin/SystemAdmin only)
+POST {{baseUrl}}/api/v1/cases/00000000-0000-0000-0000-000000000001/assign
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "tenantId": "00000000-0000-0000-0000-000000000001",
+  "assigneeId": "00000000-0000-0000-0000-000000000002",
+  "department": "Land Management Department"
+}
+
+###
+
+### Approve case (GovOfficer/Admin/SystemAdmin)
+POST {{baseUrl}}/api/v1/cases/00000000-0000-0000-0000-000000000001/approve
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "tenantId": "00000000-0000-0000-0000-000000000001",
+  "reason": "Documents verified. Boundary re-survey confirms applicant's claim."
+}
+
+###
+
+### Reject case (GovOfficer/Admin/SystemAdmin)
+POST {{baseUrl}}/api/v1/cases/00000000-0000-0000-0000-000000000001/reject
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "tenantId": "00000000-0000-0000-0000-000000000001",
+  "reason": "Insufficient documentation. Missing cadastral map from 2020."
+}
+
+###
+
+### Close case (Admin/SystemAdmin — after Approved or Rejected)
+POST {{baseUrl}}/api/v1/cases/00000000-0000-0000-0000-000000000001/close?tenantId={{tenantId}}
+Authorization: Bearer {{token}}
+
+###
+
+### Add comment to a case
+POST {{baseUrl}}/api/v1/cases/00000000-0000-0000-0000-000000000001/comments
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "tenantId": "00000000-0000-0000-0000-000000000001",
+  "content": "Additional supporting documents received on 2026-03-14."
+}
+
+# ── Public / Anonymous Endpoints ─────────────────────────────────────────────
+
+###
+
+### Get case public status by tracking code (citizen self-service, no auth)
+GET {{baseUrl}}/public/cases/ABC12345/status
+
+###
+
+### Get QR code PNG for case tracking (returns image/png)
+GET {{baseUrl}}/public/cases/ABC12345/qr

@@ -1,0 +1,98 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+/.next/
+/out/
+dist/
+bin/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# .NET build artifacts
+**/bin/
+**/obj/
+*.user
+.vs/
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# package manager (keep package-lock.json for reproducible CI builds)
+yarn.lock
+pnpm-lock.yaml
+
+# semantic-release
+.nyc_output
+
+# env files (can opt-in for committing if needed)
+.env*
+!.env.example
+
+# Local appsettings overrides — developer-specific secrets, never commit
+appsettings.*.local.json
+appsettings.local.json
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# flutter
+.dart_tool
+build
+GoogleService-Info.plist
+
+repomix-output.xml
+.serena/cache
+plans/**/*
+!plans/templates/*
+screenshots/*
+docs/screenshots/*
+logs.txt
+test-ck
+__pycache__
+
+# CK meta commands
+prompt.md
+ck.md
+
+# Claude Code / ClaudeKit — user-level config, not repo-level
+.claude/
+.opencode/
+
+# Gemini CLI settings
+.gemini/settings.json
+# External repos for study/reference
+external/
+
+# Git worktrees (local development only)
+worktrees/
+
+# Frontend (web/) build artifacts
+web/node_modules/
+web/dist/
+web/.vite/
+web/coverage/
