@@ -6,7 +6,6 @@ import { RouteLoadingSpinner } from '@/shared/components/route-loading-spinner';
 import { GOV_COLORS, LAYOUT } from '@/app/theme';
 import { useThemeMode } from '@/core/theme/use-theme-mode';
 import { usePermissions } from '@/features/auth';
-import { CopilotProvider, CopilotSidebar, CopilotToggleButton } from '@/features/copilot';
 import { useLayoutMode } from '@/core/hooks/use-layout-mode';
 import { SidebarMenu } from './sidebar-menu';
 import { MobileNavDrawer } from './mobile-nav-drawer';
@@ -44,7 +43,6 @@ export function AppLayout() {
   const siderWidth = siderCollapsed ? LAYOUT.siderCollapsedWidth : LAYOUT.siderWidth;
 
   return (
-    <CopilotProvider>
     <div style={{ minHeight: '100vh' }}>
       {/* Skip navigation — WCAG 2.4.1 */}
       <a
@@ -212,9 +210,6 @@ export function AppLayout() {
         popupSubMenus={popupSubMenus}
         onPopupSubMenusChange={setPopupSubMenus}
       />
-      <CopilotSidebar />
-      <CopilotToggleButton />
     </div>
-    </CopilotProvider>
   );
 }

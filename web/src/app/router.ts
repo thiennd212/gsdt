@@ -18,40 +18,20 @@ import { adminDelegationsRoute } from '@/routes/admin-delegations-page';
 import { adminAccessReviewsRoute } from '@/routes/admin-access-reviews-page';
 import { adminSessionsRoute } from '@/routes/admin-sessions-page';
 import { adminBackupRoute } from '@/routes/admin-backup-page';
-import { adminWorkflowRoute } from '@/routes/admin-workflow-page';
-import { adminWorkflowDetailRoute } from '@/routes/admin-workflow-detail-page';
-import { adminWorkflowAssignmentsRoute } from '@/routes/admin-workflow-assignments-page';
-import { adminWorkflowInstancesRoute } from '@/routes/admin-workflow-instances-page';
-import { adminWorkflowInstanceDetailRoute } from '@/routes/admin-workflow-instance-detail-page';
 import { adminNotificationTemplatesRoute } from '@/routes/admin-notification-templates-page';
-import { casesRoute } from '@/routes/cases-list-page';
-import { caseDetailRoute } from '@/routes/case-detail-page';
-import { workflowInboxRoute } from '@/routes/workflow-inbox-page';
 import { dashboardRoute } from '@/routes/dashboard-page';
-import { reportDefinitionsRoute } from '@/routes/report-definitions-page';
-import { reportExecutionsRoute } from '@/routes/report-executions-page';
-import { formsRoute } from '@/routes/forms-list-page';
-import { formDetailRoute } from '@/routes/form-detail-page';
 import { filesRoute } from '@/routes/files-list-page';
 import { notificationsRoute } from '@/routes/notifications-list-page';
-import { aiSearchRoute } from '@/routes/ai-search-page';
 import { profileRoute } from '@/routes/profile-page';
 import { rolesRoute } from '@/routes/roles-page';
 import { notFoundRoute } from '@/routes/not-found-page';
-import { adminRulesRoute } from '@/routes/admin-rules-page';
-import { adminRulesDetailRoute } from '@/routes/admin-rules-detail-page';
 import { adminTemplatesRoute } from '@/routes/admin-templates-page';
 import { adminJobsRoute } from '@/routes/admin-jobs-page';
 import { adminAiRoute } from '@/routes/admin-ai-page';
 import { adminMenusRoute } from '@/routes/admin-menus-page';
-import { searchRoute } from '@/routes/search-page';
-import { copilotRoute } from '@/routes/copilot-page';
-import { chatRoute } from '@/routes/chat-page';
-import { signaturesRoute } from '@/routes/signatures-page';
 import { integrationPartnersRoute } from '@/routes/integration-partners-page';
 import { integrationContractsRoute } from '@/routes/integration-contracts-page';
 import { integrationMessageLogsRoute } from '@/routes/integration-message-logs-page';
-import { publicFormRoute } from '@/routes/public-form-page';
 import { consentRoute } from '@/routes/consent-page';
 import { adminRtbfRoute } from '@/routes/admin-rtbf-page';
 import { adminCredentialPoliciesRoute } from '@/routes/admin-credential-policies-page';
@@ -78,26 +58,13 @@ import { odaProjectEditRoute } from '@/routes/oda-projects-edit-page';
 const routeTree = rootRoute.addChildren([
   loginRoute,
   callbackRoute,
-  publicFormRoute,
   authenticatedRoute.addChildren([
     dashboardRoute,
     rolesRoute,
     auditLogsRoute,
-    casesRoute,
-    caseDetailRoute,
-    workflowInboxRoute,
-    reportDefinitionsRoute,
-    reportExecutionsRoute,
-    formsRoute,
-    formDetailRoute,
     filesRoute,
     notificationsRoute,
-    aiSearchRoute,
     profileRoute,
-    searchRoute,
-    copilotRoute,
-    chatRoute,
-    signaturesRoute,
     integrationPartnersRoute,
     integrationContractsRoute,
     integrationMessageLogsRoute,
@@ -125,14 +92,7 @@ const routeTree = rootRoute.addChildren([
       adminAccessReviewsRoute,
       adminSessionsRoute,
       adminHealthRoute,
-      adminWorkflowRoute,
-      adminWorkflowDetailRoute,
-      adminWorkflowAssignmentsRoute,
-      adminWorkflowInstancesRoute,
-      adminWorkflowInstanceDetailRoute,
       adminNotificationTemplatesRoute,
-      adminRulesRoute,
-      adminRulesDetailRoute,
       adminTemplatesRoute,
       adminJobsRoute,
       adminAiRoute,

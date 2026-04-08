@@ -13,8 +13,6 @@ import {
   CloudUploadOutlined,
   SwapOutlined,
   DesktopOutlined,
-  NodeIndexOutlined,
-  EditOutlined,
   FileProtectOutlined,
   ScheduleOutlined,
   ExperimentOutlined,
@@ -26,7 +24,6 @@ import {
   StopOutlined,
   DeleteOutlined,
   LockOutlined,
-  SafetyOutlined,
   DashboardOutlined,
 } from '@ant-design/icons';
 import React from 'react';
@@ -69,8 +66,6 @@ export const IDENTITY_PATHS = [
 
 // Paths belonging to Content & Workflow category
 export const CONTENT_PATHS = [
-  '/admin/workflow',
-  '/admin/rules',
   '/admin/templates',
   '/admin/notification-templates',
   '/admin/menus',
@@ -128,8 +123,6 @@ export function getAdminMenuChildren(t: (key: string) => string): (MenuItem | Me
     {
       key: 'admin-content', label: t('nav.adminContent'), type: 'group' as const,
       children: [
-        { key: '/admin/workflow', label: t('nav.workflow'), icon: React.createElement(NodeIndexOutlined) },
-        { key: '/admin/rules', label: t('nav.rules'), icon: React.createElement(EditOutlined) },
         { key: '/admin/templates', label: t('nav.templates'), icon: React.createElement(FileProtectOutlined) },
         { key: '/admin/notification-templates', label: t('nav.notificationTemplates'), icon: React.createElement(BellOutlined) },
         { key: '/admin/menus', label: t('nav.menus'), icon: React.createElement(MenuOutlined) },
