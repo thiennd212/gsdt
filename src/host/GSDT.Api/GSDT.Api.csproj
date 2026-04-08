@@ -28,6 +28,7 @@
     <ProjectReference Include="..\..\modules\identity\GSDT.Identity.Presentation\GSDT.Identity.Presentation.csproj" />
     <ProjectReference Include="..\..\modules\masterdata\GSDT.MasterData.Infrastructure\GSDT.MasterData.Infrastructure.csproj" />
     <ProjectReference Include="..\..\modules\masterdata\GSDT.MasterData.Presentation\GSDT.MasterData.Presentation.csproj" />
+    <ProjectReference Include="..\..\modules\masterdata\GSDT.MasterData\GSDT.MasterData.csproj" />
     <ProjectReference Include="..\..\modules\organization\GSDT.Organization.Infrastructure\GSDT.Organization.Infrastructure.csproj" />
     <ProjectReference Include="..\..\modules\organization\GSDT.Organization.Presentation\GSDT.Organization.Presentation.csproj" />
     <ProjectReference Include="..\..\modules\systemparams\GSDT.SystemParams.Infrastructure\GSDT.SystemParams.Infrastructure.csproj" />

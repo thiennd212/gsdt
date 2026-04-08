@@ -1,3 +1,4 @@
+using GSDT.MasterData.Enums;
 
 namespace GSDT.MasterData.Entities;
 
@@ -9,6 +10,8 @@ public class Province : Entity<Guid>
     public string NameEn { get; private set; } = default!;
     public bool IsActive { get; private set; }
     public int SortOrder { get; private set; }
+    public DateTime? EffectiveDate { get; private set; }
+    public AdministrativeStatus Status { get; private set; } = AdministrativeStatus.Active;
 
     private Province() { }
 

@@ -1,5 +1,6 @@
 
 using GSDT.MasterData.Entities.Catalogs;
+using GSDT.MasterData.Enums;
 
 namespace GSDT.MasterData.Persistence;
 
@@ -58,6 +59,10 @@ public class MasterDataDbContext(DbContextOptions<MasterDataDbContext> options, 
     // ── KHLCNT ────────────────────────────────────────────────────────────────
     public DbSet<ContractorSelectionPlan> ContractorSelectionPlans => Set<ContractorSelectionPlan>();
 
+    // ── Phase 2 catalogs ──────────────────────────────────────────────────────
+    public DbSet<GovernmentAgency> GovernmentAgencies => Set<GovernmentAgency>();
+    public DbSet<Investor> Investors => Set<Investor>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
@@ -70,6 +75,8 @@ public class MasterDataDbContext(DbContextOptions<MasterDataDbContext> options, 
             e.Property(x => x.NameVi).HasMaxLength(200).IsRequired();
             e.Property(x => x.NameEn).HasMaxLength(200).IsRequired();
             e.HasIndex(x => x.Code).IsUnique();
+            // Phase 2: lifecycle fields
+            e.Property(x => x.Status).HasDefaultValue(AdministrativeStatus.Active);
         });
 
         modelBuilder.Entity<District>(e =>
@@ -94,6 +101,8 @@ public class MasterDataDbContext(DbContextOptions<MasterDataDbContext> options, 
             e.Property(x => x.NameEn).HasMaxLength(200).IsRequired();
             e.HasIndex(x => x.Code).IsUnique();
             e.HasIndex(x => x.DistrictCode);
+            // Phase 2: lifecycle fields
+            e.Property(x => x.Status).HasDefaultValue(AdministrativeStatus.Active);
         });
 
         modelBuilder.Entity<AdministrativeUnit>(e =>
@@ -132,6 +141,41 @@ public class MasterDataDbContext(DbContextOptions<MasterDataDbContext> options, 
         });
 
         ConfigureDictionaryEntities(modelBuilder);
+
+        // ── Phase 2: GovernmentAgency (hierarchical) ──────────────────────────
+        modelBuilder.Entity<GovernmentAgency>(e =>
+        {
+            e.ToTable("GovernmentAgencies");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.Name).HasMaxLength(500).IsRequired();
+            e.Property(x => x.Code).HasMaxLength(50).IsRequired();
+            e.Property(x => x.AgencyType).HasMaxLength(100);
+            e.Property(x => x.Origin).HasMaxLength(200);
+            e.Property(x => x.LdaServer).HasMaxLength(200);
+            e.Property(x => x.Address).HasMaxLength(500);
+            e.Property(x => x.Phone).HasMaxLength(20);
+            e.Property(x => x.Fax).HasMaxLength(20);
+            e.Property(x => x.Email).HasMaxLength(200);
+            e.Property(x => x.Notes).HasMaxLength(1000);
+            e.HasIndex(x => new { x.Code, x.TenantId }).IsUnique();
+            e.HasIndex(x => x.TenantId);
+            // Self-referencing hierarchy
+            e.HasOne(x => x.Parent).WithMany(x => x.Children)
+                .HasForeignKey(x => x.ParentId).OnDelete(DeleteBehavior.Restrict);
+        });
+
+        // ── Phase 2: Investor (flat) ──────────────────────────────────────────
+        modelBuilder.Entity<Investor>(e =>
+        {
+            e.ToTable("Investors");
+            e.HasKey(x => x.Id);
+            e.Property(x => x.InvestorType).HasMaxLength(100).IsRequired();
+            e.Property(x => x.BusinessIdOrCccd).HasMaxLength(50).IsRequired();
+            e.Property(x => x.NameVi).HasMaxLength(500).IsRequired();
+            e.Property(x => x.NameEn).HasMaxLength(500);
+            e.HasIndex(x => new { x.BusinessIdOrCccd, x.TenantId }).IsUnique();
+            e.HasIndex(x => x.TenantId);
+        });
 
         // ── New GSDT catalog configurations ───────────────────────────────────
         SeedCatalogConfigurations.Configure(modelBuilder);

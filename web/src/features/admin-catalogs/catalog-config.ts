@@ -10,6 +10,7 @@ import {
   SolutionOutlined,
   HomeOutlined,
   ScheduleOutlined,
+  UserOutlined,
 } from '@ant-design/icons';
 import React from 'react';
 
@@ -83,3 +84,17 @@ export const KHLCNT_META: CatalogMeta = {
 
 // All catalog type slugs (for validation)
 export const VALID_CATALOG_TYPES = Object.keys(CATALOG_CONFIG);
+
+// GovernmentAgency metadata (dedicated tree page — not a generic catalog)
+export const GOVERNMENT_AGENCY_META: CatalogMeta = {
+  label: 'Cơ quan quản lý nhà nước',
+  description: 'Danh mục cơ quan quản lý nhà nước (cấu trúc phân cấp)',
+  icon: React.createElement(BankOutlined),
+};
+
+// Investor metadata (dedicated table page — not a generic catalog)
+export const INVESTOR_META: CatalogMeta = {
+  label: 'Nhà đầu tư',
+  description: 'Danh mục nhà đầu tư (doanh nghiệp, cá nhân, tổ chức)',
+  icon: React.createElement(UserOutlined),
+};
