@@ -1,6 +1,6 @@
 # Phase 00 — Prep: data-testid + FE Fixes
 
-**Status:** Pending | **Effort:** 2d | **Tests:** — (enabler phase)
+**Status:** Complete | **Effort:** 2d | **Tests:** — (enabler phase)
 **Red-team:** Addresses F3 (zero data-testid), F4 (filter dropdowns non-functional)
 
 ## Overview

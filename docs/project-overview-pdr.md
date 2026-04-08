@@ -4,13 +4,14 @@
 
 **GSDT** is a production-ready .NET 10 modular monolith + React 19 frontend designed for rapid deployment of Vietnamese government projects. Built with Clean Architecture, CQRS, DDD patterns. Fully compliant with NĐ85/TT12 (security), Law 91/Decree 356 (privacy), NĐ53 (audit), NĐ68 (signatures), NĐ59 (VNeID stub).
 
-**Status:** v2.46 (2026-04-07) — Production Ready + 2,029+ Tests Passing
+**Status:** v2.46 (2026-04-08) — GSDT P1 Complete + 2,029+ Tests Passing
 
-**Current Completion (2026-04-07):**
+**Current Completion (2026-04-08):**
+- **GSDT Phase 1:** 10 phases complete (DTC setup, MasterData, BE domain, CQRS, FE pages, Auth, Testing, Polish) + E2E Playwright infrastructure (8 phases, 120 tests)
 - **8 core backend modules** — Identity, Cases, Files, Notifications, Audit, Integration, MasterData, Organization, SystemParams (+ optional phase modules)
 - **React 19 frontend** — 90+ routes, 46 feature modules, dark mode, i18n (vi/en), admin UI redesign
 - **Backend Tests:** 1,808 unit + 35 test projects (integration, architecture, E2E)
-- **Frontend Tests:** 491 vitest + 140+ Playwright E2E (28 workflow, 30+ CRUD, 28 infrastructure)
+- **Frontend Tests:** 491 vitest + 120 Playwright E2E (28 workflow, 30+ CRUD, 28 infrastructure)
 - **Security audit:** 30/30 findings fixed (100%) — All OWASP Top 10 remediated
 - **Compliance:** QĐ742 (40/40) ✓ PDPL (100%) ✓ — PII encryption, RTBF, consent, RLS enforced
 - **Production ready:** Vault secrets, Docker hardening, Kubernetes Helm charts, health checks, auto-scaling

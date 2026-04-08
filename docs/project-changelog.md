@@ -4,6 +4,17 @@ All notable changes to this project documented. Format: date, version, feature/f
 
 ---
 
+## Documentation Cleanup — GSDT P1 & E2E Completion Tracking (2026-04-08)
+
+**Roadmap synced with completed GSDT Phase 1 (10 phases, all marked Complete). E2E-PW row added. All 120 E2E tests passing.**
+
+- **Roadmap Updates:** GSDT-P1-01 through GSDT-P1-10 (DTC Clone, MasterData, BE Domain, CQRS, FE Domestic, FE ODA, Admin CRUD, Auth, Testing, Buffer/Polish) all marked Complete with 2026-04-07 or 2026-04-08 dates. E2E-PW row added (8 phases, 120 browser tests, 100% completion).
+- **Status Line:** Updated header from "P1 + Frontend" to "P1 + E2E COMPLETE (2026-04-08)" reflecting merged main status.
+- **Remote Branch Cleanup:** Pruned stale GSDT-feature/* and playwright-* branches (cleanups were applied to reduce noise in branch list, improving developer experience).
+- **Impact:** Roadmap now accurately tracks DTC (Domestic Trade Certificate) project completion and E2E test infrastructure as foundation for Phase 16/17 work.
+
+---
+
 ## E2E Playwright Full Coverage Infrastructure (2026-04-05)
 
 **6 PHASES COMPLETE. 28 NEW FILES. POM + FIXTURES + HELPERS + 16 SPEC FILES. ALL ADMIN/USER ROUTES COVERED.**

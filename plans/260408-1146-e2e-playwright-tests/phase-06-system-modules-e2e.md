@@ -1,6 +1,6 @@
 # Phase 06 — System Modules + Remaining Smoke E2E
 
-**Status:** Pending | **Effort:** 1d | **Tests:** 15 | **Depends on:** P01
+**Status:** Complete | **Effort:** 1d | **Tests:** 15 | **Depends on:** P01
 **Red-team:** Addresses F8 (26 uncovered modules — smoke tests added)
 
 ## Functional Tests (10)

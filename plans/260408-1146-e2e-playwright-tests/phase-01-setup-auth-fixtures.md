@@ -1,6 +1,6 @@
 # Phase 01 — Setup & Auth Fixtures
 
-**Status:** Pending | **Effort:** 1.5d | **Tests:** 3
+**Status:** Complete | **Effort:** 1.5d | **Tests:** 3
 **Depends on:** Phase 00
 **Red-team:** Addresses F1 (OIDC/sessionStorage), F2 (storageState gap), F5 (data isolation), F6 (existing PW config), F11 (service deps), F13 (Ant helpers)
 

@@ -1,6 +1,6 @@
 # Phase 05 — Identity & Access E2E
 
-**Status:** Pending | **Effort:** 1d | **Tests:** 12 | **Depends on:** P01
+**Status:** Complete | **Effort:** 1d | **Tests:** 12 | **Depends on:** P01
 
 ## Test Cases
 

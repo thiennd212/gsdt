@@ -1,7 +1,7 @@
 ---
 title: "E2E Playwright Browser Tests — Full Module Coverage"
 description: "Comprehensive E2E test suite using Playwright for all GSDT FE modules"
-status: validated
+status: complete
 priority: P1
 effort: 17-20d
 branch: feature/e2e-playwright-tests
@@ -27,16 +27,16 @@ red-team-date: 2026-04-08
 
 | # | Phase | Status | Effort | Tests |
 |---|-------|--------|--------|-------|
-| 0 | [Prep: data-testid + FE fixes](phase-00-prep-testid-fe-fixes.md) | Pending | 2d | — |
-| 1 | [Setup & Auth Fixtures](phase-01-setup-auth-fixtures.md) | Pending | 1.5d | 3 |
-| 2 | [Core GSDT — Domestic Projects](phase-02-domestic-projects-e2e.md) | Pending | 2d | 20 |
-| 3 | [Core GSDT — ODA Projects](phase-03-oda-projects-e2e.md) | Pending | 1.5d | 16 |
-| 4 | [Admin Catalogs](phase-04-admin-catalogs-e2e.md) | Pending | 0.5d | 10 |
-| 5 | [Identity & Access](phase-05-identity-access-e2e.md) | Pending | 1d | 12 |
-| 6 | [System Modules + Remaining](phase-06-system-modules-e2e.md) | Pending | 1d | 15 |
-| 7 | [Admin Modules CRUD](phase-08-admin-modules-crud-e2e.md) | Pending | 3d | 30 |
-| 8 | [Cross-Cutting, Smoke, a11y, Perf](phase-07-cross-cutting-smoke-e2e.md) | Pending | 1.5d | 14 |
-| **Total** | | | **17-20d** | **~120 tests** |
+| 0 | [Prep: data-testid + FE fixes](phase-00-prep-testid-fe-fixes.md) | Complete | 2d | — |
+| 1 | [Setup & Auth Fixtures](phase-01-setup-auth-fixtures.md) | Complete | 1.5d | 3 |
+| 2 | [Core GSDT — Domestic Projects](phase-02-domestic-projects-e2e.md) | Complete | 2d | 20 |
+| 3 | [Core GSDT — ODA Projects](phase-03-oda-projects-e2e.md) | Complete | 1.5d | 16 |
+| 4 | [Admin Catalogs](phase-04-admin-catalogs-e2e.md) | Complete | 0.5d | 10 |
+| 5 | [Identity & Access](phase-05-identity-access-e2e.md) | Complete | 1d | 12 |
+| 6 | [System Modules + Remaining](phase-06-system-modules-e2e.md) | Complete | 1d | 15 |
+| 7 | [Admin Modules CRUD](phase-08-admin-modules-crud-e2e.md) | Complete | 3d | 30 |
+| 8 | [Cross-Cutting, Smoke, a11y, Perf](phase-07-cross-cutting-smoke-e2e.md) | Complete | 1.5d | 14 |
+| **Total** | | **Complete** | **17-20d** | **~120 tests** |
 
 ## Resolved Questions (from red-team)
 

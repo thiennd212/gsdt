@@ -1,6 +1,6 @@
 # Phase 04 — Admin Catalogs E2E
 
-**Status:** Pending | **Effort:** 0.5d | **Tests:** 10 | **Depends on:** P00, P01
+**Status:** Complete | **Effort:** 0.5d | **Tests:** 10 | **Depends on:** P00, P01
 **Red-team:** Addresses F7 (negative tests)
 
 ## Generic Catalogs (4 tests)

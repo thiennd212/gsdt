@@ -1,6 +1,6 @@
 # GSDT Project Roadmap
 
-## Phase Overview — v2.29 BACKLOG BATCH COMPLETE (2026-03-30)
+## Phase Overview — GSDT P1 + E2E COMPLETE (2026-04-08)
 
 | Phase | Module | Status | Completion | Tests | Last Updated |
 |-------|--------|--------|------------|-------|--------------|
@@ -45,12 +45,13 @@
 | **GSDT-P1-02** | DTC MasterData Catalogs (14 seed + 10 dynamic + KHLCNT) | Complete | 100% | — | 2026-04-07 |
 | **GSDT-P1-03** | DTC BE Domain & Infrastructure (24 entities, TPT, DbContext) | Complete | 100% | — | 2026-04-07 |
 | **GSDT-P1-04** | DTC BE CQRS Commands & Queries (23 handlers, 2 controllers, Dapper queries) | Complete | 100% | — | 2026-04-07 |
-| **GSDT-P1-05** | DTC FE Domestic Project | Pending | 0% | — | — |
-| **GSDT-P1-06** | DTC FE ODA Project | Pending | 0% | — | — |
+| **GSDT-P1-05** | DTC FE Domestic Project (4 pages, 6-tab form, shared components) | Complete | 100% | — | 2026-04-07 |
+| **GSDT-P1-06** | DTC FE ODA Project (4 pages, ODA tabs, reuses shared) | Complete | 100% | — | 2026-04-07 |
 | **GSDT-P1-07** | DTC Admin CRUD Catalogs (11 dynamic catalogs UI) | Complete | 100% | Smoke | 2026-04-08 |
 | **GSDT-P1-08** | DTC Auth & Roles (ICurrentUser extended, query scoping, role-based authz) | Complete | 100% | — | 2026-04-07 |
-| **GSDT-P1-09** | DTC Testing | Pending | 0% | — | — |
-| **GSDT-P1-10** | DTC Buffer & Polish | Pending | 0% | — | — |
+| **GSDT-P1-09** | DTC Testing (35 domain unit + 5 arch tests) | Complete | 100% | 40 unit+arch | 2026-04-07 |
+| **GSDT-P1-10** | DTC Buffer & Polish (loading spinner, empty states, breadcrumbs) | Complete | 100% | — | 2026-04-07 |
+| **E2E-PW** | E2E Playwright Tests (8 phases, ~120 browser tests, all GSDT modules) | Complete | 100% | 120 E2E | 2026-04-08 |
 | **Phase 16** | Microservices Extraction (Strangler, RabbitMQ, YARP) | Pending | 0% | — | — |
 | **Phase 17** | V2 Strategic (OPA policy-as-code, Backstage catalog) | Pending | 0% | — | — |
 

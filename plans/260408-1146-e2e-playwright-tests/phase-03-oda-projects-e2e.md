@@ -1,6 +1,6 @@
 # Phase 03 — ODA Projects E2E
 
-**Status:** Pending | **Effort:** 1.5d | **Tests:** 16 | **Depends on:** P00, P01
+**Status:** Complete | **Effort:** 1.5d | **Tests:** 16 | **Depends on:** P00, P01
 **Red-team:** Addresses F7 (negative), F16 (BE-enforced auth)
 
 ## Test Cases

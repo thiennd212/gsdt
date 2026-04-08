@@ -1,6 +1,6 @@
 # Phase 02 — Domestic Projects E2E
 
-**Status:** Pending | **Effort:** 2d | **Tests:** 20 | **Depends on:** P00, P01
+**Status:** Complete | **Effort:** 2d | **Tests:** 20 | **Depends on:** P00, P01
 **Red-team:** Addresses F7 (negative tests), F9 (concurrency), F10 (tab persistence), F16 (BE-enforced auth)
 
 ## Test Cases

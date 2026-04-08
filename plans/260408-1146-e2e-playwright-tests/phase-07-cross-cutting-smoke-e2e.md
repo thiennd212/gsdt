@@ -1,6 +1,6 @@
 # Phase 07 — Cross-Cutting, Smoke, a11y, Performance E2E
 
-**Status:** Pending | **Effort:** 1.5d | **Tests:** 14 | **Depends on:** P01
+**Status:** Complete | **Effort:** 1.5d | **Tests:** 14 | **Depends on:** P01
 **Red-team:** Addresses F14 (a11y), F15 (perf), F17 (i18n ordering)
 
 ## Navigation Smoke (3 tests)
