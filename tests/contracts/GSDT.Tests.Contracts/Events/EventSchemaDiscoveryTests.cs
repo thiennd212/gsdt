@@ -19,12 +19,11 @@ public sealed class EventSchemaDiscoveryTests
     public void AllExternalDomainEvents_MustHaveContractTest()
     {
         // Load domain assemblies that may contain IExternalDomainEvent implementations
+        // NOTE: Cases and Workflow assemblies excluded — modules not yet implemented
         var domainAssemblies = new[]
         {
             typeof(GSDT.Notifications.Domain.Events.NotificationSentEvent).Assembly,
-            typeof(GSDT.Cases.Domain.Events.CaseCreatedEvent).Assembly,
             typeof(GSDT.Files.Domain.Events.FileUploadedEvent).Assembly,
-            typeof(GSDT.Workflow.Domain.Events.SlaBreachedEvent).Assembly,
         };
 
         var eventTypes = domainAssemblies
@@ -61,12 +60,11 @@ public sealed class EventSchemaDiscoveryTests
             typeof(int), typeof(bool), typeof(long),
         };
 
+        // NOTE: Cases and Workflow assemblies excluded — modules not yet implemented
         var domainAssemblies = new[]
         {
             typeof(GSDT.Notifications.Domain.Events.NotificationSentEvent).Assembly,
-            typeof(GSDT.Cases.Domain.Events.CaseCreatedEvent).Assembly,
             typeof(GSDT.Files.Domain.Events.FileUploadedEvent).Assembly,
-            typeof(GSDT.Workflow.Domain.Events.SlaBreachedEvent).Assembly,
         };
 
         var eventTypes = domainAssemblies

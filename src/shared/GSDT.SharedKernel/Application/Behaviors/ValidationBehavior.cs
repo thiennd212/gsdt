@@ -1,5 +1,6 @@
 using FluentResults;
 using FluentValidation;
+using GSDT.SharedKernel.Errors;
 using MediatR;
 
 namespace GSDT.SharedKernel.Application.Behaviors;

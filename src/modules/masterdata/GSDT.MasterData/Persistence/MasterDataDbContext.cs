@@ -1,12 +1,20 @@
 
+using GSDT.MasterData.Entities.Catalogs;
+
 namespace GSDT.MasterData.Persistence;
 
-/// <summary>EF Core DbContext for masterdata schema — Province/District/Ward/CaseType/JobTitle/AdministrativeUnit + Dictionary entities.</summary>
+/// <summary>
+/// EF Core DbContext for masterdata schema.
+/// Covers: Province/District/Ward/AdministrativeUnit/CaseType/JobTitle,
+/// Dictionary/DictionaryItem/ExternalMapping,
+/// 14 seed catalogs, 10 tenant-scoped dynamic catalogs, ContractorSelectionPlan.
+/// </summary>
 public class MasterDataDbContext(DbContextOptions<MasterDataDbContext> options, ITenantContext tenantContext)
     : ModuleDbContext(options, tenantContext)
 {
     protected override string SchemaName => "masterdata";
 
+    // ── Geographic / admin ────────────────────────────────────────────────────
     public DbSet<Province> Provinces => Set<Province>();
     public DbSet<District> Districts => Set<District>();
     public DbSet<Ward> Wards => Set<Ward>();
@@ -14,10 +22,41 @@ public class MasterDataDbContext(DbContextOptions<MasterDataDbContext> options, 
     public DbSet<CaseType> CaseTypes => Set<CaseType>();
     public DbSet<JobTitle> JobTitles => Set<JobTitle>();
 
-    // Dictionary entities
+    // ── Dictionary ────────────────────────────────────────────────────────────
     public DbSet<Dictionary> Dictionaries => Set<Dictionary>();
     public DbSet<DictionaryItem> DictionaryItems => Set<DictionaryItem>();
     public DbSet<ExternalMapping> ExternalMappings => Set<ExternalMapping>();
+
+    // ── Seed catalogs (14) ────────────────────────────────────────────────────
+    public DbSet<IndustrySector> IndustrySectors => Set<IndustrySector>();
+    public DbSet<ProjectGroup> ProjectGroups => Set<ProjectGroup>();
+    public DbSet<DomesticProjectStatus> DomesticProjectStatuses => Set<DomesticProjectStatus>();
+    public DbSet<OdaProjectStatus> OdaProjectStatuses => Set<OdaProjectStatus>();
+    public DbSet<AdjustmentContent> AdjustmentContents => Set<AdjustmentContent>();
+    public DbSet<BidSelectionForm> BidSelectionForms => Set<BidSelectionForm>();
+    public DbSet<BidSelectionMethod> BidSelectionMethods => Set<BidSelectionMethod>();
+    public DbSet<ContractForm> ContractForms => Set<ContractForm>();
+    public DbSet<BidSectorType> BidSectorTypes => Set<BidSectorType>();
+    public DbSet<EvaluationType> EvaluationTypes => Set<EvaluationType>();
+    public DbSet<AuditConclusionType> AuditConclusionTypes => Set<AuditConclusionType>();
+    public DbSet<ViolationType> ViolationTypes => Set<ViolationType>();
+    public DbSet<ViolationAction> ViolationActions => Set<ViolationAction>();
+    public DbSet<OdaProjectType> OdaProjectTypes => Set<OdaProjectType>();
+
+    // ── Dynamic tenant catalogs (10) ──────────────────────────────────────────
+    public DbSet<ManagingAuthority> ManagingAuthorities => Set<ManagingAuthority>();
+    public DbSet<NationalTargetProgram> NationalTargetPrograms => Set<NationalTargetProgram>();
+    public DbSet<ProjectOwner> ProjectOwners => Set<ProjectOwner>();
+    public DbSet<ProjectManagementUnit> ProjectManagementUnits => Set<ProjectManagementUnit>();
+    public DbSet<InvestmentDecisionAuthority> InvestmentDecisionAuthorities => Set<InvestmentDecisionAuthority>();
+    public DbSet<Contractor> Contractors => Set<Contractor>();
+    public DbSet<DocumentType> DocumentTypes => Set<DocumentType>();
+    public DbSet<ProjectImplementationStatus> ProjectImplementationStatuses => Set<ProjectImplementationStatus>();
+    public DbSet<Bank> Banks => Set<Bank>();
+    public DbSet<ManagingAgency> ManagingAgencies => Set<ManagingAgency>();
+
+    // ── KHLCNT ────────────────────────────────────────────────────────────────
+    public DbSet<ContractorSelectionPlan> ContractorSelectionPlans => Set<ContractorSelectionPlan>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -93,6 +132,11 @@ public class MasterDataDbContext(DbContextOptions<MasterDataDbContext> options, 
         });
 
         ConfigureDictionaryEntities(modelBuilder);
+
+        // ── New GSDT catalog configurations ───────────────────────────────────
+        SeedCatalogConfigurations.Configure(modelBuilder);
+        DynamicCatalogConfigurations.Configure(modelBuilder);
+        ContractorSelectionPlanConfiguration.Configure(modelBuilder);
     }
 
     private static void ConfigureDictionaryEntities(ModelBuilder mb)

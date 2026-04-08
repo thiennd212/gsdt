@@ -6,6 +6,7 @@ namespace GSDT.Identity.Application.Commands.ResetPassword;
 public sealed class ResetPasswordCommandHandler(
     UserManager<ApplicationUser> userManager,
     ISender sender,
+    IDomainEventPublisher events) : IRequestHandler<ResetPasswordCommand, Result>
 {
     public async Task<Result> Handle(ResetPasswordCommand cmd, CancellationToken ct)
     {
@@ -24,7 +25,7 @@ public sealed class ResetPasswordCommandHandler(
 
         // Security (F-25): publish event — Notifications module emails the token.
         // Token NEVER returned in API response.
-        await events.PublishAsync(
+        await events.PublishEventsAsync(
             [new PasswordResetRequestedEvent(cmd.UserId, user.Email, user.FullName, token)], ct);
 
         return Result.Ok();

@@ -32,7 +32,7 @@ import type {
   PostApiV1AdminOrgUnitsParams,
   PutApiV1AdminOrgUnitsIdParams,
   UpdateOrgUnitRequest
-} from '../aqtCoreFWApiV1.schemas';
+} from '../gsdtApiV1.schemas';
 
 import { apiClientMutator } from '../../../core/api/api-client';
 

@@ -3,7 +3,6 @@
 // TC-FE-BACK-001: Backup page renders
 // TC-FE-ABAC-001: ABAC rules page renders
 // TC-FE-AR-001: Access reviews page renders
-// TC-FE-AI-001: AI search page renders
 // TC-FE-PROF-001: Profile page renders
 // TC-FE-ROLE-001: Roles page renders
 
@@ -106,11 +105,6 @@ vi.mock('@/features/access-reviews/access-review-api', () => ({
   useRejectAccessReview: () => ({ mutate: vi.fn(), isPending: false }),
 }));
 
-// TC-FE-AI-001: AI search
-vi.mock('@/features/ai/ai-api', () => ({
-  useNlqQuery: () => ({ mutate: vi.fn(), isPending: false }),
-}));
-
 // TC-FE-PROF-001: Profile
 vi.mock('@/features/profile/profile-api', () => ({
   useChangePassword: () => ({ mutateAsync: vi.fn(), isPending: false }),
@@ -126,7 +120,6 @@ import { SessionAdminPage } from '@/features/sessions/session-admin-page';
 import { BackupAdminPage } from '@/features/backup/backup-admin-page';
 import { AbacRulesPage } from '@/features/abac-rules/abac-rules-page';
 import { AccessReviewPage } from '@/features/access-reviews/access-review-page';
-import { AiSearchPage } from '@/features/ai/ai-search-page';
 import { ProfilePage } from '@/features/profile/profile-page';
 import { RolesPage } from '@/features/roles/roles-page';
 
@@ -229,28 +222,6 @@ describe('AccessReviewPage — TC-FE-AR-001', () => {
   it('renders reviews table', () => {
     const { container } = render(<AccessReviewPage />, { wrapper: makeWrapper() });
     expect(container.querySelector('table')).toBeTruthy();
-  });
-});
-
-describe('AiSearchPage — TC-FE-AI-001', () => {
-  it('renders without crashing', () => {
-    const { container } = render(<AiSearchPage />, { wrapper: makeWrapper() });
-    expect(container.firstChild).toBeTruthy();
-  });
-
-  it('renders page title', () => {
-    render(<AiSearchPage />, { wrapper: makeWrapper() });
-    expect(screen.getByText('page.ai.title')).toBeTruthy();
-  });
-
-  it('renders NLQ search input', () => {
-    const { container } = render(<AiSearchPage />, { wrapper: makeWrapper() });
-    expect(container.querySelector('input')).toBeTruthy();
-  });
-
-  it('renders send button', () => {
-    render(<AiSearchPage />, { wrapper: makeWrapper() });
-    expect(screen.getByText('page.ai.btnSend')).toBeTruthy();
   });
 });
 

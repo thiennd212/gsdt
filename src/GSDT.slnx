@@ -4,6 +4,12 @@
     <Project Path="host/GSDT.AuthServer/GSDT.AuthServer.csproj" />
   </Folder>
   <Folder Name="/modules/" />
+  <Folder Name="/modules/investment-projects/">
+    <Project Path="modules/investment-projects/GSDT.InvestmentProjects.Domain/GSDT.InvestmentProjects.Domain.csproj" />
+    <Project Path="modules/investment-projects/GSDT.InvestmentProjects.Application/GSDT.InvestmentProjects.Application.csproj" />
+    <Project Path="modules/investment-projects/GSDT.InvestmentProjects.Infrastructure/GSDT.InvestmentProjects.Infrastructure.csproj" />
+    <Project Path="modules/investment-projects/GSDT.InvestmentProjects.Presentation/GSDT.InvestmentProjects.Presentation.csproj" />
+  </Folder>
   <Folder Name="/modules/integration/">
     <Project Path="modules/integration/GSDT.Integration.Domain/GSDT.Integration.Domain.csproj" />
     <Project Path="modules/integration/GSDT.Integration.Application/GSDT.Integration.Application.csproj" />
@@ -61,12 +67,10 @@
     <Project Path="tests/GSDT.Tests.Integration/GSDT.Tests.Integration.csproj" />
   </Folder>
   <Project Path="../tests/integration/GSDT.Audit.Integration.Tests/GSDT.Audit.Integration.Tests.csproj" />
-  <Project Path="../tests/integration/GSDT.Concurrency.Tests/GSDT.Concurrency.Tests.csproj" />
   <Project Path="../tests/integration/GSDT.Files.Integration.Tests/GSDT.Files.Integration.Tests.csproj" />
   <Project Path="../tests/integration/GSDT.Notifications.Integration.Tests/GSDT.Notifications.Integration.Tests.csproj" />
   <Project Path="../tests/integration/GSDT.Organization.Integration.Tests/GSDT.Organization.Integration.Tests.csproj" />
   <Project Path="../tests/integration/GSDT.Resilience.Tests/GSDT.Resilience.Tests.csproj" />
-  <Project Path="../tests/integration/GSDT.TenantIsolation.Tests/GSDT.TenantIsolation.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.Audit.Application.Tests/GSDT.Audit.Application.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.Identity.Application.Tests/GSDT.Identity.Application.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.Notifications.Application.Tests/GSDT.Notifications.Application.Tests.csproj" />
@@ -80,6 +84,7 @@
   <Project Path="../tests/unit/GSDT.SharedKernel.Tests/GSDT.SharedKernel.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.SystemParams.Tests/GSDT.SystemParams.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.MasterData.Tests/GSDT.MasterData.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.InvestmentProjects.Domain.Tests/GSDT.InvestmentProjects.Domain.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.Identity.Domain.Tests/GSDT.Identity.Domain.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.Identity.Infrastructure.Tests/GSDT.Identity.Infrastructure.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.Audit.Infrastructure.Tests/GSDT.Audit.Infrastructure.Tests.csproj" />

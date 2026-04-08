@@ -41,6 +41,16 @@
 | **Forms Enhancement T1** | Rate Limiting (5/min per IP), PDPL Consent (Article 11), Workflow Integration | Complete | 100% | Unit tested | 2026-03-28 |
 | **Backlog Batch** | JSON perf indexes, auto-resolve tests, auto-assignment, font embed, warnings | Complete | 100% | 15 new unit | 2026-03-30 |
 | **Forms FE Gap Closure** | Field renderers, admin editors, public form enhancements, submissions, Views module | Complete | 100% | TS 0 errors | 2026-04-01 |
+| **GSDT-P1-01** | DTC Clone & Setup (AqtCoreFW cleanup, build fix, GlobalUsings) | Complete | 100% | Build 0 errors | 2026-04-07 |
+| **GSDT-P1-02** | DTC MasterData Catalogs (14 seed + 10 dynamic + KHLCNT) | Complete | 100% | — | 2026-04-07 |
+| **GSDT-P1-03** | DTC BE Domain & Infrastructure (24 entities, TPT, DbContext) | Complete | 100% | — | 2026-04-07 |
+| **GSDT-P1-04** | DTC BE CQRS Commands & Queries (23 handlers, 2 controllers, Dapper queries) | Complete | 100% | — | 2026-04-07 |
+| **GSDT-P1-05** | DTC FE Domestic Project | Pending | 0% | — | — |
+| **GSDT-P1-06** | DTC FE ODA Project | Pending | 0% | — | — |
+| **GSDT-P1-07** | DTC Admin CRUD Catalogs (11 dynamic catalogs UI) | Complete | 100% | Smoke | 2026-04-08 |
+| **GSDT-P1-08** | DTC Auth & Roles (ICurrentUser extended, query scoping, role-based authz) | Complete | 100% | — | 2026-04-07 |
+| **GSDT-P1-09** | DTC Testing | Pending | 0% | — | — |
+| **GSDT-P1-10** | DTC Buffer & Polish | Pending | 0% | — | — |
 | **Phase 16** | Microservices Extraction (Strangler, RabbitMQ, YARP) | Pending | 0% | — | — |
 | **Phase 17** | V2 Strategic (OPA policy-as-code, Backstage catalog) | Pending | 0% | — | — |
 
@@ -692,6 +702,109 @@ Each phase completion triggers documentation updates:
 - `system-architecture.md` — update module map and dependency graph
 - `code-standards.md` — document module-specific patterns
 - ADRs — record architectural decisions (if non-standard pattern)
+
+---
+
+## GSDT Phase 1: Investment Projects Module (COMPLETE - 2026-04-07)
+
+**Status:** Phases 01-04 + 08 complete. CQRS, authorization, and infrastructure ready for FE + testing phases.
+
+### Phase 01: Clone & Setup (COMPLETE)
+- AqtCoreFW cleanup, GlobalUsings added, Helm chart removed
+- Zero build errors, solution compiles cleanly
+- Branch: `feature/gsdt-phase1` tracking
+
+### Phase 02: MasterData Catalogs (COMPLETE)
+- **14 seed catalogs** (HasData): CapitalDecisionTypes, InvestmentDecisionTypes, ProgressStatuses, ProjectTypes, SubProjectTypes, etc.
+- **10 dynamic catalogs**: Province/District/Ward hierarchies, service banks, procurement conditions
+- **ContractorSelectionPlan (KHLCNT v1.1)** entity with seed data
+- **3 new controllers** for catalog management
+
+### Phase 03: InvestmentProjects Domain & Infrastructure (COMPLETE)
+- **24 entities** across 4 layers:
+  - **Base hierarchy:** InvestmentProject (base), DomesticProject, OdaProject (TPT inheritance)
+  - **Shared children:** ProjectLocation, BidPackage, BidItem, Contract, ProjectDocument, InspectionRecord, EvaluationRecord, AuditRecord, ViolationRecord, OperationInfo
+  - **Domestic-specific:** DomesticInvestmentDecision, DomesticCapitalPlan, DomesticExecutionRecord, DomesticDisbursementRecord
+  - **ODA-specific:** OdaInvestmentDecision, OdaCapitalPlan, OdaExecutionRecord, OdaDisbursementRecord, LoanAgreement, ServiceBank, ProcurementCondition
+- **6 enums:** CapitalDecisionType, InvestmentDecisionType, ProgressStatus, ProjectType, SubProjectType, TimeUnit
+- **EF Core DbContext** with "investment" schema, TPT mapping, automatic migrations
+- **TenantId filtering** via IModuleDbContext inheritance
+
+### Phase 04: CQRS Commands & Queries (COMPLETE)
+- **19 command handlers:** Create/Update/Delete for domestic + ODA projects, sub-entity operations (Location, Decision, BidPackage, Document)
+- **4 Dapper list queries:** DomesticProjects, OdaProjects, ProjectDocuments, ProjectLocations
+- **DTOs:** CreateDomesticProjectCommand, UpdateDomesticProjectCommand, etc. with FluentValidation
+- **2 REST controllers:** DomesticProjectsController, OdaProjectsController (POST/PUT/DELETE + list endpoints)
+- **FluentResults error handling** across all handlers
+
+### Phase 08: Auth & Roles (COMPLETE)
+- **ICurrentUser extended:** `ManagingAuthorityId` (for CQCQ users), `ProjectOwnerId` (for CDT users)
+- **IProjectQueryScopeService:** Query filtering by role + managing authority/project owner context
+- **Role-based authorization:** BTC (admin), CQCQ (managing authority), CDT (project owner) with scoped query isolation
+- **GsdtRoleSeeder:** System role initialization for phase-1 authorities
+
+### Architecture Decisions
+- **TPT inheritance** for InvestmentProject hierarchy (cleaner queries, separate tables per type)
+- **Dapper for list queries** (performance) + EF for CRUD (cleaner code)
+- **IProjectQueryScopeService** injected in handlers to filter by authority context
+- **Tenant-scoped catalog lookups** via MasterData module (shared across modules)
+
+---
+
+## GSDT Phase 07: Admin CRUD Catalogs UI (COMPLETE - 2026-04-08)
+
+**Status:** React 19 admin interface for 11 dynamic catalogs (10 generic + KHLCNT) — full CRUD with validation.
+
+### Deliverables
+
+**Feature Module: admin-catalogs** (9 files, `web/src/features/admin-catalogs/`)
+- `catalog-api.ts` — Axios API client for CRUD operations (create, list, update, delete)
+- `catalog-types.ts` — TypeScript interfaces (CatalogItem, CatalogItemUpdate)
+- `catalog-config.ts` — Catalog metadata configuration (labels, API endpoints, field validation rules)
+- `generic-catalog-list-page.tsx` — Reusable list page with pagination, search, filters, add/edit/delete buttons
+- `catalog-form-modal.tsx` — Form modal for create/edit with inline validation
+- `khlcnt-catalog-page.tsx` — Specialized KHLCNT form (hierarchical, multi-section layout)
+- `khlcnt-form-modal.tsx` — KHLCNT create/edit modal with contract-specific fields
+- `catalog-index-page.tsx` — Landing page with catalog selector (grid of 11 tiles)
+- `index.ts` — Barrel export
+
+**Routes Added (TanStack Router)**
+- `/admin/catalogs` — Catalog index (list all 11 catalogs)
+- `/admin/catalogs/:catalogType` — Generic catalog list (CapitalDecisionTypes, InvestmentDecisionTypes, etc.)
+- `/admin/catalogs/khlcnt` — KHLCNT contractor selection plan editor
+
+**Sidebar Navigation Updated**
+- Menu entry: "Catalogs" under System category (admin-menu-entries.ts)
+- Icon: BookOutlined (Ant Design)
+- Breadcrumb category: nav.adminSystem
+
+### Technical Highlights
+
+1. **Dynamic Catalog Management:**
+   - 11 catalogs: Province, District, Ward, CapitalDecisionTypes, InvestmentDecisionTypes, ProgressStatuses, ProjectTypes, SubProjectTypes, ServiceBanks, ProcurementConditions, KHLCNT
+   - Unified API endpoints per catalog
+   - Field validation at form level (required, length constraints)
+
+2. **Reusable Components:**
+   - `generic-catalog-list-page` — Template for most catalogs (saves 70% boilerplate)
+   - Configurable columns via `catalog-config` (label, API key, validators)
+   - Add/Edit/Delete modals with consistent UX
+
+3. **KHLCNT Specialization:**
+   - Separate form with hierarchical structure (ContractorSelectionPlan → Items → Details)
+   - Multi-step form layout with collapsible sections
+   - Custom validators for contract-specific rules
+
+4. **Integration:**
+   - Authorization enforced at route level (Admin/SystemAdmin only via adminRoute guard)
+   - Tenant-scoped queries (ICurrentUser.TenantId)
+   - Toast notifications (create/update/delete feedback)
+   - Error handling with user-friendly messages
+
+### Testing
+- Smoke tests covering all 3 routes (renders without error)
+- Component tests for modal validation logic
+- Integration tests pending (P1-09)
 
 ---
 

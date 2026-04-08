@@ -53,7 +53,10 @@
     "adminContent": "Content & Workflow",
     "adminSystem": "System",
     "adminIntegration": "Integration",
-    "adminOverview": "Admin Overview"
+    "adminOverview": "Admin Overview",
+    "catalogs": "Catalogs (DTC)",
+    "domesticProjects": "Domestic Projects",
+    "odaProjects": "ODA Projects"
   },
   "common": {
     "add": "Add New",

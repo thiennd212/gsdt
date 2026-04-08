@@ -8,12 +8,11 @@ import {
   KeyOutlined,
   BellOutlined,
   HeartOutlined,
+  BookOutlined,
   ApiOutlined,
   CloudUploadOutlined,
   SwapOutlined,
   DesktopOutlined,
-  NodeIndexOutlined,
-  EditOutlined,
   FileProtectOutlined,
   ScheduleOutlined,
   ExperimentOutlined,
@@ -25,7 +24,6 @@ import {
   StopOutlined,
   DeleteOutlined,
   LockOutlined,
-  SafetyOutlined,
   DashboardOutlined,
 } from '@ant-design/icons';
 import React from 'react';
@@ -68,8 +66,6 @@ export const IDENTITY_PATHS = [
 
 // Paths belonging to Content & Workflow category
 export const CONTENT_PATHS = [
-  '/admin/workflow',
-  '/admin/rules',
   '/admin/templates',
   '/admin/notification-templates',
   '/admin/menus',
@@ -79,6 +75,7 @@ export const CONTENT_PATHS = [
 export const SYSTEM_PATHS = [
   '/admin/system-params',
   '/admin/master-data',
+  '/admin/catalogs',
   '/admin/organization',
   '/admin/jobs',
   '/admin/health',
@@ -126,8 +123,6 @@ export function getAdminMenuChildren(t: (key: string) => string): (MenuItem | Me
     {
       key: 'admin-content', label: t('nav.adminContent'), type: 'group' as const,
       children: [
-        { key: '/admin/workflow', label: t('nav.workflow'), icon: React.createElement(NodeIndexOutlined) },
-        { key: '/admin/rules', label: t('nav.rules'), icon: React.createElement(EditOutlined) },
         { key: '/admin/templates', label: t('nav.templates'), icon: React.createElement(FileProtectOutlined) },
         { key: '/admin/notification-templates', label: t('nav.notificationTemplates'), icon: React.createElement(BellOutlined) },
         { key: '/admin/menus', label: t('nav.menus'), icon: React.createElement(MenuOutlined) },
@@ -138,6 +133,7 @@ export function getAdminMenuChildren(t: (key: string) => string): (MenuItem | Me
       children: [
         { key: '/admin/system-params', label: t('nav.systemParams'), icon: React.createElement(SettingOutlined) },
         { key: '/admin/master-data', label: t('nav.masterData'), icon: React.createElement(DatabaseOutlined) },
+        { key: '/admin/catalogs', label: t('nav.catalogs'), icon: React.createElement(BookOutlined) },
         { key: '/admin/organization', label: t('nav.organization'), icon: React.createElement(ApartmentOutlined) },
         { key: '/admin/jobs', label: t('nav.jobs'), icon: React.createElement(ScheduleOutlined) },
         { key: '/admin/health', label: t('nav.healthCheck'), icon: React.createElement(HeartOutlined) },

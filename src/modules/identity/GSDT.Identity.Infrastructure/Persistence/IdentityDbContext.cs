@@ -1,3 +1,6 @@
+// Explicit file-level using: brings IdentityDbContext<T,T,T> into scope without polluting global usings
+// (adding it globally would create CS0104 ambiguity with the project's own IdentityDbContext class).
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace GSDT.Identity.Infrastructure.Persistence;
 

@@ -1,3 +1,4 @@
+using GSDT.SharedKernel.Domain;
 
 namespace GSDT.SharedKernel.AI;
 

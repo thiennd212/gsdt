@@ -53,7 +53,10 @@
     "adminContent": "Nội dung & Quy trình",
     "adminSystem": "Hệ thống",
     "adminIntegration": "Tích hợp",
-    "adminOverview": "Bảng điều khiển"
+    "adminOverview": "Bảng điều khiển",
+    "catalogs": "Danh mục DTC",
+    "domesticProjects": "DA trong nước",
+    "odaProjects": "DA ODA"
   },
   "common": {
     "add": "Thêm mới",

@@ -23,7 +23,7 @@ import type {
   GetApiV1MasterdataAdminUnitsParams,
   GetApiV1MasterdataCaseTypesParams,
   GetApiV1MasterdataJobTitlesParams
-} from '../aqtCoreFWApiV1.schemas';
+} from '../gsdtApiV1.schemas';
 
 import { apiClientMutator } from '../../../core/api/api-client';
 

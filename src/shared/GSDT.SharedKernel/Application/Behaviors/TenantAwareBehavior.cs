@@ -1,4 +1,6 @@
 using FluentResults;
+using GSDT.SharedKernel.Domain;
+using GSDT.SharedKernel.Errors;
 using MediatR;
 
 namespace GSDT.SharedKernel.Application.Behaviors;

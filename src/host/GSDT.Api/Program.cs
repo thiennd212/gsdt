@@ -52,22 +52,15 @@ builder.Services.AddControllers()
     .AddApplicationPart(
         typeof(GSDT.Identity.Presentation.Controllers.UsersAdminController).Assembly)
     .AddApplicationPart(
-    .AddApplicationPart(
-    .AddApplicationPart(
-    .AddApplicationPart(
         typeof(GSDT.MasterData.Presentation.Controllers.MasterDataController).Assembly)
     .AddApplicationPart(
         typeof(GSDT.SystemParams.Presentation.Controllers.SystemParamsController).Assembly)
     .AddApplicationPart(
         typeof(GSDT.Organization.Presentation.Controllers.OrgUnitsController).Assembly)
     .AddApplicationPart(
-    .AddApplicationPart(
         typeof(GSDT.Files.Presentation.Controllers.FilesController).Assembly)
     .AddApplicationPart(
-    .AddApplicationPart(
-    .AddApplicationPart(
-    .AddApplicationPart(
-    .AddApplicationPart(
+        typeof(GSDT.InvestmentProjects.Presentation.Controllers.DomesticProjectsController).Assembly);
 
 // === Gateway (YARP + API Versioning + OpenAPI/Scalar) ===
 builder.Services.AddGateway(builder.Configuration);
@@ -132,36 +125,23 @@ builder.Services
     .AddAuditModule(builder.Configuration)
     .AddAuditInfrastructure(builder.Configuration);
 
-builder.Services
-
-builder.Services
-
-
 builder.Services.AddMasterData(builder.Configuration);
 builder.Services.AddSystemParams(builder.Configuration);
 builder.Services.AddOrganizationModule(builder.Configuration);
 
 // === E2E test data seeder (Development only) ===
 if (builder.Environment.IsDevelopment())
+{
     builder.Services.AddHostedService<GSDT.Api.E2ETestDataSeeder>();
-
-// === AI module ===
-builder.Services
+    // Seeds GSDT roles (BTC, CQCQ, CDT) + test users for development
+    builder.Services.AddHostedService<GSDT.Api.GsdtRoleSeeder>();
+}
 
 builder.Services
     .AddFilesModule(builder.Configuration)
     .AddFilesInfrastructure(builder.Configuration);
 
-builder.Services
-
-// === Phase 2: Critical New Modules ===
-builder.Services
-
-builder.Services
-
-builder.Services
-
-builder.Services
+builder.Services.AddInvestmentProjects(builder.Configuration);
 
 builder.Services
     .AddIntegrationModule()
@@ -234,6 +214,7 @@ var app = builder.Build();
     await sp.GetRequiredService<BackupDbContext>().Database.MigrateAsync();
     await sp.GetRequiredService<AlertingDbContext>().Database.MigrateAsync();
     await sp.GetRequiredService<IntegrationDbContext>().Database.MigrateAsync();
+    await sp.GetRequiredService<InvestmentProjectsDbContext>().Database.MigrateAsync();
 
     // === Connection pool warming (p95 optimization) ===
     // Opens+returns connections so first real request doesn't pay cold-start penalty
@@ -260,24 +241,6 @@ var app = builder.Build();
     // Reporting: nightly report file cleanup (E-06)
 
     // Workflow: SLA breach checker — every 5 minutes
-    RecurringJob.AddOrUpdate<SlaBreachCheckerJob>(
-        "workflow-sla-breach-checker",
-        job => job.ExecuteAsync(CancellationToken.None),
-        "*/5 * * * *",
-        new RecurringJobOptions { TimeZone = TimeZoneInfo.Utc });
-
-    // M05: Escalation checker — every 15 minutes
-        "workflow-escalation-checker",
-        job => job.ExecuteAsync(CancellationToken.None),
-        "*/15 * * * *",
-        new RecurringJobOptions { TimeZone = TimeZoneInfo.Utc });
-
-    // Parallel branch timeout checker — every 5 minutes
-        "workflow-branch-timeout-checker",
-        job => job.ExecuteAsync(CancellationToken.None),
-        "*/5 * * * *",
-        new RecurringJobOptions { TimeZone = TimeZoneInfo.Utc });
-
     // M08: Retention policy enforcement — daily at 2 AM UTC
     RecurringJob.AddOrUpdate<GSDT.Files.Infrastructure.Jobs.RetentionPolicyEnforcementJob>(
         "files-retention-policy-enforcement",

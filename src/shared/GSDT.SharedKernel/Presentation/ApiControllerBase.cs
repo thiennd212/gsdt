@@ -1,4 +1,9 @@
 using FluentResults;
+using GSDT.SharedKernel.Api;
+using GSDT.SharedKernel.Domain;
+using GSDT.SharedKernel.Errors;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GSDT.SharedKernel.Presentation;
 

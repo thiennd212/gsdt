@@ -1,5 +1,6 @@
 using FluentResults;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace GSDT.SharedKernel.Application.Behaviors;
 

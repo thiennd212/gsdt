@@ -8,18 +8,14 @@ import {
   AuditOutlined,
   ApiOutlined,
   FileTextOutlined,
-  InboxOutlined,
-  FormOutlined,
   FolderOutlined,
   BellOutlined,
-  RobotOutlined,
   UserOutlined,
-  ThunderboltOutlined,
   MessageOutlined,
-  FileProtectOutlined,
-  SearchOutlined,
   SolutionOutlined,
   TeamOutlined,
+  FundProjectionScreenOutlined,
+  GlobalOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
@@ -35,15 +31,10 @@ import {
 function getMenuEntries(t: (key: string) => string): MenuEntry[] {
   return [
     { key: '/', label: t('nav.dashboard'), icon: <DashboardOutlined /> },
-    { key: '/cases', label: t('nav.cases'), icon: <FileTextOutlined /> },
-    { key: '/inbox', label: t('nav.inbox'), icon: <InboxOutlined /> },
-    { key: '/forms', label: t('nav.forms'), icon: <FormOutlined /> },
+    { key: '/domestic-projects', label: t('nav.domesticProjects'), icon: <FundProjectionScreenOutlined /> },
+    { key: '/oda-projects', label: t('nav.odaProjects'), icon: <GlobalOutlined /> },
     { key: '/files', label: t('nav.files'), icon: <FolderOutlined /> },
     { key: '/notifications', label: t('nav.notifications'), icon: <BellOutlined />, badge: 3 },
-    { key: '/ai/search', label: t('nav.aiSearch'), icon: <RobotOutlined /> },
-    { key: '/copilot', label: t('nav.copilot'), icon: <ThunderboltOutlined />, badge: 'New' },
-    { key: '/chat', label: t('nav.chat'), icon: <MessageOutlined /> },
-    { key: '/signatures', label: t('nav.signatures'), icon: <FileProtectOutlined /> },
     {
       key: 'integration',
       label: t('nav.integration'),
@@ -54,7 +45,6 @@ function getMenuEntries(t: (key: string) => string): MenuEntry[] {
         { key: '/integration/message-logs', label: t('nav.integrationMessageLogs'), icon: <MessageOutlined /> },
       ],
     },
-    { key: '/search', label: t('nav.search'), icon: <SearchOutlined /> },
     { key: '/roles', label: t('nav.roles'), icon: <SafetyCertificateOutlined />, requiredPermission: 'roles.read' },
     { key: '/audit/logs', label: t('nav.audit'), icon: <AuditOutlined />, requiredPermission: 'audit.read' },
     {
@@ -153,12 +143,8 @@ export function SidebarMenu({ permissions, roles = [], onNavigate, popupSubMenus
     ? ['integration']
     : [];
 
-  // Use closest-match for selectedKeys so /cases/123 highlights /cases
+  // Use closest-match for selectedKeys so sub-paths highlight parent item
   const selectedKey =
-    location.pathname.startsWith('/cases/') ? '/cases' :
-    location.pathname.startsWith('/forms/') ? '/forms' :
-    location.pathname.startsWith('/ai/') ? '/ai/search' :
-    location.pathname.startsWith('/admin/rules/') ? '/admin/rules' :
     location.pathname.startsWith('/integration/partners') ? '/integration/partners' :
     location.pathname.startsWith('/integration/contracts') ? '/integration/contracts' :
     location.pathname.startsWith('/integration/message-logs') ? '/integration/message-logs' :

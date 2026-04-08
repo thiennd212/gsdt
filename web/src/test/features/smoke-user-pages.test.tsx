@@ -32,45 +32,11 @@ vi.mock('@/features/auth/use-auth', () => ({
 // Feature-Specific Mocks
 // ──────────────────────────────────────────────────────────────────────────────
 
-// AI Search Page
-vi.mock('@/features/ai/ai-api', () => ({
-  useNlqQuery: () => ({ mutate: vi.fn(), isPending: false }),
-}));
-
-// Case Detail Page
-vi.mock('@/features/cases/case-api', () => ({
-  useCase: () => ({
-    data: {
-      id: 'case-1',
-      caseNumber: 'HS-001',
-      title: 'Test Case',
-      status: 'Draft',
-      priority: 'Medium',
-      createdAt: '2024-01-01T00:00:00Z',
-    },
-    isLoading: false,
-    isFetching: false,
-  }),
-  useCases: () => ({ data: { items: [], totalCount: 0 }, isFetching: false }),
-  useCreateCase: () => ({ mutateAsync: vi.fn(), isPending: false }),
-  useSubmitCase: () => ({ mutateAsync: vi.fn(), isPending: false }),
-  useAssignCase: () => ({ mutateAsync: vi.fn(), isPending: false }),
-  useApproveCase: () => ({ mutateAsync: vi.fn(), isPending: false }),
-  useRejectCase: () => ({ mutateAsync: vi.fn(), isPending: false }),
-  useCloseCase: () => ({ mutateAsync: vi.fn(), isPending: false }),
-  useAddComment: () => ({ mutateAsync: vi.fn(), isPending: false }),
-}));
-
 // Delegation List Page
 vi.mock('@/features/delegations/delegation-api', () => ({
   useDelegations: () => ({ data: [], isLoading: false }),
   useCreateDelegation: () => ({ mutate: vi.fn(), isPending: false }),
   useRevokeDelegation: () => ({ mutate: vi.fn(), isPending: false }),
-}));
-
-// Inbox Page
-vi.mock('@/features/inbox/inbox-api', () => ({
-  useWorkflowInbox: () => ({ data: { items: [] }, isFetching: false }),
 }));
 
 // Master Data Page
@@ -117,26 +83,6 @@ vi.mock('@/features/profile/profile-api', () => ({
   useChangePassword: () => ({ mutateAsync: vi.fn(), isPending: false }),
 }));
 
-// Report Definitions Page
-vi.mock('@/features/reports/report-api', () => ({
-  useReportDefinitions: () => ({ data: [], isLoading: false }),
-  useCreateReportDefinition: () => ({ mutate: vi.fn(), isPending: false }),
-  useReportExecution: () => ({ data: null, isLoading: false }),
-  downloadReport: vi.fn(),
-}));
-
-vi.mock('@/features/reports/report-run-modal', () => ({
-  ReportRunModal: () => null,
-}));
-
-// Report Executions Page
-vi.mock('@/features/cases/case-status-tag', () => ({
-  CaseStatusTag: () => null,
-  CasePriorityTag: () => null,
-}));
-
-// Roles Page — no API calls, static component
-
 // ──────────────────────────────────────────────────────────────────────────────
 // Utility: QueryClient wrapper
 // ──────────────────────────────────────────────────────────────────────────────
@@ -148,53 +94,23 @@ function makeWrapper() {
 }
 
 // ──────────────────────────────────────────────────────────────────────────────
-// Tests
-// ──────────────────────────────────────────────────────────────────────────────
-
-// ──────────────────────────────────────────────────────────────────────────────
 // Import components — these need to wait for mocks to be registered
 // ──────────────────────────────────────────────────────────────────────────────
 
-import { AiSearchPage } from '@/features/ai/ai-search-page';
-import { CaseDetailPage } from '@/features/cases/case-detail-page';
 import { DelegationListPage } from '@/features/delegations/delegation-list-page';
-import { WorkflowInboxPage } from '@/features/inbox/inbox-page';
 import { MasterDataPage } from '@/features/master-data/master-data-page';
 import { NotificationTemplatesAdminPage } from '@/features/notifications/notification-templates-admin-page';
 import { OrgTreePage } from '@/features/organization/org-tree-page';
 import { ProfilePage } from '@/features/profile/profile-page';
-import { ReportDefinitionsPage } from '@/features/reports/report-definitions-page';
-import { ReportExecutionsPage } from '@/features/reports/report-executions-page';
 import { RolesPage } from '@/features/roles/roles-page';
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Tests
 // ──────────────────────────────────────────────────────────────────────────────
 
-describe('AiSearchPage', () => {
-  it('renders without crashing', () => {
-    const { container } = render(<AiSearchPage />, { wrapper: makeWrapper() });
-    expect(container.firstChild).toBeTruthy();
-  });
-});
-
-describe('CaseDetailPage', () => {
-  it('renders without crashing with caseId prop', () => {
-    const { container } = render(<CaseDetailPage caseId="case-1" />, { wrapper: makeWrapper() });
-    expect(container.firstChild).toBeTruthy();
-  });
-});
-
 describe('DelegationListPage', () => {
   it('renders without crashing', () => {
     const { container } = render(<DelegationListPage />, { wrapper: makeWrapper() });
-    expect(container.firstChild).toBeTruthy();
-  });
-});
-
-describe('WorkflowInboxPage', () => {
-  it('renders without crashing', () => {
-    const { container } = render(<WorkflowInboxPage />, { wrapper: makeWrapper() });
     expect(container.firstChild).toBeTruthy();
   });
 });
@@ -223,20 +139,6 @@ describe('OrgTreePage', () => {
 describe('ProfilePage', () => {
   it('renders without crashing', () => {
     const { container } = render(<ProfilePage />, { wrapper: makeWrapper() });
-    expect(container.firstChild).toBeTruthy();
-  });
-});
-
-describe('ReportDefinitionsPage', () => {
-  it('renders without crashing', () => {
-    const { container } = render(<ReportDefinitionsPage />, { wrapper: makeWrapper() });
-    expect(container.firstChild).toBeTruthy();
-  });
-});
-
-describe('ReportExecutionsPage', () => {
-  it('renders without crashing', () => {
-    const { container } = render(<ReportExecutionsPage />, { wrapper: makeWrapper() });
     expect(container.firstChild).toBeTruthy();
   });
 });

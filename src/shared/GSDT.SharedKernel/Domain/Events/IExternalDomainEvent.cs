@@ -5,3 +5,4 @@ namespace GSDT.SharedKernel.Domain.Events;
 /// Use for: cross-module integration (e.g. CaseCreated → Audit, Notifications).
 /// IMPORTANT: Must contain IDs only — NO PII (ArchUnit enforced in Phase 10).
 /// </summary>
+public interface IExternalDomainEvent : IDomainEvent { }

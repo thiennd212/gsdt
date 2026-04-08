@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-check-k6-thresholds.py — AqtCoreFW K6 threshold validator.
+check-k6-thresholds.py — GSDT K6 threshold validator.
 
 Reads a K6 JSON summary output file and validates configured thresholds.
 Exits with code 1 if any threshold is violated (for CI pipeline integration).

@@ -71,7 +71,7 @@ public sealed class BulkImportUsersCommandHandlerTests
         await _sut.Handle(cmd, CancellationToken.None);
 
         // One PublishAsync call per successfully created user
-        await _events.Received(2).PublishAsync(
+        await _events.Received(2).PublishEventsAsync(
             Arg.Any<IReadOnlyList<IDomainEvent>>(),
             Arg.Any<CancellationToken>());
     }

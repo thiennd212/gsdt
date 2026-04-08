@@ -1,3 +1,5 @@
+// Microsoft.OpenApi v2+ moved OpenApiDocument/OpenApiInfo to Microsoft.OpenApi namespace (no .Models sub-namespace)
+using Microsoft.OpenApi;
 
 namespace GSDT.Api.Gateway;
 
