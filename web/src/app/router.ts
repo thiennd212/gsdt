@@ -69,6 +69,10 @@ import { domesticProjectsRoute } from '@/routes/domestic-projects-list-page';
 import { domesticProjectCreateRoute } from '@/routes/domestic-projects-create-page';
 import { domesticProjectDetailRoute } from '@/routes/domestic-projects-detail-page';
 import { domesticProjectEditRoute } from '@/routes/domestic-projects-edit-page';
+import { odaProjectsRoute } from '@/routes/oda-projects-list-page';
+import { odaProjectCreateRoute } from '@/routes/oda-projects-create-page';
+import { odaProjectDetailRoute } from '@/routes/oda-projects-detail-page';
+import { odaProjectEditRoute } from '@/routes/oda-projects-edit-page';
 
 // Route tree — public routes + authenticated subtree + admin guard subtree
 const routeTree = rootRoute.addChildren([
@@ -102,6 +106,10 @@ const routeTree = rootRoute.addChildren([
     domesticProjectCreateRoute,
     domesticProjectEditRoute,
     domesticProjectDetailRoute,
+    odaProjectsRoute,
+    odaProjectCreateRoute,
+    odaProjectEditRoute,
+    odaProjectDetailRoute,
     // Admin routes — nested under adminRoute (enforces Admin/SystemAdmin role)
     adminRoute.addChildren([
       adminDashboardRoute,

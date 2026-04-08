@@ -55,7 +55,8 @@
     "adminIntegration": "Tích hợp",
     "adminOverview": "Bảng điều khiển",
     "catalogs": "Danh mục DTC",
-    "domesticProjects": "DA trong nước"
+    "domesticProjects": "DA trong nước",
+    "odaProjects": "DA ODA"
   },
   "common": {
     "add": "Thêm mới",

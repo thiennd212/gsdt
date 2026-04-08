@@ -21,6 +21,7 @@ import {
   SolutionOutlined,
   TeamOutlined,
   FundProjectionScreenOutlined,
+  GlobalOutlined,
 } from '@ant-design/icons';
 import { useNavigate, useLocation } from '@tanstack/react-router';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +39,7 @@ function getMenuEntries(t: (key: string) => string): MenuEntry[] {
     { key: '/', label: t('nav.dashboard'), icon: <DashboardOutlined /> },
     { key: '/cases', label: t('nav.cases'), icon: <FileTextOutlined /> },
     { key: '/domestic-projects', label: t('nav.domesticProjects'), icon: <FundProjectionScreenOutlined /> },
+    { key: '/oda-projects', label: t('nav.odaProjects'), icon: <GlobalOutlined /> },
     { key: '/inbox', label: t('nav.inbox'), icon: <InboxOutlined /> },
     { key: '/forms', label: t('nav.forms'), icon: <FormOutlined /> },
     { key: '/files', label: t('nav.files'), icon: <FolderOutlined /> },
