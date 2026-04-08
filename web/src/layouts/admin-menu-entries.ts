@@ -8,6 +8,7 @@ import {
   KeyOutlined,
   BellOutlined,
   HeartOutlined,
+  BookOutlined,
   ApiOutlined,
   CloudUploadOutlined,
   SwapOutlined,
@@ -79,6 +80,7 @@ export const CONTENT_PATHS = [
 export const SYSTEM_PATHS = [
   '/admin/system-params',
   '/admin/master-data',
+  '/admin/catalogs',
   '/admin/organization',
   '/admin/jobs',
   '/admin/health',
@@ -138,6 +140,7 @@ export function getAdminMenuChildren(t: (key: string) => string): (MenuItem | Me
       children: [
         { key: '/admin/system-params', label: t('nav.systemParams'), icon: React.createElement(SettingOutlined) },
         { key: '/admin/master-data', label: t('nav.masterData'), icon: React.createElement(DatabaseOutlined) },
+        { key: '/admin/catalogs', label: t('nav.catalogs'), icon: React.createElement(BookOutlined) },
         { key: '/admin/organization', label: t('nav.organization'), icon: React.createElement(ApartmentOutlined) },
         { key: '/admin/jobs', label: t('nav.jobs'), icon: React.createElement(ScheduleOutlined) },
         { key: '/admin/health', label: t('nav.healthCheck'), icon: React.createElement(HeartOutlined) },

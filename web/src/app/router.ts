@@ -62,6 +62,9 @@ import { adminSodRulesRoute } from '@/routes/admin-sod-rules-page';
 import { adminPolicyRulesRoute } from '@/routes/admin-policy-rules-page';
 import { adminJitProviderConfigsRoute } from '@/routes/admin-jit-provider-configs-page';
 import { adminDashboardRoute } from '@/routes/admin-dashboard-route';
+import { adminCatalogsRoute } from '@/routes/admin-catalogs-page';
+import { adminCatalogsKhlcntRoute } from '@/routes/admin-catalogs-khlcnt-page';
+import { adminCatalogTypeRoute } from '@/routes/admin-catalogs-type-page';
 
 // Route tree — public routes + authenticated subtree + admin guard subtree
 const routeTree = rootRoute.addChildren([
@@ -126,6 +129,9 @@ const routeTree = rootRoute.addChildren([
       adminSodRulesRoute,
       adminPolicyRulesRoute,
       adminJitProviderConfigsRoute,
+      adminCatalogsRoute,
+      adminCatalogsKhlcntRoute,
+      adminCatalogTypeRoute,
     ]),
   ]),
   notFoundRoute,
