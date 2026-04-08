@@ -5,5 +5,6 @@ public enum ProjectType
 {
     Domestic = 1,
     Oda = 2,
-    Ppp = 3
+    Ppp = 3,
+    Dnnn = 4
 }

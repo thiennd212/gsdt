@@ -99,6 +99,24 @@ public interface IInvestmentProjectRepository
     /// </summary>
     Task<InvestmentProject?> GetByIdWithDesignEstimatesAsync(Guid id, CancellationToken ct = default);
 
+    /// <summary>
+    /// Returns a DnnnProject with all child collections eagerly loaded, or null if not found.
+    /// Used by GetDnnnProjectById query handler.
+    /// </summary>
+    Task<DnnnProject?> GetDnnnByIdWithDetailsAsync(Guid id, Guid tenantId, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked DnnnProject with InvestmentDecisions loaded.
+    /// Used by AddDnnnDecision / DeleteDnnnDecision command handlers.
+    /// </summary>
+    Task<DnnnProject?> GetDnnnByIdWithDecisionsAsync(Guid id, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked InvestmentProject with RegistrationCertificates loaded.
+    /// Used by certificate command handlers (shared across DNNN/NĐT/FDI).
+    /// </summary>
+    Task<InvestmentProject?> GetByIdWithCertificatesAsync(Guid id, CancellationToken ct = default);
+
     /// <summary>Returns true if an active (non-deleted) project with the given ID exists.</summary>
     Task<bool> ExistsAsync(Guid id, CancellationToken ct = default);
 

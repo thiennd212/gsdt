@@ -139,6 +139,36 @@ internal sealed class InvestmentProjectRepository(InvestmentProjectsDbContext co
             .Include(p => p.DesignEstimates).ThenInclude(de => de.Items)
             .FirstOrDefaultAsync(p => p.Id == id, ct);
 
+    public async Task<DnnnProject?> GetDnnnByIdWithDetailsAsync(
+        Guid id, Guid tenantId, CancellationToken ct = default)
+        => await context.DnnnProjects
+            .AsNoTracking()
+            .Where(p => p.Id == id && p.TenantId == tenantId)
+            .Include(p => p.Locations)
+            .Include(p => p.InvestmentDecisions)
+            .Include(p => p.RegistrationCertificates)
+            .Include(p => p.BidPackages).ThenInclude(bp => bp.BidItems)
+            .Include(p => p.BidPackages).ThenInclude(bp => bp.Contracts)
+            .Include(p => p.InspectionRecords)
+            .Include(p => p.EvaluationRecords)
+            .Include(p => p.AuditRecords)
+            .Include(p => p.ViolationRecords)
+            .Include(p => p.OperationInfo)
+            .Include(p => p.Documents)
+            .Include(p => p.InvestorSelection).ThenInclude(s => s!.Investors)
+            .Include(p => p.DesignEstimates).ThenInclude(de => de.Items)
+            .FirstOrDefaultAsync(ct);
+
+    public async Task<DnnnProject?> GetDnnnByIdWithDecisionsAsync(Guid id, CancellationToken ct = default)
+        => await context.DnnnProjects
+            .Include(p => p.InvestmentDecisions)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
+    public async Task<InvestmentProject?> GetByIdWithCertificatesAsync(Guid id, CancellationToken ct = default)
+        => await context.InvestmentProjects
+            .Include(p => p.RegistrationCertificates)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
     public async Task<bool> ExistsAsync(Guid id, CancellationToken ct = default)
         => await context.InvestmentProjects
             .AnyAsync(p => p.Id == id, ct);

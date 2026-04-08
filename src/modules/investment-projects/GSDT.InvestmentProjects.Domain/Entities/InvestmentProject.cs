@@ -60,6 +60,9 @@ public abstract class InvestmentProject : AuditableEntity<Guid>, IAggregateRoot,
     /// <summary>Design estimate records — available on both PPP and DNNN projects.</summary>
     public ICollection<DesignEstimate> DesignEstimates { get; set; } = new List<DesignEstimate>();
 
+    /// <summary>Registration certificates (GCNĐKĐT) — available on DNNN/NĐT/FDI projects.</summary>
+    public ICollection<RegistrationCertificate> RegistrationCertificates { get; set; } = new List<RegistrationCertificate>();
+
     /// <summary>Investor selection record — 1-to-1, shared PK (ProjectId).</summary>
     public InvestorSelection? InvestorSelection { get; set; }
 

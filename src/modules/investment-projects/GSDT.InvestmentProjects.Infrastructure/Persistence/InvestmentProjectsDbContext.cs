@@ -56,6 +56,11 @@ public sealed class InvestmentProjectsDbContext(
     public DbSet<PppContractInfo> PppContractInfos => Set<PppContractInfo>();
     public DbSet<RevenueReport> RevenueReports => Set<RevenueReport>();
 
+    // DNNN-specific children
+    public DbSet<DnnnProject> DnnnProjects => Set<DnnnProject>();
+    public DbSet<DnnnInvestmentDecision> DnnnInvestmentDecisions => Set<DnnnInvestmentDecision>();
+    public DbSet<RegistrationCertificate> RegistrationCertificates => Set<RegistrationCertificate>();
+
     // Cross-type shared entities (PPP + DNNN)
     public DbSet<InvestorSelection> InvestorSelections => Set<InvestorSelection>();
     public DbSet<InvestorSelectionInvestor> InvestorSelectionInvestors => Set<InvestorSelectionInvestor>();
@@ -74,5 +79,6 @@ public sealed class InvestmentProjectsDbContext(
         modelBuilder.Entity<DomesticProject>().HasQueryFilter(null!);
         modelBuilder.Entity<OdaProject>().HasQueryFilter(null!);
         modelBuilder.Entity<PppProject>().HasQueryFilter(null!);
+        modelBuilder.Entity<DnnnProject>().HasQueryFilter(null!);
     }
 }

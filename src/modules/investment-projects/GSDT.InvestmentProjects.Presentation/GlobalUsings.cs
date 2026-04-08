@@ -12,6 +12,8 @@ global using GSDT.InvestmentProjects.Application.Commands.CreateOdaProject;
 global using GSDT.InvestmentProjects.Application.Commands.UpdateOdaProject;
 global using GSDT.InvestmentProjects.Application.Commands.CreatePppProject;
 global using GSDT.InvestmentProjects.Application.Commands.UpdatePppProject;
+global using GSDT.InvestmentProjects.Application.Commands.CreateDnnnProject;
+global using GSDT.InvestmentProjects.Application.Commands.UpdateDnnnProject;
 global using GSDT.InvestmentProjects.Application.Commands.DeleteProject;
 global using GSDT.InvestmentProjects.Application.Commands.SubEntities;
 global using GSDT.InvestmentProjects.Application.Queries;
