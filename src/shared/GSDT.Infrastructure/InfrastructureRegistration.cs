@@ -38,6 +38,7 @@ public static class InfrastructureRegistration
                 : new BackgroundJobs.BackgroundJobTenantContext();
         });
         services.AddScoped<IReadDbConnection, DapperReadDbConnection>();
+        services.AddScoped<IDomainEventPublisher, Events.MediatRDomainEventPublisher>();
 
         // --- Export (IExcelExporter, IPdfExporter) ---
         services.AddExport();
