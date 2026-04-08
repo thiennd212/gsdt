@@ -8,7 +8,7 @@
 
 ## Overview
 - **Priority:** P1
-- **Status:** Pending
+- **Status:** Complete
 - **Effort:** 4-5 days
 - **Blocker:** Phase 4 (DNNN API must be operational)
 - **Description:** Build DNNN project frontend — 6-tab form, list page. Tab1 complex (GCNĐKĐT section, KKT/KCN location field, DNNN capital structure). Tab2 (HĐ NĐT) reuses InvestorSelection from PPP. Tabs 3-6 share/adapt from PPP + shared components. ~55% reuse from PPP FE.
@@ -216,21 +216,21 @@ web/src/features/dnnn-projects/
 
 ## Todo Checklist
 
-- [ ] dnnn-project-types.ts
-- [ ] dnnn-project-api.ts
-- [ ] dnnn-tab1-general-info.tsx
-- [ ] dnnn-tab1-decisions-zone.tsx (DNNN capital: CSH/ODA/TCTD)
-- [ ] dnnn-tab1-locations-zone.tsx (KKT/KCN field)
-- [ ] dnnn-tab1-certificates-zone.tsx (GCNĐKĐT inline CRUD)
-- [ ] dnnn-tab2-investor-contract.tsx (reuse InvestorSelection)
-- [ ] dnnn-tab3-implementation.tsx (no capital plans)
-- [ ] dnnn-project-tabs-container.tsx (6-tab)
-- [ ] dnnn-project-list-page.tsx + list-filters.tsx
-- [ ] Create/Edit/Detail page wrappers
-- [ ] index.ts barrel
-- [ ] Router config: add DNNN routes
-- [ ] Sidebar: add DNNN menu entry
-- [ ] Compile check
+- [x] dnnn-project-types.ts
+- [x] dnnn-project-api.ts
+- [x] dnnn-tab1-general-info.tsx
+- [x] dnnn-tab1-decisions-zone.tsx (DNNN capital: CSH/ODA/TCTD)
+- [x] dnnn-tab1-locations-zone.tsx (KKT/KCN field)
+- [x] dnnn-tab1-certificates-zone.tsx (GCNĐKĐT inline CRUD)
+- [x] dnnn-tab2-investor-contract.tsx (reuse InvestorSelection)
+- [x] dnnn-tab3-implementation.tsx (no capital plans)
+- [x] dnnn-project-tabs-container.tsx (6-tab)
+- [x] dnnn-project-list-page.tsx + list-filters.tsx
+- [x] Create/Edit/Detail page wrappers
+- [x] index.ts barrel
+- [x] Router config: add DNNN routes
+- [x] Sidebar: add DNNN menu entry
+- [x] Compile check
 
 ## Success Criteria
 - DNNN project list displays with 5 filter options

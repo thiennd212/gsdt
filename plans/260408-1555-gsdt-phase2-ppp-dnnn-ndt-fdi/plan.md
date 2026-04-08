@@ -1,7 +1,7 @@
 ---
 title: "GSDT Phase 2 - PPP, DNNN, NDT, FDI Project Types"
 description: "Add 4 new investment project types (PPP, DNNN, NDT trong nuoc, FDI) to GSDT"
-status: in-progress
+status: in-progress (P01-P05 complete, P06 pending)
 priority: P1
 effort: 28-39d
 branch: feature/gsdt-phase2
@@ -31,7 +31,7 @@ red-team-notes: "11 findings addressed (3 critical fixed, 4 high fixed, 4 medium
 | 2 | [PPP Backend Domain](phase-02-ppp-be-domain.md) | Complete | 5-6d | ca0383b | 2026-04-08 |
 | 3 | [PPP Frontend](phase-03-ppp-fe.md) | Complete | 6-8d | 4fa1612 | 2026-04-08 |
 | 4 | [DNNN Backend Domain](phase-04-dnnn-be-domain.md) | Complete | 3-4d | (merged) | 2026-04-08 |
-| 5 | [DNNN Frontend](phase-05-dnnn-fe.md) | Pending | 4-5d | -- | -- |
+| 5 | [DNNN Frontend](phase-05-dnnn-fe.md) | Complete | 4-5d | 2d4f6cb | 2026-04-08 |
 | 6 | [NDT + FDI (BE+FE)](phase-06-ndt-fdi-be-fe.md) | Pending | 3-5d | -- | -- |
 | 7 | [Testing](phase-07-testing.md) | Pending | 3-5d | -- | -- |
 | 8 | [Buffer & Polish](phase-08-buffer-polish.md) | Pending | 2-3d | -- | -- |

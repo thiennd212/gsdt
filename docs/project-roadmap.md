@@ -1,6 +1,6 @@
 # GSDT Project Roadmap
 
-## Phase Overview — GSDT P1 + E2E + P2-01 to P2-03 COMPLETE (2026-04-08)
+## Phase Overview — GSDT P1 + E2E + P2-01 to P2-05 COMPLETE (2026-04-08)
 
 | Phase | Module | Status | Completion | Tests | Last Updated |
 |-------|--------|--------|------------|-------|--------------|
@@ -56,6 +56,7 @@
 | **GSDT-P2-02** | PPP BE Domain (PppProject TPT, 10 sub-entities, CQRS 25+ endpoints, 11 new tables) | Complete | 100% | — | 2026-04-08 |
 | **GSDT-P2-03** | PPP FE (22 components, 7-tab form, DesignEstimate popup, contract cascading) | Complete | 100% | — | 2026-04-08 |
 | **GSDT-P2-04** | DNNN BE Domain (DnnnProject TPT, 3 sub-entities, CQRS 20 endpoints, RegistrationCertificate shared) | Complete | 100% | — | 2026-04-08 |
+| **GSDT-P2-05** | DNNN FE (16 new components, 6-tab form, GCNĐKĐT inline CRUD, KKT/KCN location field) | Complete | 100% | — | 2026-04-08 |
 | **Phase 16** | Microservices Extraction (Strangler, RabbitMQ, YARP) | Pending | 0% | — | — |
 | **Phase 17** | V2 Strategic (OPA policy-as-code, Backstage catalog) | Pending | 0% | — | — |
 
