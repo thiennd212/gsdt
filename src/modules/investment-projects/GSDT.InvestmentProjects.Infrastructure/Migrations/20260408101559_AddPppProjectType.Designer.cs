@@ -4,6 +4,7 @@ using GSDT.InvestmentProjects.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GSDT.InvestmentProjects.Infrastructure.Migrations
 {
     [DbContext(typeof(InvestmentProjectsDbContext))]
-    partial class InvestmentProjectsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260408101559_AddPppProjectType")]
+    partial class AddPppProjectType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

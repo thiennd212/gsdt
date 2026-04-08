@@ -45,6 +45,60 @@ public interface IInvestmentProjectRepository
     /// </summary>
     Task<InvestmentProject?> GetByIdWithDocumentsAsync(Guid id, CancellationToken ct = default);
 
+    /// <summary>
+    /// Returns a PppProject with all child collections eagerly loaded, or null if not found.
+    /// Used by GetPppProjectById query handler.
+    /// </summary>
+    Task<PppProject?> GetPppByIdWithDetailsAsync(Guid id, Guid tenantId, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked PppProject with InvestmentDecisions loaded.
+    /// Used by AddPppDecision / DeletePppDecision command handlers.
+    /// </summary>
+    Task<PppProject?> GetPppByIdWithDecisionsAsync(Guid id, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked PppProject with CapitalPlans loaded.
+    /// Used by AddPppCapitalPlan / DeletePppCapitalPlan command handlers.
+    /// </summary>
+    Task<PppProject?> GetPppByIdWithCapitalPlansAsync(Guid id, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked PppProject with DisbursementRecords loaded.
+    /// Used by AddPppDisbursement / DeletePppDisbursement command handlers.
+    /// </summary>
+    Task<PppProject?> GetPppByIdWithDisbursementsAsync(Guid id, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked PppProject with ExecutionRecords loaded.
+    /// Used by AddPppExecution / DeletePppExecution command handlers.
+    /// </summary>
+    Task<PppProject?> GetPppByIdWithExecutionsAsync(Guid id, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked PppProject with RevenueReports loaded.
+    /// Used by AddRevenueReport / UpdateRevenueReport / DeleteRevenueReport command handlers.
+    /// </summary>
+    Task<PppProject?> GetPppByIdWithRevenueReportsAsync(Guid id, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked InvestmentProject with InvestorSelection (and its Investors) loaded.
+    /// Used by UpsertInvestorSelection command handler.
+    /// </summary>
+    Task<InvestmentProject?> GetByIdWithInvestorSelectionAsync(Guid id, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked PppProject with ContractInfo loaded.
+    /// Used by UpsertPppContractInfo command handler.
+    /// </summary>
+    Task<PppProject?> GetPppByIdWithContractInfoAsync(Guid id, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked InvestmentProject with DesignEstimates (and their Items) loaded.
+    /// Used by design estimate command handlers.
+    /// </summary>
+    Task<InvestmentProject?> GetByIdWithDesignEstimatesAsync(Guid id, CancellationToken ct = default);
+
     /// <summary>Returns true if an active (non-deleted) project with the given ID exists.</summary>
     Task<bool> ExistsAsync(Guid id, CancellationToken ct = default);
 

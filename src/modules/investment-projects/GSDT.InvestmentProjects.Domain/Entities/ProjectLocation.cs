@@ -18,6 +18,9 @@ public sealed class ProjectLocation : AuditableEntity<Guid>, ITenantScoped
 
     public string? Address { get; set; }
 
+    /// <summary>Optional: industrial/economic zone name for KKT/KCN projects (max 500).</summary>
+    public string? IndustrialZoneName { get; set; }
+
     // Navigation
     public InvestmentProject Project { get; set; } = default!;
 

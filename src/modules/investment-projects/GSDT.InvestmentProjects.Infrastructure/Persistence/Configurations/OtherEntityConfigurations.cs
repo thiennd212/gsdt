@@ -13,6 +13,7 @@ internal sealed class ProjectLocationConfiguration : IEntityTypeConfiguration<Pr
         builder.ToTable("ProjectLocations");
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Address).HasMaxLength(500);
+        builder.Property(x => x.IndustrialZoneName).HasMaxLength(500);
     }
 }
 

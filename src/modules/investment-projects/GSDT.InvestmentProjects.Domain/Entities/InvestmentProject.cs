@@ -57,6 +57,12 @@ public abstract class InvestmentProject : AuditableEntity<Guid>, IAggregateRoot,
     public ICollection<ProjectDocument> Documents { get; set; } = new List<ProjectDocument>();
     public OperationInfo? OperationInfo { get; set; }
 
+    /// <summary>Design estimate records — available on both PPP and DNNN projects.</summary>
+    public ICollection<DesignEstimate> DesignEstimates { get; set; } = new List<DesignEstimate>();
+
+    /// <summary>Investor selection record — 1-to-1, shared PK (ProjectId).</summary>
+    public InvestorSelection? InvestorSelection { get; set; }
+
     protected InvestmentProject() { } // EF Core
 
     /// <summary>Raises ProjectCreatedEvent — call from concrete factory methods in subclasses.</summary>

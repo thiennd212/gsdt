@@ -60,6 +60,16 @@ internal sealed class InvestmentProjectConfiguration : IEntityTypeConfiguration<
         builder.HasOne(x => x.OperationInfo)
             .WithOne(x => x.Project).HasForeignKey<OperationInfo>(x => x.ProjectId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        // DesignEstimates — shared across PPP and DNNN project types
+        builder.HasMany(x => x.DesignEstimates)
+            .WithOne(x => x.Project).HasForeignKey(x => x.ProjectId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // 1-to-1: InvestorSelection (shared PK) — available to PPP and DNNN
+        builder.HasOne(x => x.InvestorSelection)
+            .WithOne(x => x.Project).HasForeignKey<InvestorSelection>(x => x.ProjectId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
 

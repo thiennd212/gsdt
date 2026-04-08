@@ -19,6 +19,7 @@ public sealed class InvestmentProjectsDbContext(
     public DbSet<InvestmentProject> InvestmentProjects => Set<InvestmentProject>();
     public DbSet<DomesticProject> DomesticProjects => Set<DomesticProject>();
     public DbSet<OdaProject> OdaProjects => Set<OdaProject>();
+    public DbSet<PppProject> PppProjects => Set<PppProject>();
 
     // Shared project children
     public DbSet<ProjectLocation> ProjectLocations => Set<ProjectLocation>();
@@ -47,6 +48,20 @@ public sealed class InvestmentProjectsDbContext(
     public DbSet<ServiceBank> ServiceBanks => Set<ServiceBank>();
     public DbSet<ProcurementCondition> ProcurementConditions => Set<ProcurementCondition>();
 
+    // PPP-specific children
+    public DbSet<PppInvestmentDecision> PppInvestmentDecisions => Set<PppInvestmentDecision>();
+    public DbSet<PppCapitalPlan> PppCapitalPlans => Set<PppCapitalPlan>();
+    public DbSet<PppExecutionRecord> PppExecutionRecords => Set<PppExecutionRecord>();
+    public DbSet<PppDisbursementRecord> PppDisbursementRecords => Set<PppDisbursementRecord>();
+    public DbSet<PppContractInfo> PppContractInfos => Set<PppContractInfo>();
+    public DbSet<RevenueReport> RevenueReports => Set<RevenueReport>();
+
+    // Cross-type shared entities (PPP + DNNN)
+    public DbSet<InvestorSelection> InvestorSelections => Set<InvestorSelection>();
+    public DbSet<InvestorSelectionInvestor> InvestorSelectionInvestors => Set<InvestorSelectionInvestor>();
+    public DbSet<DesignEstimate> DesignEstimates => Set<DesignEstimate>();
+    public DbSet<DesignEstimateItem> DesignEstimateItems => Set<DesignEstimateItem>();
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Base applies: schema, ApplyConfigurationsFromAssembly, ApplyGlobalFilters, ConfigureOutbox.
@@ -58,5 +73,6 @@ public sealed class InvestmentProjectsDbContext(
         // Remove query filter from TPT derived types — inherited from InvestmentProject root.
         modelBuilder.Entity<DomesticProject>().HasQueryFilter(null!);
         modelBuilder.Entity<OdaProject>().HasQueryFilter(null!);
+        modelBuilder.Entity<PppProject>().HasQueryFilter(null!);
     }
 }

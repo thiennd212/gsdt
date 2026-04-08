@@ -76,6 +76,69 @@ internal sealed class InvestmentProjectRepository(InvestmentProjectsDbContext co
             .Include(p => p.Documents)
             .FirstOrDefaultAsync(p => p.Id == id, ct);
 
+    public async Task<PppProject?> GetPppByIdWithDetailsAsync(
+        Guid id, Guid tenantId, CancellationToken ct = default)
+        => await context.PppProjects
+            .AsNoTracking()
+            .Where(p => p.Id == id && p.TenantId == tenantId)
+            .Include(p => p.Locations)
+            .Include(p => p.InvestmentDecisions)
+            .Include(p => p.CapitalPlans)
+            .Include(p => p.ExecutionRecords)
+            .Include(p => p.DisbursementRecords)
+            .Include(p => p.RevenueReports)
+            .Include(p => p.ContractInfo)
+            .Include(p => p.BidPackages).ThenInclude(bp => bp.BidItems)
+            .Include(p => p.BidPackages).ThenInclude(bp => bp.Contracts)
+            .Include(p => p.InspectionRecords)
+            .Include(p => p.EvaluationRecords)
+            .Include(p => p.AuditRecords)
+            .Include(p => p.ViolationRecords)
+            .Include(p => p.Documents)
+            .Include(p => p.InvestorSelection).ThenInclude(s => s!.Investors)
+            .Include(p => p.DesignEstimates).ThenInclude(de => de.Items)
+            .FirstOrDefaultAsync(ct);
+
+    public async Task<PppProject?> GetPppByIdWithDecisionsAsync(Guid id, CancellationToken ct = default)
+        => await context.PppProjects
+            .Include(p => p.InvestmentDecisions)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
+    public async Task<PppProject?> GetPppByIdWithCapitalPlansAsync(Guid id, CancellationToken ct = default)
+        => await context.PppProjects
+            .Include(p => p.CapitalPlans)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
+    public async Task<PppProject?> GetPppByIdWithDisbursementsAsync(Guid id, CancellationToken ct = default)
+        => await context.PppProjects
+            .Include(p => p.DisbursementRecords)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
+    public async Task<PppProject?> GetPppByIdWithExecutionsAsync(Guid id, CancellationToken ct = default)
+        => await context.PppProjects
+            .Include(p => p.ExecutionRecords)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
+    public async Task<PppProject?> GetPppByIdWithRevenueReportsAsync(Guid id, CancellationToken ct = default)
+        => await context.PppProjects
+            .Include(p => p.RevenueReports)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
+    public async Task<InvestmentProject?> GetByIdWithInvestorSelectionAsync(Guid id, CancellationToken ct = default)
+        => await context.InvestmentProjects
+            .Include(p => p.InvestorSelection).ThenInclude(s => s!.Investors)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
+    public async Task<PppProject?> GetPppByIdWithContractInfoAsync(Guid id, CancellationToken ct = default)
+        => await context.PppProjects
+            .Include(p => p.ContractInfo)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
+    public async Task<InvestmentProject?> GetByIdWithDesignEstimatesAsync(Guid id, CancellationToken ct = default)
+        => await context.InvestmentProjects
+            .Include(p => p.DesignEstimates).ThenInclude(de => de.Items)
+            .FirstOrDefaultAsync(p => p.Id == id, ct);
+
     public async Task<bool> ExistsAsync(Guid id, CancellationToken ct = default)
         => await context.InvestmentProjects
             .AnyAsync(p => p.Id == id, ct);
