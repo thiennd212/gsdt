@@ -17,8 +17,9 @@ export function DomesticProjectListPage() {
   const navigate = useNavigate();
   const [params, setParams] = useState<DomesticProjectListParams>({ page: 1, pageSize: 50 });
   const [search, setSearch] = useState('');
+  const [filterValues, setFilterValues] = useState<Record<string, string | undefined>>({});
 
-  const { data, isLoading } = useDomesticProjects({ ...params, search: search || undefined });
+  const { data, isLoading } = useDomesticProjects({ ...params, ...filterValues, search: search || undefined });
   const deleteMutation = useDeleteDomesticProject();
 
   function handleSearch() {
@@ -27,7 +28,12 @@ export function DomesticProjectListPage() {
 
   function handleClearFilters() {
     setSearch('');
+    setFilterValues({});
     setParams({ page: 1, pageSize: 50 });
+  }
+
+  function handleFilterChange(key: string, value: string | undefined) {
+    setFilterValues((prev) => ({ ...prev, [key]: value }));
   }
 
   function handleDelete(id: string, name: string) {
@@ -113,7 +119,7 @@ export function DomesticProjectListPage() {
   ];
 
   return (
-    <div>
+    <div data-testid="domestic-page">
       <PageBreadcrumb items={[{ label: 'Dự án trong nước' }]} />
       <AdminPageHeader
         title="Dự án đầu tư trong nước"
@@ -121,6 +127,7 @@ export function DomesticProjectListPage() {
         stats={{ total: data?.totalCount }}
         actions={
           <Button
+            data-testid="domestic-btn-create"
             type="primary"
             icon={<PlusOutlined />}
             onClick={() => navigate({ to: '/domestic-projects/new' })}
@@ -133,18 +140,21 @@ export function DomesticProjectListPage() {
         <DomesticProjectListFilters
           search={search}
           onSearchChange={setSearch}
+          filterValues={filterValues}
+          onFilterChange={handleFilterChange}
           actions={
             <Space>
-              <Button icon={<SearchOutlined />} type="primary" onClick={handleSearch}>
+              <Button data-testid="domestic-btn-search" icon={<SearchOutlined />} type="primary" onClick={handleSearch}>
                 Tìm kiếm
               </Button>
-              <Button icon={<ClearOutlined />} onClick={handleClearFilters}>
+              <Button data-testid="domestic-btn-clear" icon={<ClearOutlined />} onClick={handleClearFilters}>
                 Xóa bộ lọc
               </Button>
             </Space>
           }
         />
         <Table<DomesticProjectListItem>
+          data-testid="domestic-table-projects"
           rowKey="id"
           columns={columns}
           dataSource={data?.items}

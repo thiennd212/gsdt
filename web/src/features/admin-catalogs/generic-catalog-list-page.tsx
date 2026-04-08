@@ -145,7 +145,7 @@ export function GenericCatalogListPage({ catalogType }: GenericCatalogListPagePr
   const saving = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <div>
+    <div data-testid="catalog-page">
       <AdminPageHeader
         title={meta.label}
         description={meta.description}
@@ -158,12 +158,13 @@ export function GenericCatalogListPage({ catalogType }: GenericCatalogListPagePr
           searchValue={search}
           onSearchChange={setSearch}
           actions={
-            <Button type="primary" icon={<PlusOutlined />} onClick={openCreate}>
+            <Button data-testid="catalog-btn-create" type="primary" icon={<PlusOutlined />} onClick={openCreate}>
               Thêm mới
             </Button>
           }
         />
         <Table<CatalogItemDto>
+          data-testid="catalog-table"
           rowKey="id"
           columns={columns}
           dataSource={filtered}

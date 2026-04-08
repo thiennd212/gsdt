@@ -21,6 +21,7 @@ export function AdminPageHeader({ title, description, icon, actions, stats }: Ad
 
   return (
     <Card
+      data-testid="page-header"
       variant="borderless"
       style={{
         boxShadow: 'var(--elevation-1)',

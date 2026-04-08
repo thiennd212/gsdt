@@ -15,6 +15,7 @@ interface PageBreadcrumbProps {
 export function PageBreadcrumb({ items }: PageBreadcrumbProps) {
   return (
     <Breadcrumb
+      data-testid="breadcrumb"
       style={{ marginBottom: 12 }}
       items={[
         { title: <Link to="/"><HomeOutlined /></Link> },

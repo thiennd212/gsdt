@@ -151,7 +151,7 @@ export function SidebarMenu({ permissions, roles = [], onNavigate, popupSubMenus
     location.pathname;
 
   return (
-    <nav role="navigation" aria-label="Main navigation">
+    <nav data-testid="sidebar-menu" role="navigation" aria-label="Main navigation">
       <div className="gov-sidebar-scroll" style={{ flex: 1, overflowY: 'auto', overflowX: 'hidden' }}>
         <Menu
           theme={isDark ? 'dark' : 'light'}

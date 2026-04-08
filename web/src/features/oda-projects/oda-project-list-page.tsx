@@ -58,7 +58,7 @@ export function OdaProjectListPage() {
   ];
 
   return (
-    <div>
+    <div data-testid="oda-page">
       <PageBreadcrumb items={[{ label: 'Dự án ODA' }]} />
       <AdminPageHeader
         title="Dự án ODA"
