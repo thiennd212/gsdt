@@ -8,12 +8,17 @@ interface Tab4Props {
   projectId: string;
   mode: 'create' | 'edit' | 'detail';
   onSaved?: () => void;
+  /** Optional override hook for non-domestic project types.
+   *  Must return { data: { inspections?, evaluations?, audits?, violations? } | undefined }. */
+  dataHook?: (id: string) => { data: { inspections?: InspectionDto[]; evaluations?: EvaluationDto[]; audits?: AuditRecordDto[]; violations?: ViolationDto[] } | undefined };
 }
 
-// Tab 4: Thanh tra / Kiểm tra / Kiểm toán — shared component for TN + ODA.
+// Tab 4: Thanh tra / Kiểm tra / Kiểm toán — shared component for TN + ODA + PPP.
 // 3 sub-sections as inner tabs: Inspections, Evaluations, Audits + Violations.
-export function Tab4Inspection({ projectId }: Tab4Props) {
-  const { data: project } = useDomesticProject(projectId);
+// Pass dataHook to override the default useDomesticProject query.
+export function Tab4Inspection({ projectId, dataHook }: Tab4Props) {
+  const useData = dataHook ?? useDomesticProject;
+  const { data: project } = useData(projectId);
 
   const inspectionCols: ColumnsType<InspectionDto> = [
     { title: 'Ngày', dataIndex: 'inspectionDate', key: 'date', width: 110, render: (v: string) => dayjs(v).format('DD/MM/YYYY') },

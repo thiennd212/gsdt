@@ -6,12 +6,18 @@ interface Tab5Props {
   projectId: string;
   mode: 'create' | 'edit' | 'detail';
   onSaved?: () => void;
+  /** Optional override hook — use when projectId belongs to a non-domestic project type.
+   *  Defaults to useDomesticProject. Hook must return { data: { operation: OperationInfoDto | null } | undefined }. */
+  dataHook?: (id: string) => { data: { operation: { operationDate?: string | null; operatingAgency?: string | null; revenueLastYear?: number | null; expenseLastYear?: number | null; notes?: string | null } | null } | undefined };
 }
 
-// Tab 5: Khai thác / Vận hành — shared component for TN + ODA.
+// Tab 5: Khai thác / Vận hành — shared component for TN + ODA + PPP.
 // Shows operation info as read-only descriptions (data comes from project detail).
-export function Tab5Operation({ projectId }: Tab5Props) {
-  const { data: project } = useDomesticProject(projectId);
+// Pass dataHook prop to override the default useDomesticProject query.
+export function Tab5Operation({ projectId, dataHook }: Tab5Props) {
+  const defaultHook = useDomesticProject;
+  const useData = dataHook ?? defaultHook;
+  const { data: project } = useData(projectId);
   const op = project?.operation;
 
   if (!op) {

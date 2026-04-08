@@ -33,6 +33,7 @@ function getMenuEntries(t: (key: string) => string): MenuEntry[] {
     { key: '/', label: t('nav.dashboard'), icon: <DashboardOutlined /> },
     { key: '/domestic-projects', label: t('nav.domesticProjects'), icon: <FundProjectionScreenOutlined /> },
     { key: '/oda-projects', label: t('nav.odaProjects'), icon: <GlobalOutlined /> },
+    { key: '/ppp-projects', label: t('nav.pppProjects'), icon: <SolutionOutlined /> },
     { key: '/files', label: t('nav.files'), icon: <FolderOutlined /> },
     { key: '/notifications', label: t('nav.notifications'), icon: <BellOutlined />, badge: 3 },
     {

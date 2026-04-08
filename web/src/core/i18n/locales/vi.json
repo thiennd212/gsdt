@@ -56,7 +56,8 @@
     "adminOverview": "Bảng điều khiển",
     "catalogs": "Danh mục DTC",
     "domesticProjects": "DA trong nước",
-    "odaProjects": "DA ODA"
+    "odaProjects": "DA ODA",
+    "pppProjects": "DA PPP"
   },
   "common": {
     "add": "Thêm mới",

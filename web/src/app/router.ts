@@ -53,6 +53,10 @@ import { odaProjectsRoute } from '@/routes/oda-projects-list-page';
 import { odaProjectCreateRoute } from '@/routes/oda-projects-create-page';
 import { odaProjectDetailRoute } from '@/routes/oda-projects-detail-page';
 import { odaProjectEditRoute } from '@/routes/oda-projects-edit-page';
+import { pppProjectsRoute } from '@/routes/ppp-projects-list-page';
+import { pppProjectCreateRoute } from '@/routes/ppp-projects-create-page';
+import { pppProjectDetailRoute } from '@/routes/ppp-projects-detail-page';
+import { pppProjectEditRoute } from '@/routes/ppp-projects-edit-page';
 
 // Route tree — public routes + authenticated subtree + admin guard subtree
 const routeTree = rootRoute.addChildren([
@@ -77,6 +81,10 @@ const routeTree = rootRoute.addChildren([
     odaProjectCreateRoute,
     odaProjectEditRoute,
     odaProjectDetailRoute,
+    pppProjectsRoute,
+    pppProjectCreateRoute,
+    pppProjectEditRoute,
+    pppProjectDetailRoute,
     // Admin routes — nested under adminRoute (enforces Admin/SystemAdmin role)
     adminRoute.addChildren([
       adminDashboardRoute,

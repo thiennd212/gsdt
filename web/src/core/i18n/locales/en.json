@@ -56,7 +56,8 @@
     "adminOverview": "Admin Overview",
     "catalogs": "Catalogs (DTC)",
     "domesticProjects": "Domestic Projects",
-    "odaProjects": "ODA Projects"
+    "odaProjects": "ODA Projects",
+    "pppProjects": "PPP Projects"
   },
   "common": {
     "add": "Add New",

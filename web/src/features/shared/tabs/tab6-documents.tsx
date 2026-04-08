@@ -10,12 +10,17 @@ interface Tab6Props {
   projectId: string;
   mode: 'create' | 'edit' | 'detail';
   onSaved?: () => void;
+  /** Optional override hook for non-domestic project types.
+   *  Must return { data: { documents?: ProjectDocumentDto[] } | undefined }. */
+  dataHook?: (id: string) => { data: { documents?: ProjectDocumentDto[] } | undefined };
 }
 
-// Tab 6: Tài liệu — shared component for TN + ODA.
+// Tab 6: Tài liệu — shared component for TN + ODA + PPP.
 // Document list with search + add/delete actions.
-export function Tab6Documents({ projectId, mode }: Tab6Props) {
-  const { data: project } = useDomesticProject(projectId);
+// Pass dataHook to override the default useDomesticProject query.
+export function Tab6Documents({ projectId, mode, dataHook }: Tab6Props) {
+  const useData = dataHook ?? useDomesticProject;
+  const { data: project } = useData(projectId);
   const documents = project?.documents ?? [];
   const isReadonly = mode === 'detail';
   const [search, setSearch] = useState('');
