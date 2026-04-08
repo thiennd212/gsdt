@@ -65,6 +65,10 @@ import { adminDashboardRoute } from '@/routes/admin-dashboard-route';
 import { adminCatalogsRoute } from '@/routes/admin-catalogs-page';
 import { adminCatalogsKhlcntRoute } from '@/routes/admin-catalogs-khlcnt-page';
 import { adminCatalogTypeRoute } from '@/routes/admin-catalogs-type-page';
+import { domesticProjectsRoute } from '@/routes/domestic-projects-list-page';
+import { domesticProjectCreateRoute } from '@/routes/domestic-projects-create-page';
+import { domesticProjectDetailRoute } from '@/routes/domestic-projects-detail-page';
+import { domesticProjectEditRoute } from '@/routes/domestic-projects-edit-page';
 
 // Route tree — public routes + authenticated subtree + admin guard subtree
 const routeTree = rootRoute.addChildren([
@@ -94,6 +98,10 @@ const routeTree = rootRoute.addChildren([
     integrationContractsRoute,
     integrationMessageLogsRoute,
     consentRoute,
+    domesticProjectsRoute,
+    domesticProjectCreateRoute,
+    domesticProjectEditRoute,
+    domesticProjectDetailRoute,
     // Admin routes — nested under adminRoute (enforces Admin/SystemAdmin role)
     adminRoute.addChildren([
       adminDashboardRoute,

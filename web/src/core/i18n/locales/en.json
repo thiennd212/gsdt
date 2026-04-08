@@ -54,7 +54,8 @@
     "adminSystem": "System",
     "adminIntegration": "Integration",
     "adminOverview": "Admin Overview",
-    "catalogs": "Catalogs (DTC)"
+    "catalogs": "Catalogs (DTC)",
+    "domesticProjects": "Domestic Projects"
   },
   "common": {
     "add": "Add New",

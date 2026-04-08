@@ -54,7 +54,8 @@
     "adminSystem": "Hệ thống",
     "adminIntegration": "Tích hợp",
     "adminOverview": "Bảng điều khiển",
-    "catalogs": "Danh mục DTC"
+    "catalogs": "Danh mục DTC",
+    "domesticProjects": "DA trong nước"
   },
   "common": {
     "add": "Thêm mới",
