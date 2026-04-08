@@ -4,9 +4,9 @@ All notable changes to this project documented. Format: date, version, feature/f
 
 ---
 
-## GSDT Phase 2 — Catalogs & PPP Project Type (2026-04-08)
+## GSDT Phase 2 — Investment Project Types: Catalogs, PPP, DNNN (2026-04-08)
 
-**P2-01, P2-02, P2-03 COMPLETE. 3 COMMITS (0e6533c, ca0383b, 4fa1612). 1 NEW SCHEMA + 11 TABLES + 25+ APIs + 22 FE COMPONENTS.**
+**P2-01, P2-02, P2-03, P2-04 COMPLETE. 4 COMMITS. 1 NEW SCHEMA + 14 TABLES + 45+ APIs + 22+ FE COMPONENTS + 38 INVESTMENT ENTITIES.**
 
 ### P2-01 — Catalogs & Migration (2026-04-08)
 - **GovernmentAgency entity** (hierarchical tree): ParentId self-reference, 13 fields (Code, Name, NameEn, Level, Type, EffectiveDate, AdministrativeStatus, ContactEmail, ContactPhone, Address, Province, Ward, Remarks).
@@ -29,6 +29,15 @@ All notable changes to this project documented. Format: date, version, feature/f
 - **Shared DesignEstimate popup:** Reusable modal for PPP + DNNN projects (ItemCode, Quantity, UnitPrice, Remarks). Auto-calc total.
 - **Shared tabs refactored:** AccordionComponent, TabsComponent accept configurable data hooks (useFormData, useDisbursementData, etc.). Enables component reuse across project types.
 - **Routes + sidebar:** `/ppp-projects`, `/ppp-projects/:id`, navigation sidebar entries integrated. Contract type cascading: BOT/BT ↔ sub-types.
+
+### P2-04 — DNNN BE Domain (2026-04-08)
+- **DnnnProject entity** (Table-Per-Type inheritance): Extends InvestmentProject, adds SubProjectType, ProjectGroupId, StatusId, CompetentAuthorityId, InvestorName, StateOwnershipRatio, Objective, capital structure fields (PrelimTotalInvestment, PrelimEquityCapital, PrelimOdaLoanCapital, PrelimCreditLoanCapital), AreaHectares, Capacity, MainItems, ImplementationTimeline, ProgressDescription, StopContent/DecisionNumber/DecisionDate/StopFileId.
+- **2 DNNN sub-entities:** DnnnInvestmentDecision (investment decision tracking), RegistrationCertificate (FK to base InvestmentProject for NĐT/FDI reuse in future phases).
+- **Shared with PPP:** InvestorSelection (junction), DesignEstimate + DesignEstimateItem (reused from P2-02).
+- **20 REST endpoints:** POST/GET /api/v1/dnnn-projects, PUT /api/v1/dnnn-projects/{id}, DELETE, List queries, sub-entity CRUD (DnnnInvestmentDecision, RegistrationCertificate management).
+- **EF migration:** AddDnnnProjectType (3 new tables, indices, FK constraints, RLS policy). RegistrationCertificate FK validates existence of base InvestmentProject row.
+- **ProjectType enum updated:** Domestic=1, ODA=2, Ppp=3, Dnnn=4 (enables type filtering, discriminator column in TPT).
+- **Full CQRS stack:** Commands (Create, Update, Delete, Approve), Validators (FluentValidation), Queries (GetById, List), DTOs, Controllers (DnnnProjectsController).
 
 ---
 
