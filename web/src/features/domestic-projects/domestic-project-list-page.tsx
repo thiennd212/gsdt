@@ -6,6 +6,8 @@ import { useNavigate } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { AdminPageHeader } from '@/shared/components/admin-page-header';
 import { AdminContentCard } from '@/shared/components/admin-content-card';
+import { PageBreadcrumb } from '@/shared/components/page-breadcrumb';
+import { EmptyState } from '@/shared/components/empty-state';
 import { DomesticProjectListFilters } from './domestic-project-list-filters';
 import { useDomesticProjects, useDeleteDomesticProject } from './domestic-project-api';
 import type { DomesticProjectListItem, DomesticProjectListParams } from './domestic-project-types';
@@ -112,6 +114,7 @@ export function DomesticProjectListPage() {
 
   return (
     <div>
+      <PageBreadcrumb items={[{ label: 'Dự án trong nước' }]} />
       <AdminPageHeader
         title="Dự án đầu tư trong nước"
         description="Quản lý danh sách dự án đầu tư công trong nước"
@@ -147,6 +150,7 @@ export function DomesticProjectListPage() {
           dataSource={data?.items}
           loading={isLoading}
           size="small"
+          locale={{ emptyText: <EmptyState message="Chưa có dự án" description="Nhấn Thêm mới để tạo dự án đầu tư trong nước" /> }}
           pagination={{
             current: params.page,
             pageSize: params.pageSize,

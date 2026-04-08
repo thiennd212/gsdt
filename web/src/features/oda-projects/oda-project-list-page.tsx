@@ -6,6 +6,8 @@ import { useNavigate } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { AdminPageHeader } from '@/shared/components/admin-page-header';
 import { AdminContentCard } from '@/shared/components/admin-content-card';
+import { PageBreadcrumb } from '@/shared/components/page-breadcrumb';
+import { EmptyState } from '@/shared/components/empty-state';
 import { useOdaProjects, useDeleteOdaProject, useSeedCatalog, useDynamicCatalog } from './oda-project-api';
 import type { OdaProjectListItem, OdaProjectListParams } from './oda-project-types';
 
@@ -57,6 +59,7 @@ export function OdaProjectListPage() {
 
   return (
     <div>
+      <PageBreadcrumb items={[{ label: 'Dự án ODA' }]} />
       <AdminPageHeader
         title="Dự án ODA"
         description="Quản lý dự án sử dụng vốn ODA và vốn vay ưu đãi"
@@ -77,6 +80,7 @@ export function OdaProjectListPage() {
         </Flex>
         <Table<OdaProjectListItem>
           rowKey="id" columns={columns} dataSource={data?.items} loading={isLoading} size="small"
+          locale={{ emptyText: <EmptyState message="Chưa có dự án ODA" description="Nhấn Thêm mới để tạo dự án ODA" /> }}
           pagination={{
             current: params.page, pageSize: params.pageSize, total: data?.totalCount, showSizeChanger: true,
             showTotal: (total, range) => `${range[0]}-${range[1]} / ${total} bản ghi`,
