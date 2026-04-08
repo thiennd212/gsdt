@@ -84,6 +84,7 @@
   <Project Path="../tests/unit/GSDT.SharedKernel.Tests/GSDT.SharedKernel.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.SystemParams.Tests/GSDT.SystemParams.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.MasterData.Tests/GSDT.MasterData.Tests.csproj" />
+  <Project Path="../tests/unit/GSDT.InvestmentProjects.Domain.Tests/GSDT.InvestmentProjects.Domain.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.Identity.Domain.Tests/GSDT.Identity.Domain.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.Identity.Infrastructure.Tests/GSDT.Identity.Infrastructure.Tests.csproj" />
   <Project Path="../tests/unit/GSDT.Audit.Infrastructure.Tests/GSDT.Audit.Infrastructure.Tests.csproj" />

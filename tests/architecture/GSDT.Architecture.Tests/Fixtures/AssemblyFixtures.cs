@@ -183,6 +183,16 @@ public static class AssemblyFixtures
     public static readonly Assembly SystemParamsPresentation =
         typeof(GSDT.SystemParams.Presentation.Controllers.SystemParamsController).Assembly;
 
+    // ── InvestmentProjects ────────────────────────────────────────────────────
+    public static readonly Assembly InvestmentProjectsDomain =
+        typeof(GSDT.InvestmentProjects.Domain.Entities.InvestmentProject).Assembly;
+    public static readonly Assembly InvestmentProjectsApplication =
+        Assembly.Load("GSDT.InvestmentProjects.Application");
+    public static readonly Assembly InvestmentProjectsInfrastructure =
+        Assembly.Load("GSDT.InvestmentProjects.Infrastructure");
+    public static readonly Assembly InvestmentProjectsPresentation =
+        typeof(GSDT.InvestmentProjects.Presentation.Controllers.DomesticProjectsController).Assembly;
+
     /// <summary>
     /// Structured module assembly data — used by data-driven architecture tests.
     /// Add new modules here; tests auto-cover layer isolation + cross-module checks.
@@ -206,6 +216,7 @@ public static class AssemblyFixtures
         new("MasterData", MasterDataDomain, MasterDataApplication, MasterDataInfrastructure, MasterDataPresentation),
         new("Organization", OrganizationDomain, OrganizationApplication, OrganizationInfrastructure, OrganizationPresentation),
         new("SystemParams", SystemParamsDomain, SystemParamsApplication, SystemParamsInfrastructure, SystemParamsPresentation),
+        new("InvestmentProjects", InvestmentProjectsDomain, InvestmentProjectsApplication, InvestmentProjectsInfrastructure, InvestmentProjectsPresentation),
     ];
 }
 

@@ -88,6 +88,11 @@
     <ProjectReference Include="../../../src/modules/integration/GSDT.Integration.Application/GSDT.Integration.Application.csproj" />
     <ProjectReference Include="../../../src/modules/integration/GSDT.Integration.Infrastructure/GSDT.Integration.Infrastructure.csproj" />
     <ProjectReference Include="../../../src/modules/integration/GSDT.Integration.Presentation/GSDT.Integration.Presentation.csproj" />
+    <!-- InvestmentProjects -->
+    <ProjectReference Include="../../../src/modules/investment-projects/GSDT.InvestmentProjects.Domain/GSDT.InvestmentProjects.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/investment-projects/GSDT.InvestmentProjects.Application/GSDT.InvestmentProjects.Application.csproj" />
+    <ProjectReference Include="../../../src/modules/investment-projects/GSDT.InvestmentProjects.Infrastructure/GSDT.InvestmentProjects.Infrastructure.csproj" />
+    <ProjectReference Include="../../../src/modules/investment-projects/GSDT.InvestmentProjects.Presentation/GSDT.InvestmentProjects.Presentation.csproj" />
     <!-- MasterData -->
     <ProjectReference Include="../../../src/modules/masterdata/GSDT.MasterData.Domain/GSDT.MasterData.Domain.csproj" />
     <ProjectReference Include="../../../src/modules/masterdata/GSDT.MasterData.Application/GSDT.MasterData.Application.csproj" />
