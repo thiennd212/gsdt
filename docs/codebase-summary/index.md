@@ -6,9 +6,9 @@ Detailed documentation for GSDT architecture, modules, and infrastructure.
 
 GSDT is a production-ready .NET 10 modular monolith + React 19 frontend for Vietnamese government projects.
 
-- **Status:** v2.46 COMPLETE (2026-04-07) — Production Ready
-- **Backend:** 8 core modules (Identity, Cases, Files, Notifications, Audit, Integration, MasterData, Organization)
-- **Frontend:** React 19 with 90+ routes, 46 feature modules, admin UI redesign, dark mode, i18n (vi/en)
+- **Status:** v2.46 COMPLETE (2026-04-08) — Production Ready
+- **Backend:** 8 core modules (Identity, Cases, Files, Notifications, Audit, Integration, MasterData, Organization) + InvestmentProjects
+- **Frontend:** React 19 with 90+ routes, 50+ feature modules, admin UI redesign, investment projects (Domestic/ODA/PPP/DNNN), dark mode, i18n (vi/en)
 - **Tests:** 2,029+ tests (1,808 BE unit + 491 FE vitest + 140+ Playwright E2E)
 - **Security:** 30/30 audit findings fixed (100%), OWASP Top 10 remediated, QĐ742 compliant
 - **Compliance:** Law 91/Decree 356 (100%), NĐ53, NĐ85/TT12, QĐ742 (40/40)

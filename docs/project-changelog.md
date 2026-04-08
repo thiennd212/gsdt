@@ -6,7 +6,7 @@ All notable changes to this project documented. Format: date, version, feature/f
 
 ## GSDT Phase 2 — Investment Project Types: Catalogs, PPP, DNNN (2026-04-08)
 
-**P2-01, P2-02, P2-03, P2-04 COMPLETE. 4 COMMITS. 1 NEW SCHEMA + 14 TABLES + 45+ APIs + 22+ FE COMPONENTS + 38 INVESTMENT ENTITIES.**
+**P2-01 through P2-05 COMPLETE (5 PHASES). 5 COMMITS. 1 NEW SCHEMA + 14 TABLES + 50+ APIs + 38+ FE COMPONENTS + 38 INVESTMENT ENTITIES.**
 
 ### P2-01 — Catalogs & Migration (2026-04-08)
 - **GovernmentAgency entity** (hierarchical tree): ParentId self-reference, 13 fields (Code, Name, NameEn, Level, Type, EffectiveDate, AdministrativeStatus, ContactEmail, ContactPhone, Address, Province, Ward, Remarks).
@@ -38,6 +38,15 @@ All notable changes to this project documented. Format: date, version, feature/f
 - **EF migration:** AddDnnnProjectType (3 new tables, indices, FK constraints, RLS policy). RegistrationCertificate FK validates existence of base InvestmentProject row.
 - **ProjectType enum updated:** Domestic=1, ODA=2, Ppp=3, Dnnn=4 (enables type filtering, discriminator column in TPT).
 - **Full CQRS stack:** Commands (Create, Update, Delete, Approve), Validators (FluentValidation), Queries (GetById, List), DTOs, Controllers (DnnnProjectsController).
+
+### P2-05 — DNNN FE (2026-04-08)
+- **16 new React components** in `web/src/features/dnnn-projects/`: DnnnProjectLayout, DnnnProjectList, DnnnProjectDetail, 6-tab form components (GCNĐKĐT+KKT, KCN location, QĐĐT, THTH, Thanh tra, Khai thác+Tài liệu).
+- **6-tab form structure:** Tab 1 (Registration Certificate + KKT/KCN location fields), Tab 2 (Investment Decision tracking), Tab 3 (Investor Selection junction), Tab 4 (Inspection records), Tab 5 (Operation info), Tab 6 (Documents).
+- **Shared DesignEstimate modal:** Reuses PPP DesignEstimate popup component (ItemCode, Quantity, UnitPrice, Remarks, auto-calc total).
+- **Shared tabs refactored:** TabsComponent accepts configurable data hooks (useDnnnData, useLocationData, etc.), enabling cross-project-type component reuse. KKT/KCN location field with inline CRUD for nested records.
+- **Routes + sidebar:** `/dnnn-projects`, `/dnnn-projects/:id`, `/dnnn-projects/:id/edit`. Sidebar: "Dự án DNNN" menu entry integrated.
+- **Capital structure inline edit:** PrelimEquityCapital, PrelimOdaLoanCapital, PrelimCreditLoanCapital fields with currency formatting + validation. MainItems textarea with rich editor preview.
+- **GCNĐKĐT inline CRUD:** RegistrationCertificate create/edit/delete modal within tab 1 (no separate page).
 
 ---
 

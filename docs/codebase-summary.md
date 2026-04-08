@@ -2,7 +2,7 @@
 
 GSDT is a production-ready .NET 10 modular monolith for Vietnamese government projects implementing Clean/Onion architecture + CQRS + DDD.
 
-**Status:** v2.46 (2026-04-08) — GSDT P1 Complete (10 phases + E2E Playwright 120 tests) + GSDT P2-01 to P2-04 Complete (Catalogs, PPP BE/FE, DNNN BE domain) + 9 core modules + React 19 frontend (90+ routes + admin catalogs CRUD + 22+ project components) + Form Builder + AI Copilot + Dynamic Workflow + OpenIddict OIDC + Admin UI redesign + Security audited (30/30 fixed) + 2,029+ tests passing + Production ready
+**Status:** v2.46 (2026-04-08) — GSDT P1 Complete (10 phases + E2E Playwright 120 tests) + GSDT P2-01 to P2-05 Complete (Catalogs, PPP BE/FE, DNNN BE/FE) + 9 core modules + React 19 frontend (90+ routes + admin catalogs CRUD + 38+ project components) + Form Builder + AI Copilot + Dynamic Workflow + OpenIddict OIDC + Admin UI redesign + Security audited (30/30 fixed) + 2,029+ tests passing + Production ready
 
 ## Quick Stats
 
@@ -12,7 +12,7 @@ GSDT is a production-ready .NET 10 modular monolith for Vietnamese government pr
 | **Additional Modules** | 9 phase modules | Forms, Workflow, Reporting, AI, Search, Dashboard, Views, Extensions, Governance |
 | **Source Code LOC** | ~168K | 2,226 source files |
 | **Frontend Pages** | 90+ routes | React 19 + Vite + TypeScript 5.7 + Ant Design 5.x + TanStack Router |
-| **Frontend Components** | 47 feature modules | Admin pages (including catalogs CRUD), user profiles, dashboards, workflows |
+| **Frontend Components** | 50+ feature modules | Admin pages (including catalogs CRUD), user profiles, dashboards, workflows, investment projects (Domestic/ODA/PPP/DNNN) |
 | **Solution Projects** | 80+ | 47 backend + 33 tests + shared |
 | **Test Projects** | 35 total | 18 unit + 13 integration + 1 architecture + 1 contract + 1 regression + 1 compliance |
 | **Test Count** | 2,029+ passing | 1,808 BE unit + 491 FE vitest + 140+ Playwright E2E |
