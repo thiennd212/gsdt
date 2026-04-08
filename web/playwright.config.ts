@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
-// Playwright E2E configuration — targets the local Vite dev server on port 5173.
-// Run with: npm run test:e2e (requires the app to be running separately).
+// Playwright E2E configuration — targets local dev servers (BE:6001, Auth:6002, FE:6173).
+// Run with: npm run test:e2e (requires all 3 services running).
 export default defineConfig({
   testDir: './e2e',
   fullyParallel: true,
@@ -12,12 +12,13 @@ export default defineConfig({
   reporter: [['html', { open: 'never' }]],
 
   use: {
-    baseURL: 'http://localhost:5173',
+    baseURL: 'http://localhost:6173',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
 
   projects: [
+    // Existing compliance/perf projects (preserved from corebase)
     {
       name: 'compliance-qd742',
       testMatch: /qd742-compliance/,
@@ -26,7 +27,7 @@ export default defineConfig({
     {
       name: 'compliance-pdpl',
       testMatch: /pdpl-compliance/,
-      dependencies: ['compliance-qd742'], // runs AFTER QĐ742 (lockout test locks admin)
+      dependencies: ['compliance-qd742'],
       use: { ...devices['Desktop Chrome'] },
     },
     {
@@ -49,17 +50,13 @@ export default defineConfig({
       testMatch: /performance-baselines/,
       use: { ...devices['Desktop Chrome'] },
     },
+    // GSDT E2E tests
     {
-      name: 'chromium',
-      testIgnore: /compliance|browser-ui|signalr|performance-baselines/, // API-only tests run in parallel
+      name: 'gsdt-e2e',
+      testDir: './e2e',
+      testMatch: /\.(spec|test)\.(ts|tsx)$/,
+      testIgnore: /compliance|browser-ui|signalr|performance-baselines/,
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-
-  // Uncomment to start dev server automatically during E2E runs:
-  // webServer: {
-  //   command: 'npm run dev',
-  //   url: 'http://localhost:5173',
-  //   reuseExistingServer: !process.env.CI,
-  // },
 });
