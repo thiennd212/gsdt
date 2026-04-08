@@ -4,12 +4,13 @@
 
 **GSDT** is a production-ready .NET 10 modular monolith + React 19 frontend designed for rapid deployment of Vietnamese government projects. Built with Clean Architecture, CQRS, DDD patterns. Fully compliant with NĐ85/TT12 (security), Law 91/Decree 356 (privacy), NĐ53 (audit), NĐ68 (signatures), NĐ59 (VNeID stub).
 
-**Status:** v2.46 (2026-04-08) — GSDT P1 Complete + 2,029+ Tests Passing
+**Status:** v2.46 (2026-04-08) — GSDT P1 + P2-01 to P2-03 Complete + 2,029+ Tests Passing
 
 **Current Completion (2026-04-08):**
 - **GSDT Phase 1:** 10 phases complete (DTC setup, MasterData, BE domain, CQRS, FE pages, Auth, Testing, Polish) + E2E Playwright infrastructure (8 phases, 120 tests)
-- **8 core backend modules** — Identity, Cases, Files, Notifications, Audit, Integration, MasterData, Organization, SystemParams (+ optional phase modules)
-- **React 19 frontend** — 90+ routes, 46 feature modules, dark mode, i18n (vi/en), admin UI redesign
+- **GSDT Phase 2:** 3 phases complete (P2-01 Catalogs & Migration, P2-02 PPP BE Domain, P2-03 PPP FE) — adds GovernmentAgency/Investor catalogs, InvestmentProjects module with Domestic/ODA/PPP types
+- **9 backend modules** — Identity, Cases, Files, Notifications, Audit, Integration, MasterData, Organization, InvestmentProjects (+ optional phase modules)
+- **React 19 frontend** — 90+ routes, 68+ feature modules (46 core + 22 PPP), dark mode, i18n (vi/en), admin UI redesign, DesignEstimate shared popup
 - **Backend Tests:** 1,808 unit + 35 test projects (integration, architecture, E2E)
 - **Frontend Tests:** 491 vitest + 120 Playwright E2E (28 workflow, 30+ CRUD, 28 infrastructure)
 - **Security audit:** 30/30 findings fixed (100%) — All OWASP Top 10 remediated

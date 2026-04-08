@@ -4,6 +4,34 @@ All notable changes to this project documented. Format: date, version, feature/f
 
 ---
 
+## GSDT Phase 2 — Catalogs & PPP Project Type (2026-04-08)
+
+**P2-01, P2-02, P2-03 COMPLETE. 3 COMMITS (0e6533c, ca0383b, 4fa1612). 1 NEW SCHEMA + 11 TABLES + 25+ APIs + 22 FE COMPONENTS.**
+
+### P2-01 — Catalogs & Migration (2026-04-08)
+- **GovernmentAgency entity** (hierarchical tree): ParentId self-reference, 13 fields (Code, Name, NameEn, Level, Type, EffectiveDate, AdministrativeStatus, ContactEmail, ContactPhone, Address, Province, Ward, Remarks).
+- **Investor entity** (flat, 5 fields): InvestorCode, Name, NameEn, ContactEmail, ContactPhone.
+- **Province/Ward extended:** EffectiveDate + AdministrativeStatus columns added for temporal data management.
+- **Admin FE:** GovernmentAgency tree page (hierarchical render + expand/collapse), Investor flat list (CRUD), dynamic catalog admin pages.
+- **GSDT.MasterData merged:** Combined DTC MasterData into main project via NuGet package integration. Seed data: 14 core catalogs (Provinces, Districts, Wards, GovernmentAgency 43 nodes, Investor 5+ entries).
+
+### P2-02 — PPP BE Domain (2026-04-08)
+- **PppProject entity** (Table-Per-Type inheritance): Extends InvestmentProject, adds PppContractTypeId, CapitalStructure, ExpectedRevenue.
+- **10 sub-entities (investment schema):** PppInvestmentDecision, InvestorSelection (junction), PppContractInfo, PppCapitalPlan, PppDisbursementRecord, PppExecutionRecord, DesignEstimate (shared), DesignEstimateItem, RevenueReport, ContractAttachment.
+- **PppContractType enum (10 values):** BOT, BT, BTO, BOO, O&M, BTL, BLT, BOOWithBuiltAsset, Mixed, Other.
+- **ProjectType enum extended:** Domestic=1, ODA=2, Ppp=3 (enables InvestmentProject type filtering).
+- **Full CQRS stack:** 15 commands (Create, Update, Delete, Approve, etc.), 10 validators, 8 queries, 7 DTOs, 2 controllers (PppProjectsController, PppProjectsExtController).
+- **EF migration:** AddPppProjectType (11 new tables, indices, constraints, FK relationships, RLS policy).
+
+### P2-03 — PPP FE (2026-04-08)
+- **22 React components** in `web/src/features/ppp-projects/`: PppProjectLayout, PppProjectList, PppProjectDetail, 7-tab form components (QĐĐT, HĐ dự án, THTH, Giải ngân, Thanh tra, Khai thác+Revenue, Tài liệu).
+- **7-tab form structure:** Tab 1 (Investment Decision), Tab 2 (Project Contract), Tab 3 (Execution Strategy), Tab 4 (Disbursement), Tab 5 (Supervision), Tab 6 (Exploitation+Revenue), Tab 7 (Documents).
+- **Shared DesignEstimate popup:** Reusable modal for PPP + DNNN projects (ItemCode, Quantity, UnitPrice, Remarks). Auto-calc total.
+- **Shared tabs refactored:** AccordionComponent, TabsComponent accept configurable data hooks (useFormData, useDisbursementData, etc.). Enables component reuse across project types.
+- **Routes + sidebar:** `/ppp-projects`, `/ppp-projects/:id`, navigation sidebar entries integrated. Contract type cascading: BOT/BT ↔ sub-types.
+
+---
+
 ## Documentation Cleanup — GSDT P1 & E2E Completion Tracking (2026-04-08)
 
 **Roadmap synced with completed GSDT Phase 1 (10 phases, all marked Complete). E2E-PW row added. All 120 E2E tests passing.**

@@ -3,7 +3,7 @@
 ## Overview
 
 GSDT is a **production-ready full-stack** application combining:
-- **Backend:** .NET 10 modular monolith (8 core modules, Clean/Onion, CQRS, DDD)
+- **Backend:** .NET 10 modular monolith (8 core modules + InvestmentProjects optional module, Clean/Onion, CQRS, DDD)
 - **Frontend:** React 19 + TypeScript 5.7 (Vite, Ant Design, 90+ routes)
 - **Auth Server:** Separate `GSDT.AuthServer` (OpenIddict OIDC/OAuth2)
 - **Infrastructure:** Docker Compose (dev), Kubernetes + Helm (prod), Vault secrets
@@ -60,15 +60,16 @@ Browser (Chrome, Safari, Mobile)
              ├─ 13-layer middleware (security, correlation, rate limit, auth)
              ├─ 393+ REST endpoints (CRUD per module)
              ├─ SignalR hubs (real-time notifications)
-             └─ 8 Core Modules:
+             └─ 9 Modules:
                   • Identity (RBAC+ABAC, MFA, delegations, consent)
                   • Audit (HMAC-chained, RLS, RTBF, compliance)
                   • Cases (DDD example, state machine, CQRS)
                   • Files (MinIO, ClamAV, digital signatures)
                   • Notifications (Email, SMS, SignalR, templates)
                   • Integration (Partners, webhooks, YARP)
-                  • MasterData (Hierarchies, dictionaries)
+                  • MasterData (Hierarchies, dictionaries, GovernmentAgency, Investor)
                   • Organization (OrgUnits, staff, positions)
+                  • InvestmentProjects (Domestic, ODA, PPP types; DesignEstimate shared)
 
     ├─ React SPA (Vite + TS + Ant Design)
     └─► 90+ Routes, 46 Feature Modules
