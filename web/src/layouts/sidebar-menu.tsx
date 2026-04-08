@@ -34,6 +34,7 @@ function getMenuEntries(t: (key: string) => string): MenuEntry[] {
     { key: '/domestic-projects', label: t('nav.domesticProjects'), icon: <FundProjectionScreenOutlined /> },
     { key: '/oda-projects', label: t('nav.odaProjects'), icon: <GlobalOutlined /> },
     { key: '/ppp-projects', label: t('nav.pppProjects'), icon: <SolutionOutlined /> },
+    { key: '/dnnn-projects', label: t('nav.dnnnProjects'), icon: <FundProjectionScreenOutlined /> },
     { key: '/files', label: t('nav.files'), icon: <FolderOutlined /> },
     { key: '/notifications', label: t('nav.notifications'), icon: <BellOutlined />, badge: 3 },
     {

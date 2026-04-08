@@ -57,7 +57,8 @@
     "catalogs": "Catalogs (DTC)",
     "domesticProjects": "Domestic Projects",
     "odaProjects": "ODA Projects",
-    "pppProjects": "PPP Projects"
+    "pppProjects": "PPP Projects",
+    "dnnnProjects": "DNNN Projects"
   },
   "common": {
     "add": "Add New",

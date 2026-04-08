@@ -57,7 +57,8 @@
     "catalogs": "Danh mục DTC",
     "domesticProjects": "DA trong nước",
     "odaProjects": "DA ODA",
-    "pppProjects": "DA PPP"
+    "pppProjects": "DA PPP",
+    "dnnnProjects": "DA DNNN"
   },
   "common": {
     "add": "Thêm mới",

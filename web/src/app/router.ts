@@ -57,6 +57,10 @@ import { pppProjectsRoute } from '@/routes/ppp-projects-list-page';
 import { pppProjectCreateRoute } from '@/routes/ppp-projects-create-page';
 import { pppProjectDetailRoute } from '@/routes/ppp-projects-detail-page';
 import { pppProjectEditRoute } from '@/routes/ppp-projects-edit-page';
+import { dnnnProjectsRoute } from '@/routes/dnnn-projects-list-page';
+import { dnnnProjectCreateRoute } from '@/routes/dnnn-projects-create-page';
+import { dnnnProjectDetailRoute } from '@/routes/dnnn-projects-detail-page';
+import { dnnnProjectEditRoute } from '@/routes/dnnn-projects-edit-page';
 
 // Route tree — public routes + authenticated subtree + admin guard subtree
 const routeTree = rootRoute.addChildren([
@@ -85,6 +89,10 @@ const routeTree = rootRoute.addChildren([
     pppProjectCreateRoute,
     pppProjectEditRoute,
     pppProjectDetailRoute,
+    dnnnProjectsRoute,
+    dnnnProjectCreateRoute,
+    dnnnProjectEditRoute,
+    dnnnProjectDetailRoute,
     // Admin routes — nested under adminRoute (enforces Admin/SystemAdmin role)
     adminRoute.addChildren([
       adminDashboardRoute,
