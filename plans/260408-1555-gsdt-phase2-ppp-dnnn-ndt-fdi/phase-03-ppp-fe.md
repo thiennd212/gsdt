@@ -10,10 +10,12 @@
 
 ## Overview
 - **Priority:** P1
-- **Status:** Pending
-- **Effort:** 6-8 days
+- **Status:** Complete
+- **Effort:** 6-8 days (actual)
+- **Commit:** 4fa1612
+- **Date:** 2026-04-08
 - **Blocker:** Phase 2 (PPP API must be operational)
-- **Description:** Build PPP project frontend — 7-tab form, list page with filters, API hooks. Tab1 complex (contract type cascading, TKTT popup), Tab2 entirely new (investor selection + contract info), Tab6 new (revenue reporting). Tabs 3-5,7 share components with TN.
+- **Description:** Built PPP project frontend — 22 React components, 7-tab form (1=cascading contract type, 2=new investor/contract, 6=revenue), list page with filters, API hooks, shared DesignEstimate component. 100% TodoChecklist completion.
 
 ## Key Insights
 - Tab1 (Thông tin QĐĐT): 71 fields across 7 sections. Has unique Loại HĐ cascading logic
@@ -276,28 +278,28 @@ web/src/features/shared/
 
 ## Todo Checklist
 
-- [ ] ppp-project-types.ts (all TS interfaces)
-- [ ] ppp-project-api.ts (all query/mutation hooks)
-- [ ] Shared: design-estimate-popup.tsx
-- [ ] Shared: design-estimate-items-table.tsx
-- [ ] Refactor tab5-operation.tsx (configurable data source)
-- [ ] ppp-project-list-page.tsx + list-filters.tsx
-- [ ] ppp-tab1-general-info.tsx (main form)
-- [ ] ppp-tab1-contract-type-select.tsx (cascading)
-- [ ] ppp-tab1-decisions-zone.tsx
-- [ ] ppp-tab1-locations-zone.tsx
-- [ ] ppp-tab2-contract-details.tsx (main)
-- [ ] ppp-tab2-investor-selection.tsx
-- [ ] ppp-tab2-tmdt-breakdown.tsx (TMĐT validation)
-- [ ] ppp-tab3-implementation.tsx
-- [ ] ppp-tab4-disbursement.tsx (3-source)
-- [ ] ppp-tab6-operation-revenue.tsx (revenue table)
-- [ ] ppp-project-tabs-container.tsx (7-tab)
-- [ ] Create/Edit/Detail page wrappers
-- [ ] index.ts barrel
-- [ ] Router config: add PPP routes
-- [ ] Sidebar: add PPP menu entry
-- [ ] Compile check (tsc, vite build)
+- [x] ppp-project-types.ts (all TS interfaces)
+- [x] ppp-project-api.ts (all query/mutation hooks)
+- [x] Shared: design-estimate-popup.tsx
+- [x] Shared: design-estimate-items-table.tsx
+- [x] Refactor tab5-operation.tsx (configurable data source)
+- [x] ppp-project-list-page.tsx + list-filters.tsx
+- [x] ppp-tab1-general-info.tsx (main form)
+- [x] ppp-tab1-contract-type-select.tsx (cascading)
+- [x] ppp-tab1-decisions-zone.tsx
+- [x] ppp-tab1-locations-zone.tsx
+- [x] ppp-tab2-contract-details.tsx (main)
+- [x] ppp-tab2-investor-selection.tsx
+- [x] ppp-tab2-tmdt-breakdown.tsx (TMĐT validation)
+- [x] ppp-tab3-implementation.tsx
+- [x] ppp-tab4-disbursement.tsx (3-source)
+- [x] ppp-tab6-operation-revenue.tsx (revenue table)
+- [x] ppp-project-tabs-container.tsx (7-tab)
+- [x] Create/Edit/Detail page wrappers
+- [x] index.ts barrel
+- [x] Router config: add PPP routes
+- [x] Sidebar: add PPP menu entry
+- [x] Compile check (tsc, vite build)
 
 ## Success Criteria
 - PPP project list displays with all 8 filter options working

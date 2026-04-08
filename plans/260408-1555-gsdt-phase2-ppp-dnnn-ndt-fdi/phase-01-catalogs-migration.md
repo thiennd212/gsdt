@@ -8,9 +8,11 @@
 
 ## Overview
 - **Priority:** P1 (blocks all other phases)
-- **Status:** Pending
-- **Effort:** 2-3 days
-- **Description:** Add GovernmentAgency (hierarchical) and Investor (flat) catalogs to MasterData module. Update KHLCNT with 3 new columns (already done in P1 — verify only). Add EffectiveDate + Status to Province/Ward. Generate EF migration.
+- **Status:** Complete
+- **Effort:** 2-3 days (actual)
+- **Commit:** 0e6533c
+- **Date:** 2026-04-08
+- **Description:** Added GovernmentAgency (hierarchical) and Investor (flat) catalogs to MasterData module. Verified KHLCNT columns. Extended Province/Ward with EffectiveDate + Status. Generated EF migration.
 
 ## Key Insights
 
@@ -175,21 +177,21 @@ public enum AdministrativeStatus { Active = 1, Merged = 2 }
 
 ## Todo Checklist
 
-- [ ] GovernmentAgency entity + EF config
-- [ ] Investor entity + EF config
-- [ ] Province: add EffectiveDate + Status
-- [ ] Ward: add EffectiveDate + Status
-- [ ] AdministrativeStatus enum
-- [ ] Register DbSets in MasterDataDbContext
-- [ ] EF Migration
-- [ ] GovernmentAgenciesController (CRUD + tree)
-- [ ] InvestorsController (CRUD)
-- [ ] FE: government-agency tree page + form
-- [ ] FE: investor list page + form
-- [ ] FE: catalog-config + catalog-api updates
-- [ ] FE: navigation entries
-- [ ] Verify KHLCNT already has NameEn/SignedDate/SignedBy (no-op if present)
-- [ ] Compile check (BE + FE)
+- [x] GovernmentAgency entity + EF config
+- [x] Investor entity + EF config
+- [x] Province: add EffectiveDate + Status
+- [x] Ward: add EffectiveDate + Status
+- [x] AdministrativeStatus enum
+- [x] Register DbSets in MasterDataDbContext
+- [x] EF Migration
+- [x] GovernmentAgenciesController (CRUD + tree)
+- [x] InvestorsController (CRUD)
+- [x] FE: government-agency tree page + form
+- [x] FE: investor list page + form
+- [x] FE: catalog-config + catalog-api updates
+- [x] FE: navigation entries
+- [x] Verify KHLCNT already has NameEn/SignedDate/SignedBy (no-op if present)
+- [x] Compile check (BE + FE)
 
 ## Migration Order
 

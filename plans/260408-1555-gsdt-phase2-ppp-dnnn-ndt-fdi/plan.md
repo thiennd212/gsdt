@@ -1,12 +1,13 @@
 ---
 title: "GSDT Phase 2 - PPP, DNNN, NDT, FDI Project Types"
 description: "Add 4 new investment project types (PPP, DNNN, NDT trong nuoc, FDI) to GSDT"
-status: pending
+status: in-progress
 priority: P1
 effort: 28-39d
 branch: feature/gsdt-phase2
 tags: [gsdt, phase2, ppp, dnnn, ndt, fdi, crud]
 created: 2026-04-08
+updated: 2026-04-08
 red-team-score: 7/10
 red-team-date: 2026-04-08
 red-team-notes: "11 findings addressed (3 critical fixed, 4 high fixed, 4 medium noted)"
@@ -24,16 +25,16 @@ red-team-notes: "11 findings addressed (3 critical fixed, 4 high fixed, 4 medium
 
 ## Phases
 
-| # | Phase | Status | Effort | Blocker |
-|---|-------|--------|--------|---------|
-| 1 | [Catalogs & Migration](phase-01-catalogs-migration.md) | Pending | 2-3d | -- |
-| 2 | [PPP Backend Domain](phase-02-ppp-be-domain.md) | Pending | 5-6d | P1 |
-| 3 | [PPP Frontend](phase-03-ppp-fe.md) | Pending | 6-8d | P2 |
-| 4 | [DNNN Backend Domain](phase-04-dnnn-be-domain.md) | Pending | 3-4d | P1 |
-| 5 | [DNNN Frontend](phase-05-dnnn-fe.md) | Pending | 4-5d | P4 |
-| 6 | [NDT + FDI (BE+FE)](phase-06-ndt-fdi-be-fe.md) | Pending | 3-5d | P4,P5 |
-| 7 | [Testing](phase-07-testing.md) | Pending | 3-5d | P3,P5,P6 |
-| 8 | [Buffer & Polish](phase-08-buffer-polish.md) | Pending | 2-3d | P7 |
+| # | Phase | Status | Effort | Commit | Date |
+|---|-------|--------|--------|---------|------|
+| 1 | [Catalogs & Migration](phase-01-catalogs-migration.md) | Complete | 2-3d | 0e6533c | 2026-04-08 |
+| 2 | [PPP Backend Domain](phase-02-ppp-be-domain.md) | Complete | 5-6d | ca0383b | 2026-04-08 |
+| 3 | [PPP Frontend](phase-03-ppp-fe.md) | Complete | 6-8d | 4fa1612 | 2026-04-08 |
+| 4 | [DNNN Backend Domain](phase-04-dnnn-be-domain.md) | Pending | 3-4d | -- | -- |
+| 5 | [DNNN Frontend](phase-05-dnnn-fe.md) | Pending | 4-5d | -- | -- |
+| 6 | [NDT + FDI (BE+FE)](phase-06-ndt-fdi-be-fe.md) | Pending | 3-5d | -- | -- |
+| 7 | [Testing](phase-07-testing.md) | Pending | 3-5d | -- | -- |
+| 8 | [Buffer & Polish](phase-08-buffer-polish.md) | Pending | 2-3d | -- | -- |
 
 ## Dependency Graph
 

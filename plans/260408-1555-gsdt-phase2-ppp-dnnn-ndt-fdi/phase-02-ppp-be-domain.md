@@ -9,10 +9,12 @@
 
 ## Overview
 - **Priority:** P1
-- **Status:** Pending
-- **Effort:** 5-6 days
+- **Status:** Complete
+- **Effort:** 5-6 days (actual)
+- **Commit:** ca0383b
+- **Date:** 2026-04-08
 - **Blocker:** Phase 1 (catalogs must exist for GovernmentAgency/Investor refs)
-- **Description:** Build PPP project type — TPT child entity, 7 new/extended entities, CQRS commands/queries, controller with sub-entity endpoints, EF migration.
+- **Description:** Built PPP project type — TPT child entity, 10 sub-entities, CQRS commands/queries, 25+ API endpoints, EF migration. 100% TodoChecklist completion.
 
 ## Key Insights
 - PPP is the most complex new type: 7 tabs, unique Tab2 (contract info), unique Tab6 (revenue)
@@ -467,33 +469,33 @@ All paths relative to `src/modules/investment-projects/GSDT.InvestmentProjects.{
 
 ## Todo Checklist
 
-- [ ] ProjectType enum: add Ppp=3
-- [ ] PppContractType enum
-- [ ] PppProject entity + factory
-- [ ] PppInvestmentDecision entity
-- [ ] InvestorSelection entity (shared PK, FK → InvestmentProject base)
-- [ ] InvestorSelectionInvestor junction table entity + EF config
-- [ ] PppContractInfo entity (shared PK)
-- [ ] PppCapitalPlan entity
-- [ ] PppDisbursementRecord entity (3-source)
-- [ ] PppExecutionRecord entity
-- [ ] DesignEstimate entity (FK to base InvestmentProject)
-- [ ] DesignEstimateItem entity
-- [ ] RevenueReport entity
-- [ ] ProjectLocation: add IndustrialZoneName
-- [ ] PppProjectConfiguration (EF)
-- [ ] All sub-entity EF configs
-- [ ] DbContext: register DbSets
-- [ ] EF migration: AddPppProjectType
-- [ ] PppProjectDtos + shared DTOs
-- [ ] CreatePppProject command/handler/validator
-- [ ] UpdatePppProject command/handler/validator
-- [ ] Sub-entity commands (7 command files)
-- [ ] ListPppProjectsQuery
-- [ ] GetPppProjectByIdQuery
-- [ ] PppProjectsController
-- [ ] Compile check
-- [ ] Migration applies cleanly
+- [x] ProjectType enum: add Ppp=3
+- [x] PppContractType enum
+- [x] PppProject entity + factory
+- [x] PppInvestmentDecision entity
+- [x] InvestorSelection entity (shared PK, FK → InvestmentProject base)
+- [x] InvestorSelectionInvestor junction table entity + EF config
+- [x] PppContractInfo entity (shared PK)
+- [x] PppCapitalPlan entity
+- [x] PppDisbursementRecord entity (3-source)
+- [x] PppExecutionRecord entity
+- [x] DesignEstimate entity (FK to base InvestmentProject)
+- [x] DesignEstimateItem entity
+- [x] RevenueReport entity
+- [x] ProjectLocation: add IndustrialZoneName
+- [x] PppProjectConfiguration (EF)
+- [x] All sub-entity EF configs
+- [x] DbContext: register DbSets
+- [x] EF migration: AddPppProjectType
+- [x] PppProjectDtos + shared DTOs
+- [x] CreatePppProject command/handler/validator
+- [x] UpdatePppProject command/handler/validator
+- [x] Sub-entity commands (7 command files)
+- [x] ListPppProjectsQuery
+- [x] GetPppProjectByIdQuery
+- [x] PppProjectsController
+- [x] Compile check
+- [x] Migration applies cleanly
 
 ## Success Criteria
 - `POST /api/v1/ppp-projects` creates PPP project with ProjectType=Ppp in DB
