@@ -55,6 +55,7 @@
 | **GSDT-P2-01** | Catalogs & Migration (GovernmentAgency tree, Investor, Province/Ward extended, MasterData merged) | Complete | 100% | — | 2026-04-08 |
 | **GSDT-P2-02** | PPP BE Domain (PppProject TPT, 10 sub-entities, CQRS 25+ endpoints, 11 new tables) | Complete | 100% | — | 2026-04-08 |
 | **GSDT-P2-03** | PPP FE (22 components, 7-tab form, DesignEstimate popup, contract cascading) | Complete | 100% | — | 2026-04-08 |
+| **GSDT-P2-04** | DNNN BE Domain (DnnnProject TPT, 3 sub-entities, CQRS 20 endpoints, RegistrationCertificate shared) | Complete | 100% | — | 2026-04-08 |
 | **Phase 16** | Microservices Extraction (Strangler, RabbitMQ, YARP) | Pending | 0% | — | — |
 | **Phase 17** | V2 Strategic (OPA policy-as-code, Backstage catalog) | Pending | 0% | — | — |
 

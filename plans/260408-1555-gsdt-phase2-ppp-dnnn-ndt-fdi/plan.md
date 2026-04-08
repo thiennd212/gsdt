@@ -30,7 +30,7 @@ red-team-notes: "11 findings addressed (3 critical fixed, 4 high fixed, 4 medium
 | 1 | [Catalogs & Migration](phase-01-catalogs-migration.md) | Complete | 2-3d | 0e6533c | 2026-04-08 |
 | 2 | [PPP Backend Domain](phase-02-ppp-be-domain.md) | Complete | 5-6d | ca0383b | 2026-04-08 |
 | 3 | [PPP Frontend](phase-03-ppp-fe.md) | Complete | 6-8d | 4fa1612 | 2026-04-08 |
-| 4 | [DNNN Backend Domain](phase-04-dnnn-be-domain.md) | Pending | 3-4d | -- | -- |
+| 4 | [DNNN Backend Domain](phase-04-dnnn-be-domain.md) | Complete | 3-4d | (merged) | 2026-04-08 |
 | 5 | [DNNN Frontend](phase-05-dnnn-fe.md) | Pending | 4-5d | -- | -- |
 | 6 | [NDT + FDI (BE+FE)](phase-06-ndt-fdi-be-fe.md) | Pending | 3-5d | -- | -- |
 | 7 | [Testing](phase-07-testing.md) | Pending | 3-5d | -- | -- |

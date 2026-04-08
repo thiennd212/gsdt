@@ -207,6 +207,22 @@
   - Application handlers depend on interfaces only
   - Infrastructure provides EF Core implementations
 
+#### 14. InvestmentProjects Module (GSDT.InvestmentProjects.*)
+- **Layer structure:**
+  - **Domain**: InvestmentProject base aggregate (TPT parent), ProjectType enum (Domestic=1, ODA=2, PPP=3, DNNN=4), SubProjectType enum, 4 child aggregates (DomesticProject, OdaProject, PppProject, DnnnProject)
+  - **Application**: CQRS commands/queries per project type, validators, DTOs
+  - **Infrastructure**: InvestmentProjectsDbContext, repository implementations, migrations
+  - **Presentation**: Controllers per project type (DomesticProjectsController, OdaProjectsController, PppProjectsController, DnnnProjectsController)
+- **Key features:**
+  - **Table-Per-Type (TPT) inheritance:** Base InvestmentProject in investment schema, child tables (DomesticProjects, OdaProjects, PppProjects, DnnnProjects) extend base
+  - **Shared sub-entities:** DesignEstimate + DesignEstimateItem (used by PPP/DNNN), InvestorSelection (junction, used by PPP/DNNN)
+  - **PPP-specific (11 entities):** PppProject, PppInvestmentDecision, PppContractInfo, PppCapitalPlan, PppDisbursementRecord, PppExecutionRecord, RevenueReport, ContractAttachment, PppContractType enum (10 values: BOT, BT, BTO, BOO, O&M, BTL, BLT, BOOWithBuiltAsset, Mixed, Other)
+  - **DNNN-specific (3 entities):** DnnnProject (state-owned enterprise, CSH/ODA/TCTD capital structure), DnnnInvestmentDecision, RegistrationCertificate (FK to base InvestmentProject for NĐT/FDI reuse)
+  - **20+ REST endpoints:** Create, Read, Update, Delete, List per project type (e.g., POST/GET /api/v1/dnnn-projects, PUT /api/v1/dnnn-projects/{id})
+  - **EF migrations:** Incremental TPT migrations (AddPppProjectType, AddDnnnProjectType) with indices, constraints, RLS policies
+- **Test coverage:** Unit tests for domain aggregates, CQRS handlers, validators; Integration tests for repository persistence
+- **Architecture Impact:** Establishes TPT pattern for extensible project type hierarchy. DesignEstimate/RegistrationCertificate sharing enables code reuse across project types. Foundation for future NĐT (Foreign Direct Investment) and FDI projects in Phase 2-05+.
+
 ---
 
 ## Shared Infrastructure

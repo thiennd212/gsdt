@@ -8,10 +8,11 @@
 
 ## Overview
 - **Priority:** P1
-- **Status:** Pending
-- **Effort:** 3-4 days
-- **Blocker:** Phase 1 (catalogs)
-- **Description:** Build DNNN project type — TPT child entity with DNNN-specific capital structure (CSH/ODA/TCTD), RegistrationCertificate (GCNĐKĐT), reuse DesignEstimate from PPP, CQRS, controller, migration.
+- **Status:** Complete
+- **Effort:** 3-4 days (actual)
+- **Commit:** (merged to main on 2026-04-08)
+- **Date:** 2026-04-08
+- **Description:** Built DNNN project type — TPT child entity with DNNN-specific capital structure (CSH/ODA/TCTD), RegistrationCertificate (GCNĐKĐT), reuse DesignEstimate from PPP, CQRS, controller, migration. 19/19 todos complete, build 0 errors/warnings, code review 8.5/10.
 
 ## Key Insights
 - DNNN capital structure: Vốn CSH + Vốn vay ODA + Vốn vay TCTD (fundamentally different from TN and PPP)
@@ -240,25 +241,25 @@ All paths relative to `src/modules/investment-projects/GSDT.InvestmentProjects.{
 
 ## Todo Checklist
 
-- [ ] ProjectType enum: add Dnnn=4
-- [ ] DnnnProject entity + factory
-- [ ] DnnnInvestmentDecision entity
-- [ ] RegistrationCertificate entity (FK to base)
-- [ ] DnnnProjectConfiguration (EF)
-- [ ] RegistrationCertificate EF config
-- [ ] Wire InvestorSelection + DesignEstimate reuse in DNNN config
-- [ ] DbContext: register DbSets
-- [ ] EF migration: AddDnnnProjectType
-- [ ] DnnnProjectDtos + RegistrationCertificateDto
-- [ ] CreateDnnnProject command/handler/validator
-- [ ] UpdateDnnnProject command/handler/validator
-- [ ] ManageDnnnDecisionCommands
-- [ ] ManageRegistrationCertificateCommands
-- [ ] ListDnnnProjectsQuery (5 filters)
-- [ ] GetDnnnProjectByIdQuery
-- [ ] DnnnProjectsController
-- [ ] Compile check
-- [ ] Migration applies cleanly
+- [x] ProjectType enum: add Dnnn=4
+- [x] DnnnProject entity + factory
+- [x] DnnnInvestmentDecision entity
+- [x] RegistrationCertificate entity (FK to base)
+- [x] DnnnProjectConfiguration (EF)
+- [x] RegistrationCertificate EF config
+- [x] Wire InvestorSelection + DesignEstimate reuse in DNNN config
+- [x] DbContext: register DbSets
+- [x] EF migration: AddDnnnProjectType
+- [x] DnnnProjectDtos + RegistrationCertificateDto
+- [x] CreateDnnnProject command/handler/validator
+- [x] UpdateDnnnProject command/handler/validator
+- [x] ManageDnnnDecisionCommands
+- [x] ManageRegistrationCertificateCommands
+- [x] ListDnnnProjectsQuery (5 filters)
+- [x] GetDnnnProjectByIdQuery
+- [x] DnnnProjectsController
+- [x] Compile check
+- [x] Migration applies cleanly
 
 ## Success Criteria
 - `POST /api/v1/dnnn-projects` creates DNNN project with ProjectType=Dnnn

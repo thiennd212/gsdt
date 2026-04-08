@@ -2,7 +2,7 @@
 
 GSDT is a production-ready .NET 10 modular monolith for Vietnamese government projects implementing Clean/Onion architecture + CQRS + DDD.
 
-**Status:** v2.46 (2026-04-08) — GSDT P1 Complete (10 phases + E2E Playwright 120 tests) + GSDT P2-01 to P2-03 Complete (Catalogs, PPP BE domain, PPP FE) + 8 core modules + React 19 frontend (90+ routes + admin catalogs CRUD + 22 PPP components) + Form Builder + AI Copilot + Dynamic Workflow + OpenIddict OIDC + Admin UI redesign + Security audited (30/30 fixed) + 2,029+ tests passing + Production ready
+**Status:** v2.46 (2026-04-08) — GSDT P1 Complete (10 phases + E2E Playwright 120 tests) + GSDT P2-01 to P2-04 Complete (Catalogs, PPP BE/FE, DNNN BE domain) + 9 core modules + React 19 frontend (90+ routes + admin catalogs CRUD + 22+ project components) + Form Builder + AI Copilot + Dynamic Workflow + OpenIddict OIDC + Admin UI redesign + Security audited (30/30 fixed) + 2,029+ tests passing + Production ready
 
 ## Quick Stats
 
@@ -19,7 +19,7 @@ GSDT is a production-ready .NET 10 modular monolith for Vietnamese government pr
 | **Security Audit** | 30/30 fixed (100%) | All OWASP Top 10 + NĐ85/TT12 findings remediated |
 | **Compliance** | QĐ742: 40/40 ✓ | PDPL: 100% ✓ (consent, RTBF, PII, RLS, audit) |
 | **API Endpoints** | 393+ REST | SignalR hubs, WebSocket support, async patterns |
-| **Database Entities** | 197 | SQL Server 2022 + EF Core 10 + Always Encrypted (PII); 35 InvestmentProjects entities in "investment" schema (Domestic/ODA/PPP project types) |
+| **Database Entities** | 200 | SQL Server 2022 + EF Core 10 + Always Encrypted (PII); 38 InvestmentProjects entities in "investment" schema (Domestic/ODA/PPP/DNNN project types) |
 | **RLS Architecture** | 40 SQL policies | TenantSessionContextInterceptor + Dapper isolation |
 | **Data Classification** | 22 entity files | Public/Internal/Confidential/Restricted tags |
 | **Form Field Types** | 32 types | Text, Email, Phone, Date, Select, MultiSelect, RichText, File, Signature, etc. |
