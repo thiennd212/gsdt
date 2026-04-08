@@ -177,16 +177,9 @@ if (builder.Environment.IsDevelopment() || builder.Environment.IsStaging())
 builder.Services.AddOutputCache(options =>
 {
     options.AddBasePolicy(policy => policy.NoCache());
-    options.AddPolicy("CasesList", policy =>
-        policy.Expire(TimeSpan.FromSeconds(30))
-              .SetVaryByQuery("page", "pageSize", "status", "type")
-              .SetVaryByHeader("Authorization"));
     options.AddPolicy("MasterData", policy =>
         policy.Expire(TimeSpan.FromMinutes(5))
               .SetVaryByQuery("type"));
-    options.AddPolicy("ReportDashboard", policy =>
-        policy.Expire(TimeSpan.FromMinutes(5))
-              .SetVaryByHeader("Authorization"));
 });
 
 var app = builder.Build();

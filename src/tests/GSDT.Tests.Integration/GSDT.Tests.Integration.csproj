@@ -22,13 +22,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\host\GSDT.Api\GSDT.Api.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <!-- Exclude test files that depend on unimplemented modules (Cases, Forms, Workflow, Reporting, AI) -->
-    <Compile Remove="Cases\CasesApiTests.cs" />
-    <Compile Remove="Cases\CasesWorkflowTransitionTests.cs" />
-    <Compile Remove="Forms\FormTemplatesApiTests.cs" />
-    <Compile Remove="Workflow\WorkflowDefinitionsApiTests.cs" />
-    <Compile Remove="Reporting\ReportsEndpointTests.cs" />
-    <Compile Remove="Ai\AiApiTests.cs" />
-  </ItemGroup>
 </Project>
