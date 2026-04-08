@@ -25,23 +25,23 @@ export default defineConfig({
   },
 
   server: {
-    port: 5173,
+    port: 6173,
     proxy: {
       '/api': {
-        target: 'http://localhost:5001',
+        target: 'http://localhost:6001',
         changeOrigin: true,
       },
       '/hubs': {
-        target: 'http://localhost:5001',
+        target: 'http://localhost:6001',
         changeOrigin: true,
         ws: true,
       },
       '/openapi': {
-        target: 'http://localhost:5001',
+        target: 'http://localhost:6001',
         changeOrigin: true,
       },
       '/health': {
-        target: 'http://localhost:5001',
+        target: 'http://localhost:6001',
         changeOrigin: true,
       },
     },

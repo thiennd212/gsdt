@@ -14,8 +14,8 @@ import { defineConfig } from 'orval';
 export default defineConfig({
   api: {
     input: {
-      // OpenAPI spec via nginx proxy (port 5001)
-      target: 'http://localhost:5001/openapi/v1.json',
+      // OpenAPI spec via dev API (port 6001)
+      target: 'http://localhost:6001/openapi/v1.json',
     },
     output: {
       target: 'src/api/generated',
