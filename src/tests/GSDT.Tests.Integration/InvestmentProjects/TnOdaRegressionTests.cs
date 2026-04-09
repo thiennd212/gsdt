@@ -10,12 +10,24 @@ namespace GSDT.Tests.Integration.InvestmentProjects;
 /// Regression tests — verify existing TN (domestic) and ODA project endpoints
 /// still return 200 after adding NĐT and FDI project types in Phase 2.
 /// Guards against routing conflicts and handler registration regressions.
+/// Controllers require BTC,CQCQ,CDT for read and BTC,CDT for write.
+/// Tests use role-specific clients — SystemAdmin is NOT in BTC/CQCQ/CDT.
 /// </summary>
 [Collection("Integration")]
 public class TnOdaRegressionTests(DatabaseFixture db) : IntegrationTestBase(db)
 {
     private const string DomesticBaseUrl = "/api/v1/domestic-projects";
     private const string OdaBaseUrl      = "/api/v1/oda-projects";
+
+    // ── Shared client helpers ─────────────────────────────────────────────────
+
+    /// <summary>Creates an HttpClient with BTC role for read operations.</summary>
+    private HttpClient CreateReadClient() =>
+        CreateAuthenticatedClient(roles: ["BTC"], tenantId: DefaultTenantId.ToString());
+
+    /// <summary>Creates an HttpClient with BTC+CDT roles for write operations.</summary>
+    private HttpClient CreateWriteClient() =>
+        CreateAuthenticatedClient(roles: ["BTC", "CDT"], tenantId: DefaultTenantId.ToString());
 
     // ── Domestic (TN) helpers ─────────────────────────────────────────────────
 
@@ -107,7 +119,8 @@ public class TnOdaRegressionTests(DatabaseFixture db) : IntegrationTestBase(db)
     [Fact]
     public async Task DomesticProjects_List_Returns200()
     {
-        var response = await Client.GetAsync(DomesticBaseUrl);
+        using var client = CreateReadClient();
+        var response = await client.GetAsync(DomesticBaseUrl);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -117,7 +130,8 @@ public class TnOdaRegressionTests(DatabaseFixture db) : IntegrationTestBase(db)
     [Fact]
     public async Task DomesticProjects_Create_Returns200()
     {
-        var response = await Client.PostAsJsonAsync(DomesticBaseUrl, ValidDomesticBody());
+        using var client = CreateWriteClient();
+        var response = await client.PostAsJsonAsync(DomesticBaseUrl, ValidDomesticBody());
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -131,7 +145,8 @@ public class TnOdaRegressionTests(DatabaseFixture db) : IntegrationTestBase(db)
     [Fact]
     public async Task OdaProjects_List_Returns200()
     {
-        var response = await Client.GetAsync(OdaBaseUrl);
+        using var client = CreateReadClient();
+        var response = await client.GetAsync(OdaBaseUrl);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -141,7 +156,8 @@ public class TnOdaRegressionTests(DatabaseFixture db) : IntegrationTestBase(db)
     [Fact]
     public async Task OdaProjects_Create_Returns200()
     {
-        var response = await Client.PostAsJsonAsync(OdaBaseUrl, ValidOdaBody());
+        using var client = CreateWriteClient();
+        var response = await client.PostAsJsonAsync(OdaBaseUrl, ValidOdaBody());
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();

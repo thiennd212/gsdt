@@ -11,7 +11,7 @@ namespace GSDT.Tests.Integration.AdminCatalogs;
 /// Cơ quan chủ quản: hierarchical tenant-scoped catalog (max 4 levels).
 /// Read: [Authorize(Roles = "BTC,CQCQ,CDT")]
 /// Write (POST/PUT/DELETE): [Authorize(Roles = "BTC")]
-/// Default Client is pre-authenticated as SystemAdmin — passes all role checks.
+/// Tests use role-specific clients — SystemAdmin is NOT in BTC/CQCQ/CDT.
 /// </summary>
 [Collection("Integration")]
 public class GovernmentAgencyApiTests(DatabaseFixture db) : IntegrationTestBase(db)
@@ -19,6 +19,10 @@ public class GovernmentAgencyApiTests(DatabaseFixture db) : IntegrationTestBase(
     private const string BaseUrl = "/api/v1/masterdata/government-agencies";
 
     // ── Helpers ───────────────────────────────────────────────────────────────
+
+    /// <summary>Creates an HttpClient with BTC role (satisfies both read and write auth).</summary>
+    private HttpClient CreateBtcClient() =>
+        CreateAuthenticatedClient(roles: ["BTC"], tenantId: DefaultTenantId.ToString());
 
     /// <summary>Minimal valid create body with a guaranteed-unique code.</summary>
     private static object ValidCreateBody(string? code = null, Guid? parentId = null) => new
@@ -38,10 +42,11 @@ public class GovernmentAgencyApiTests(DatabaseFixture db) : IntegrationTestBase(
         reportDisplayOrder  = (int?)null,
     };
 
-    /// <summary>Creates a government agency and returns its id.</summary>
+    /// <summary>Creates a government agency via BTC client and returns its id.</summary>
     private async Task<Guid> CreateAgencyAsync(string? code = null, Guid? parentId = null)
     {
-        var response = await Client.PostAsJsonAsync(BaseUrl, ValidCreateBody(code, parentId));
+        using var client = CreateBtcClient();
+        var response = await client.PostAsJsonAsync(BaseUrl, ValidCreateBody(code, parentId));
         response.StatusCode.Should().Be(HttpStatusCode.OK, "pre-condition: agency creation must succeed");
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
         return body.GetProperty("data").GetProperty("id").GetGuid();
@@ -52,7 +57,8 @@ public class GovernmentAgencyApiTests(DatabaseFixture db) : IntegrationTestBase(
     [Fact]
     public async Task List_Returns200()
     {
-        var response = await Client.GetAsync(BaseUrl);
+        using var client = CreateBtcClient();
+        var response = await client.GetAsync(BaseUrl);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -62,7 +68,8 @@ public class GovernmentAgencyApiTests(DatabaseFixture db) : IntegrationTestBase(
     [Fact]
     public async Task Create_Returns200()
     {
-        var response = await Client.PostAsJsonAsync(BaseUrl, ValidCreateBody());
+        using var client = CreateBtcClient();
+        var response = await client.PostAsJsonAsync(BaseUrl, ValidCreateBody());
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -75,7 +82,8 @@ public class GovernmentAgencyApiTests(DatabaseFixture db) : IntegrationTestBase(
     {
         var id = await CreateAgencyAsync();
 
-        var response = await Client.GetAsync($"{BaseUrl}/{id}");
+        using var client = CreateBtcClient();
+        var response = await client.GetAsync($"{BaseUrl}/{id}");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -106,7 +114,8 @@ public class GovernmentAgencyApiTests(DatabaseFixture db) : IntegrationTestBase(
             isActive           = true,
         };
 
-        var response = await Client.PutAsJsonAsync($"{BaseUrl}/{id}", updateBody);
+        using var client = CreateBtcClient();
+        var response = await client.PutAsJsonAsync($"{BaseUrl}/{id}", updateBody);
 
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
     }
@@ -116,7 +125,8 @@ public class GovernmentAgencyApiTests(DatabaseFixture db) : IntegrationTestBase(
     {
         var id = await CreateAgencyAsync();
 
-        var response = await Client.DeleteAsync($"{BaseUrl}/{id}");
+        using var client = CreateBtcClient();
+        var response = await client.DeleteAsync($"{BaseUrl}/{id}");
 
         // Soft delete returns 204 NoContent per controller implementation
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
@@ -132,7 +142,8 @@ public class GovernmentAgencyApiTests(DatabaseFixture db) : IntegrationTestBase(
         var childId = await CreateAgencyAsync(parentId: parentId);
 
         // Fetch child and verify parentId is set correctly
-        var response = await Client.GetAsync($"{BaseUrl}/{childId}");
+        using var client = CreateBtcClient();
+        var response = await client.GetAsync($"{BaseUrl}/{childId}");
         response.StatusCode.Should().Be(HttpStatusCode.OK);
 
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();

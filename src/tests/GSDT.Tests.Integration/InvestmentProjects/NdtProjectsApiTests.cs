@@ -11,7 +11,7 @@ namespace GSDT.Tests.Integration.InvestmentProjects;
 /// NĐT = Nhà đầu tư tư nhân (private domestic investor).
 /// Capital rule: PrelimTotalInvestment == PrelimEquityCapital + PrelimOdaLoanCapital + PrelimCreditLoanCapital
 /// Roles required: BTC,CDT for write; BTC,CQCQ,CDT for read.
-/// Default Client is pre-authenticated as SystemAdmin.
+/// Tests use role-specific clients — SystemAdmin is NOT in BTC/CQCQ/CDT.
 /// </summary>
 [Collection("Integration")]
 public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
@@ -19,6 +19,14 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     private const string BaseUrl = "/api/v1/ndt-projects";
 
     // ── Helpers ───────────────────────────────────────────────────────────────
+
+    /// <summary>Creates an HttpClient with BTC role for read operations.</summary>
+    private HttpClient CreateReadClient() =>
+        CreateAuthenticatedClient(roles: ["BTC"], tenantId: DefaultTenantId.ToString());
+
+    /// <summary>Creates an HttpClient with BTC+CDT roles for write operations.</summary>
+    private HttpClient CreateWriteClient() =>
+        CreateAuthenticatedClient(roles: ["BTC", "CDT"], tenantId: DefaultTenantId.ToString());
 
     /// <summary>Minimal valid NĐT create body. Capital: 100 = 40 + 30 + 30.</summary>
     private static object ValidCreateBody(string? projectCode = null) => new
@@ -38,10 +46,11 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
         prelimCreditLoanCapital = 30m,
     };
 
-    /// <summary>Creates a project and returns its Guid id.</summary>
+    /// <summary>Creates a project via write client and returns its Guid id.</summary>
     private async Task<Guid> CreateProjectAsync(string? code = null)
     {
-        var response = await Client.PostAsJsonAsync(BaseUrl, ValidCreateBody(code));
+        using var client = CreateWriteClient();
+        var response = await client.PostAsJsonAsync(BaseUrl, ValidCreateBody(code));
         response.StatusCode.Should().Be(HttpStatusCode.OK, "pre-condition: project creation must succeed");
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
         return body.GetProperty("data").GetGuid();
@@ -52,7 +61,8 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     [Fact]
     public async Task List_Returns200()
     {
-        var response = await Client.GetAsync(BaseUrl);
+        using var client = CreateReadClient();
+        var response = await client.GetAsync(BaseUrl);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -62,7 +72,8 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     [Fact]
     public async Task Create_ValidProject_Returns200()
     {
-        var response = await Client.PostAsJsonAsync(BaseUrl, ValidCreateBody());
+        using var client = CreateWriteClient();
+        var response = await client.PostAsJsonAsync(BaseUrl, ValidCreateBody());
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -76,7 +87,8 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     {
         var id = await CreateProjectAsync();
 
-        var response = await Client.GetAsync($"{BaseUrl}/{id}");
+        using var client = CreateReadClient();
+        var response = await client.GetAsync($"{BaseUrl}/{id}");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -90,7 +102,8 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
         var id = await CreateProjectAsync();
 
         // Fetch RowVersion for optimistic concurrency
-        var getResponse = await Client.GetAsync($"{BaseUrl}/{id}");
+        using var readClient = CreateReadClient();
+        var getResponse = await readClient.GetAsync($"{BaseUrl}/{id}");
         var getBody = await getResponse.Content.ReadFromJsonAsync<JsonElement>();
         var rowVersion = getBody.GetProperty("data").GetProperty("rowVersion").GetBytesFromBase64();
 
@@ -112,7 +125,8 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
             prelimCreditLoanCapital = 60m,
         };
 
-        var response = await Client.PutAsJsonAsync($"{BaseUrl}/{id}", updateBody);
+        using var writeClient = CreateWriteClient();
+        var response = await writeClient.PutAsJsonAsync($"{BaseUrl}/{id}", updateBody);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
@@ -122,7 +136,8 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     {
         var id = await CreateProjectAsync();
 
-        var response = await Client.DeleteAsync($"{BaseUrl}/{id}");
+        using var client = CreateWriteClient();
+        var response = await client.DeleteAsync($"{BaseUrl}/{id}");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
@@ -151,7 +166,8 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
             fileId             = (Guid?)null,
         };
 
-        var response = await Client.PostAsJsonAsync($"{BaseUrl}/{id}/decisions", decisionBody);
+        using var client = CreateWriteClient();
+        var response = await client.PostAsJsonAsync($"{BaseUrl}/{id}/decisions", decisionBody);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
@@ -173,7 +189,8 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
             fileId            = (Guid?)null,
         };
 
-        var response = await Client.PostAsJsonAsync($"{BaseUrl}/{id}/certificates", certBody);
+        using var client = CreateWriteClient();
+        var response = await client.PostAsJsonAsync($"{BaseUrl}/{id}/certificates", certBody);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
@@ -192,7 +209,8 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
             address    = (string?)null,
         };
 
-        var response = await Client.PostAsJsonAsync($"{BaseUrl}/{id}/locations", locationBody);
+        using var client = CreateWriteClient();
+        var response = await client.PostAsJsonAsync($"{BaseUrl}/{id}/locations", locationBody);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }

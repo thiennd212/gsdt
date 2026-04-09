@@ -11,7 +11,7 @@ namespace GSDT.Tests.Integration.AdminCatalogs;
 /// Chủ đầu tư: flat tenant-scoped catalog, filter by investorType.
 /// Read: [Authorize(Roles = "BTC,CQCQ,CDT")]
 /// Write (POST/PUT/DELETE): [Authorize(Roles = "BTC")]
-/// Default Client is pre-authenticated as SystemAdmin — passes all role checks.
+/// Tests use role-specific clients — SystemAdmin is NOT in BTC/CQCQ/CDT.
 /// </summary>
 [Collection("Integration")]
 public class InvestorApiTests(DatabaseFixture db) : IntegrationTestBase(db)
@@ -19,6 +19,10 @@ public class InvestorApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     private const string BaseUrl = "/api/v1/masterdata/investors";
 
     // ── Helpers ───────────────────────────────────────────────────────────────
+
+    /// <summary>Creates an HttpClient with BTC role (satisfies both read and write auth).</summary>
+    private HttpClient CreateBtcClient() =>
+        CreateAuthenticatedClient(roles: ["BTC"], tenantId: DefaultTenantId.ToString());
 
     /// <summary>
     /// Minimal valid create body. BusinessIdOrCccd must be unique per tenant.
@@ -32,10 +36,11 @@ public class InvestorApiTests(DatabaseFixture db) : IntegrationTestBase(db)
         nameEn            = (string?)"Test Company",
     };
 
-    /// <summary>Creates an investor and returns its id.</summary>
+    /// <summary>Creates an investor via BTC client and returns its id.</summary>
     private async Task<Guid> CreateInvestorAsync(string? businessId = null)
     {
-        var response = await Client.PostAsJsonAsync(BaseUrl, ValidCreateBody(businessId));
+        using var client = CreateBtcClient();
+        var response = await client.PostAsJsonAsync(BaseUrl, ValidCreateBody(businessId));
         response.StatusCode.Should().Be(HttpStatusCode.OK, "pre-condition: investor creation must succeed");
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
         return body.GetProperty("data").GetProperty("id").GetGuid();
@@ -46,7 +51,8 @@ public class InvestorApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     [Fact]
     public async Task List_Returns200()
     {
-        var response = await Client.GetAsync(BaseUrl);
+        using var client = CreateBtcClient();
+        var response = await client.GetAsync(BaseUrl);
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -56,7 +62,8 @@ public class InvestorApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     [Fact]
     public async Task Create_Returns200()
     {
-        var response = await Client.PostAsJsonAsync(BaseUrl, ValidCreateBody());
+        using var client = CreateBtcClient();
+        var response = await client.PostAsJsonAsync(BaseUrl, ValidCreateBody());
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -69,7 +76,8 @@ public class InvestorApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     {
         var id = await CreateInvestorAsync();
 
-        var response = await Client.GetAsync($"{BaseUrl}/{id}");
+        using var client = CreateBtcClient();
+        var response = await client.GetAsync($"{BaseUrl}/{id}");
 
         response.StatusCode.Should().Be(HttpStatusCode.OK);
         var body = await response.Content.ReadFromJsonAsync<JsonElement>();
@@ -82,7 +90,8 @@ public class InvestorApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     {
         var id = await CreateInvestorAsync();
 
-        var response = await Client.DeleteAsync($"{BaseUrl}/{id}");
+        using var client = CreateBtcClient();
+        var response = await client.DeleteAsync($"{BaseUrl}/{id}");
 
         // Soft delete returns 204 NoContent per controller implementation
         response.StatusCode.Should().Be(HttpStatusCode.NoContent);
