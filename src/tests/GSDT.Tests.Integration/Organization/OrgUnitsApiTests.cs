@@ -33,7 +33,8 @@ public class OrgUnitsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
         // GET is open to any authenticated user
         using var client = CreateAuthenticatedClient(
             userId: Guid.NewGuid().ToString(),
-            roles: ["Viewer"]);
+            roles: ["Viewer"],
+            tenantId: DefaultTenantId.ToString());
 
         var response = await client.GetAsync(
             $"{BaseUrl}?tenantId={TestTenantId}");

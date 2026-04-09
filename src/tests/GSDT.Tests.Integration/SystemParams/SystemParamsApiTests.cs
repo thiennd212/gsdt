@@ -26,7 +26,8 @@ public class SystemParamsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     {
         using var client = CreateAuthenticatedClient(
             userId: Guid.NewGuid().ToString(),
-            roles: ["Admin"]);
+            roles: ["Admin"],
+            tenantId: DefaultTenantId.ToString());
 
         var response = await client.GetAsync(SystemParamsUrl);
 
@@ -99,7 +100,8 @@ public class SystemParamsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     {
         using var client = CreateAuthenticatedClient(
             userId: Guid.NewGuid().ToString(),
-            roles: ["Admin"]);
+            roles: ["Admin"],
+            tenantId: DefaultTenantId.ToString());
 
         var response = await client.GetAsync(SystemParamsUrl);
         response.StatusCode.Should().Be(HttpStatusCode.OK);

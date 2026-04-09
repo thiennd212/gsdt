@@ -27,7 +27,7 @@ public class UsersApiTests(DatabaseFixture db) : IntegrationTestBase(db)
     [Fact]
     public async Task ListUsers_AsAdmin_Returns200()
     {
-        using var client = CreateAuthenticatedClient(roles: ["Admin"]);
+        using var client = CreateAuthenticatedClient(roles: ["Admin"], tenantId: DefaultTenantId.ToString());
 
         var response = await client.GetAsync(BaseUrl);
 

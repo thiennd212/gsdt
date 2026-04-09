@@ -1,9 +1,11 @@
-namespace GSDT.MasterData.Controllers;
+
+namespace GSDT.MasterData.Presentation.Controllers;
 
 /// <summary>
 /// CRUD + tree endpoints for Cơ quan chủ quản (GovernmentAgency).
 /// Route: api/v1/masterdata/government-agencies
 /// Hierarchical catalog — supports flat list and in-memory tree (max 4 levels).
+/// TenantId resolved from JWT via ResolveTenantId() — never from query params.
 /// </summary>
 [ApiController]
 [Route("api/v1/masterdata/government-agencies")]
@@ -12,7 +14,6 @@ public class GovernmentAgenciesController(MasterDataDbContext db) : ApiControlle
 {
     // ── GET list ──────────────────────────────────────────────────────────────
 
-    /// <summary>Flat list of all government agencies for the calling tenant.</summary>
     [HttpGet]
     public async Task<IActionResult> GetList(
         [FromQuery] bool includeInactive = false,
@@ -40,7 +41,6 @@ public class GovernmentAgenciesController(MasterDataDbContext db) : ApiControlle
 
     // ── GET tree ──────────────────────────────────────────────────────────────
 
-    /// <summary>Build in-memory tree from active agencies (roots → children, max 4 levels).</summary>
     [HttpGet("tree")]
     public async Task<IActionResult> GetTree(CancellationToken ct)
     {
@@ -52,7 +52,6 @@ public class GovernmentAgenciesController(MasterDataDbContext db) : ApiControlle
             .Select(x => new { x.Id, x.Name, x.Code, x.ParentId, x.AgencyType, x.SortOrder })
             .ToListAsync(ct);
 
-        // Build lookup then recurse (typed to avoid dynamic performance overhead)
         var lookup = all.ToLookup(x => x.ParentId);
 
         List<object> BuildChildren(Guid? parentId, int depth)
@@ -67,8 +66,7 @@ public class GovernmentAgenciesController(MasterDataDbContext db) : ApiControlle
                 .ToList();
         }
 
-        var roots = BuildChildren(null, 1);
-        return Ok(ApiResponse<object>.Ok(roots));
+        return Ok(ApiResponse<object>.Ok(BuildChildren(null, 1)));
     }
 
     // ── GET by ID ─────────────────────────────────────────────────────────────
@@ -103,12 +101,10 @@ public class GovernmentAgenciesController(MasterDataDbContext db) : ApiControlle
     {
         var tenantId = ResolveTenantId();
 
-        // Guard duplicate code within tenant
         if (await db.GovernmentAgencies.AnyAsync(
                 x => x.TenantId == tenantId && x.Code == req.Code, ct))
             return Conflict(new { error = $"Code '{req.Code}' already exists." });
 
-        // Validate parentId exists and belongs to same tenant (no self-ref cycles at create)
         if (req.ParentId.HasValue)
         {
             var parentExists = await db.GovernmentAgencies.AnyAsync(
@@ -150,19 +146,16 @@ public class GovernmentAgenciesController(MasterDataDbContext db) : ApiControlle
         if (agency is null)
             return NotFound(new { error = $"GovernmentAgency '{id}' not found." });
 
-        // Guard duplicate code (exclude self)
         if (agency.Code != req.Code &&
             await db.GovernmentAgencies.AnyAsync(
                 x => x.TenantId == tenantId && x.Code == req.Code && x.Id != id, ct))
             return Conflict(new { error = $"Code '{req.Code}' already exists." });
 
-        // Validate parentId — must exist, no self-reference, no circular ancestry
         if (req.ParentId.HasValue)
         {
             if (req.ParentId.Value == id)
                 return BadRequest(new { error = "An agency cannot be its own parent." });
 
-            // Walk ancestors to detect indirect cycles (A→B→C→A)
             var visited = new HashSet<Guid> { id };
             var currentParent = req.ParentId;
             while (currentParent.HasValue)
@@ -176,20 +169,20 @@ public class GovernmentAgenciesController(MasterDataDbContext db) : ApiControlle
             }
         }
 
-        agency.Name              = req.Name;
-        agency.Code              = req.Code;
-        agency.ParentId          = req.ParentId;
-        agency.AgencyType        = req.AgencyType;
-        agency.Origin            = req.Origin;
-        agency.LdaServer         = req.LdaServer;
-        agency.Address           = req.Address;
-        agency.Phone             = req.Phone;
-        agency.Fax               = req.Fax;
-        agency.Email             = req.Email;
-        agency.Notes             = req.Notes;
-        agency.SortOrder         = req.SortOrder;
+        agency.Name               = req.Name;
+        agency.Code               = req.Code;
+        agency.ParentId           = req.ParentId;
+        agency.AgencyType         = req.AgencyType;
+        agency.Origin             = req.Origin;
+        agency.LdaServer          = req.LdaServer;
+        agency.Address            = req.Address;
+        agency.Phone              = req.Phone;
+        agency.Fax                = req.Fax;
+        agency.Email              = req.Email;
+        agency.Notes              = req.Notes;
+        agency.SortOrder          = req.SortOrder;
         agency.ReportDisplayOrder = req.ReportDisplayOrder;
-        agency.IsActive          = req.IsActive;
+        agency.IsActive           = req.IsActive;
 
         await db.SaveChangesAsync(ct);
         return NoContent();

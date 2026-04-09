@@ -1,9 +1,11 @@
-namespace GSDT.MasterData.Controllers;
+
+namespace GSDT.MasterData.Presentation.Controllers;
 
 /// <summary>
 /// CRUD endpoints for Chủ đầu tư (Investor).
 /// Route: api/v1/masterdata/investors
 /// Flat tenant-scoped catalog. Filter by investorType query param.
+/// TenantId resolved from JWT via ResolveTenantId() — never from query params.
 /// </summary>
 [ApiController]
 [Route("api/v1/masterdata/investors")]
@@ -12,7 +14,6 @@ public class InvestorsController(MasterDataDbContext db) : ApiControllerBase
 {
     // ── GET list ──────────────────────────────────────────────────────────────
 
-    /// <summary>List investors for the calling tenant. Optional filter by investorType.</summary>
     [HttpGet]
     public async Task<IActionResult> GetList(
         [FromQuery] bool includeInactive = false,
@@ -73,7 +74,6 @@ public class InvestorsController(MasterDataDbContext db) : ApiControllerBase
     {
         var tenantId = ResolveTenantId();
 
-        // Guard duplicate BusinessIdOrCccd within tenant
         if (await db.Investors.AnyAsync(
                 x => x.TenantId == tenantId && x.BusinessIdOrCccd == req.BusinessIdOrCccd, ct))
             return Conflict(new { error = $"BusinessIdOrCccd '{req.BusinessIdOrCccd}' already exists." });
@@ -102,7 +102,6 @@ public class InvestorsController(MasterDataDbContext db) : ApiControllerBase
         if (investor is null)
             return NotFound(new { error = $"Investor '{id}' not found." });
 
-        // Guard duplicate BusinessIdOrCccd (exclude self)
         if (investor.BusinessIdOrCccd != req.BusinessIdOrCccd &&
             await db.Investors.AnyAsync(
                 x => x.TenantId == tenantId && x.BusinessIdOrCccd == req.BusinessIdOrCccd && x.Id != id, ct))
