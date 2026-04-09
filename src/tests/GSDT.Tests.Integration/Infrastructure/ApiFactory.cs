@@ -95,6 +95,7 @@ public class ApiFactory(DatabaseFixture db) : WebApplicationFactory<Program>
             OverrideDbContextForTest<WebhookDbContext>(services, testSql, "webhooks");
             OverrideDbContextForTest<MessagingDbContext>(services, testSql);
             OverrideDbContextForTest<ApiKeyDbContext>(services, testSql, "gateway");
+            OverrideDbContextForTest<InvestmentProjectsDbContext>(services, testSql, "investment");
         });
     }
 
@@ -127,6 +128,7 @@ public class ApiFactory(DatabaseFixture db) : WebApplicationFactory<Program>
             sp.GetService<WebhookDbContext>(),            // shared: webhooks
             sp.GetService<MessagingDbContext>(),          // shared: outbox / messaging
             sp.GetService<ApiKeyDbContext>(),             // shared: api keys
+            sp.GetService<InvestmentProjectsDbContext>(), // investment schema
         };
 
         foreach (var ctx in contextsToMigrate.Where(c => c != null))

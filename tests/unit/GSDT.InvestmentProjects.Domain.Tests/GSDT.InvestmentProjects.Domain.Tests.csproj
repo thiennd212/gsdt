@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="../../../src/modules/investment-projects/GSDT.InvestmentProjects.Domain/GSDT.InvestmentProjects.Domain.csproj" />
+    <ProjectReference Include="../../../src/modules/investment-projects/GSDT.InvestmentProjects.Application/GSDT.InvestmentProjects.Application.csproj" />
     <ProjectReference Include="../../../src/modules/masterdata/GSDT.MasterData/GSDT.MasterData.csproj" />
   </ItemGroup>
 </Project>

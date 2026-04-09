@@ -48,6 +48,9 @@ global using GSDT.SystemParams.Infrastructure.Persistence;
 global using GSDT.MasterData.Infrastructure.Services;
 global using GSDT.SystemParams.Infrastructure.Services;
 
+// ── InvestmentProjects DbContext ──────────────────────────────────────────────
+global using GSDT.InvestmentProjects.Infrastructure.Persistence;
+
 // ── StackExchange.Redis ───────────────────────────────────────────────────────
 global using StackExchange.Redis;
 
