@@ -61,17 +61,20 @@ internal static class OpenIddictDataSeeder
                     new Uri("http://localhost:3000/callback"),
                     new Uri("http://localhost:4200/callback"),
                     new Uri("http://localhost:5173/callback"),
-                    new Uri("https://localhost:5001/swagger/oauth2-redirect.html")
+                    new Uri("http://localhost:6173/callback"),
+                    new Uri("https://localhost:5001/swagger/oauth2-redirect.html"),
+                    new Uri("https://localhost:6001/swagger/oauth2-redirect.html")
                 },
                 PostLogoutRedirectUris =
                 {
-                    // Both with and without trailing slash — oidc-client-ts sends origin without slash
                     new Uri("http://localhost:3000"),
                     new Uri("http://localhost:3000/"),
                     new Uri("http://localhost:4200"),
                     new Uri("http://localhost:4200/"),
                     new Uri("http://localhost:5173"),
-                    new Uri("http://localhost:5173/")
+                    new Uri("http://localhost:5173/"),
+                    new Uri("http://localhost:6173"),
+                    new Uri("http://localhost:6173/")
                 },
                 Permissions =
                 {
