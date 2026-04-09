@@ -2,7 +2,7 @@
 
 GSDT is a production-ready .NET 10 modular monolith for Vietnamese government projects implementing Clean/Onion architecture + CQRS + DDD.
 
-**Status:** v2.46 (2026-04-09) — GSDT P1 Complete (10 phases + E2E Playwright 120 tests) + GSDT P2-01 to P2-06 Complete (Catalogs, PPP BE/FE, DNNN BE/FE, NĐT/FDI BE/FE) + 9 core modules + React 19 frontend (90+ routes + admin catalogs CRUD + 60+ project components) + Form Builder + AI Copilot + Dynamic Workflow + OpenIddict OIDC + Admin UI redesign + Security audited (30/30 fixed) + 2,029+ tests passing + Production ready
+**Status:** v2.46 (2026-04-09) — GSDT P1 Complete (10 phases + E2E Playwright 120 tests) + **GSDT Phase 2 COMPLETE** (P01-P08: Catalogs, PPP BE/FE, DNNN BE/FE, NĐT/FDI BE/FE, testing, build verification) + 9 core modules + React 19 frontend (90+ routes + admin catalogs CRUD + 60+ project components) + 6 project types (Domestic/ODA/PPP/DNNN/NĐT/FDI) + Form Builder + AI Copilot + Dynamic Workflow + OpenIddict OIDC + Admin UI redesign + Security audited (30/30 fixed) + 2,029+ tests passing + Production ready
 
 ## Quick Stats
 
@@ -168,6 +168,7 @@ See **[Codebase Summary Index](./codebase-summary/index.md)** for complete modul
 | P22 | v2.21-v2.23 | Dynamic Workflow Phases 4-6: Frontend Definition Management (React Flow visual designer), Parallel Branching (5 entities, AND/OR/N-of-M logic), Frontend Inbox & Monitoring (generic instance inbox, dashboard) | ✓ Complete |
 | **P23** | **v2.24** | **Dynamic Workflow Phase 7 Complete: E2E tests (28 Workflow), EF concurrency fixes (SaveGraph raw SQL, history tracking, RowVersion retry), SLA/recall/attachments/auto-transition** | **✓ Complete** |
 | **P24** | **v2.40** | **Codebase Audit v1 + v2 Remediation: Dapper RLS, Hangfire queue migration, Auth session UX, SignalR auth, 403 notification, FormSettingsPanel closure, ViewManager scope, AddressField IsPii, debounce filter, EF dual provider fix (1,808 tests), vitest/orval upgrade (28 npm vulns), Audit v2 Phases 1-5 (Dapper RLS via sp_set_session_context, OutboxInterceptor, BackgroundJobTenantContext, Copilot SSE auth, open redirect validation, tenant GUID validation, 26 pages client-side search, AI controller tenant spoof, SSRF validation, CaseRepository filter, bulk import limit, report auth, 401 redirect dedup, SignalR ref-counting, 20 pages allSettled, i18n)** | **✓ Complete** |
+| **P2 (P01-P08)** | **v2.46** | **Phase 2 Complete: Catalogs, PPP BE/FE, DNNN BE/FE, NĐT/FDI BE/FE, testing, build verification** | **✓ Complete** |
 | P25 | v3.0+ | Microservices extraction (Phase 17), VNeID/Digital Sig (Phase 18), Advanced observability | → Planned |
 
 ---

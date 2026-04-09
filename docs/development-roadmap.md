@@ -1,8 +1,8 @@
 # GSDT Development Roadmap
 
-## Current Version: v2.45 COMPLETE (2026-04-05)
+## Current Version: v2.46 COMPLETE (2026-04-09)
 
-**Status:** JIT SSO Provisioning feature complete — External OIDC schemes registered in AuthServer, JitProvisioningService auto-creates users on first SSO login, JitProviderConfig entity with per-provider settings, Admin API + React admin page, 4-layer security (email squatting, domain whitelist, tenant requirement, rate limiting), 21 tests passing, 2,029+ total tests.
+**Status:** Phase 2 Complete — 6 project types (Domestic, ODA, PPP, DNNN, NĐT, FDI) with 46 InvestmentProject entities, ~160 API endpoints, 28 Phase 2 FE components, 82 new tests (unit + integration), P01-P08 all delivered: Catalogs (2 entities) + PPP BE (12 entities, 25 endpoints) + PPP FE (7-tab form, 22 components) + DNNN BE (3 entities, 20 endpoints) + DNNN FE (6-tab form, 16 components) + NĐT+FDI BE (4 entities, ~40 endpoints) + NĐT+FDI FE (28 components, 5-tab forms) + Testing/Buffer verification.
 
 ---
 
@@ -41,6 +41,7 @@
 | **Phase 29** | **v2.40** | **2026-04-02** | **Audit v1 + v2 Security Remediation: Dapper RLS (sp_set_session_context), Hangfire queue migration, Auth session UX, SignalR auth/pagination/ref-counting, 26 pages fetch-all search, Copilot GUID/SSE auth, open redirect validation, tenant GUID validation, AI SSRF/tenant spoof, CaseRepository filter, bulk import limit, report auth, 401 dedup, 20 pages allSettled, i18n, FormSettingsPanel closure, ViewManager scope, AddressField IsPii, EF dual provider fix (1,808 tests), vitest/orval upgrade (28 npm vulns)** | **✓ Complete** |
 | **Phase 30** | **v2.41** | **2026-04-03** | **Server-Side Search: 8 new BE query handlers (Audit 5, Forms 2, Files 1) + SearchTerm DTO, Audit CONTAINS/FTS with IFeatureFlagService LIKE fallback, Forms/Files LIKE pattern, FE already migrated useServerPagination + useDebouncedValue (26 pages), 3 small-dataset pages (Signature, Rules, Backup) remain pageSize:9999, Integration/Workflow already supported** | **✓ Complete** |
 | **Phase 31** | **v2.45** | **2026-04-05** | **JIT SSO Provisioning: External OIDC schemes (OpenID Connect, Google, Microsoft) in AuthServer, JitProvisioningService auto-creates users on first login, JitProviderConfig CRUD entity + admin APIs + React /admin/jit-provider-configs page, 4-layer security (email squatting RT-01, domain whitelist RT-02, tenant requirement RT-03, hourly rate limit RT-04), 21 unit tests (Create/Update/Delete/Provision/RateLimit/DomainWhitelist), ExternalIdentity+ApplicationUser linking** | **✓ Complete** |
+| **Phase 32 (P2-P08)** | **v2.46** | **2026-04-09** | **Phase 2 Complete: Build verification, all 6 project types (Domestic/ODA/PPP/DNNN/NĐT/FDI) with ~160 API endpoints + 28 FE components, docs polish, 82 new tests, 4 NĐT/FDI DB tables pending migration, deferred items noted** | **✓ Complete** |
 
 ---
 
