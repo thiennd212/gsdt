@@ -137,6 +137,12 @@ if (builder.Environment.IsDevelopment())
     builder.Services.AddHostedService<GSDT.Api.GsdtRoleSeeder>();
 }
 
+// Seeds permission records + role-permission assignments (all environments).
+// Must run AFTER GsdtRoleSeeder — ASP.NET Core runs hosted services in registration order.
+// NOTE: In non-dev environments, roles (BTC/CQCQ/CDT) must be created via admin UI (Phase 2)
+// or DB migration BEFORE this seeder can assign permissions. Missing roles are skipped with warning.
+builder.Services.AddHostedService<GSDT.Api.GsdtPermissionSeeder>();
+
 builder.Services
     .AddFilesModule(builder.Configuration)
     .AddFilesInfrastructure(builder.Configuration);
