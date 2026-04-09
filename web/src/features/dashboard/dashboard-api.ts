@@ -15,7 +15,8 @@ export function useDashboardKpi() {
   return useQuery({
     queryKey: dashboardQueryKeys.kpi,
     queryFn: () =>
-      apiClient.get<KpiDashboardDto>('/reports/dashboard').then((r) => r.data),
+      apiClient.get<KpiDashboardDto>('/reports/dashboard').then((r) => r.data)
+        .catch(() => null), // endpoint may not exist yet — return null instead of throwing
     // Backend caches 5 min; match frontend refresh interval
     refetchInterval: 300_000,
     staleTime: 60_000,

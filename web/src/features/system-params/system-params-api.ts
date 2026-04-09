@@ -70,7 +70,9 @@ export function useAnnouncements() {
   return useQuery({
     queryKey: sysParamKeys.announcements,
     queryFn: () =>
-      apiClient.get<AnnouncementDto[]>('/admin/announcements').then((r) => r.data),
+      apiClient.get<AnnouncementDto[]>('/admin/announcements').then((r) => r.data)
+        .catch(() => [] as AnnouncementDto[]), // endpoint may not exist yet
+    retry: false,
   });
 }
 

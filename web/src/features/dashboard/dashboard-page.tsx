@@ -53,21 +53,8 @@ export function DashboardPage() {
     );
   }
 
-  if (isError || !data) {
-    return (
-      <Alert
-        type="error"
-        showIcon
-        message={t('page.dashboard.errorMessage')}
-        description={t('page.dashboard.errorDescription')}
-        action={
-          <Button size="small" onClick={() => refetch()}>
-            {t('page.dashboard.retry')}
-          </Button>
-        }
-      />
-    );
-  }
+  // Dashboard data may be null if /reports/dashboard endpoint doesn't exist yet
+  const hasData = !isError && data != null;
 
   return (
     <div>
@@ -109,38 +96,44 @@ export function DashboardPage() {
         </Space>
       )}
 
-      {/* KPI stat cards — 4 metrics in a row */}
-      <KpiStatCards data={data} loading={isFetching} />
-
-      {/* Charts row 1: status donut + type bar — echarts loaded lazily */}
-      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-        <Col xs={24} lg={12}>
-          <Suspense fallback={<Skeleton.Node active style={{ width: '100%', height: 312 }} />}>
-            <CasesByStatusChart data={data.casesByStatus} />
-          </Suspense>
-        </Col>
-        <Col xs={24} lg={12}>
-          <Suspense fallback={<Skeleton.Node active style={{ width: '100%', height: 312 }} />}>
-            <CasesByTypeChart data={data.casesByType} />
-          </Suspense>
-        </Col>
-      </Row>
-
-      {/* Charts row 2: monthly trend (full width) */}
-      <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
-        <Col xs={24}>
-          <Suspense fallback={<Skeleton.Node active style={{ width: '100%', height: 312 }} />}>
-            <MonthlyTrendChart data={data.monthlyTrend} />
-          </Suspense>
-        </Col>
-      </Row>
-
-      {/* Top assignees table */}
-      <Row gutter={[16, 16]}>
-        <Col xs={24}>
-          <TopAssigneesTable data={data.topAssignees} loading={isFetching} />
-        </Col>
-      </Row>
+      {/* KPI section — only render when dashboard API is available */}
+      {hasData ? (
+        <>
+          <KpiStatCards data={data} loading={isFetching} />
+          <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+            <Col xs={24} lg={12}>
+              <Suspense fallback={<Skeleton.Node active style={{ width: '100%', height: 312 }} />}>
+                <CasesByStatusChart data={data.casesByStatus} />
+              </Suspense>
+            </Col>
+            <Col xs={24} lg={12}>
+              <Suspense fallback={<Skeleton.Node active style={{ width: '100%', height: 312 }} />}>
+                <CasesByTypeChart data={data.casesByType} />
+              </Suspense>
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+            <Col xs={24}>
+              <Suspense fallback={<Skeleton.Node active style={{ width: '100%', height: 312 }} />}>
+                <MonthlyTrendChart data={data.monthlyTrend} />
+              </Suspense>
+            </Col>
+          </Row>
+          <Row gutter={[16, 16]}>
+            <Col xs={24}>
+              <TopAssigneesTable data={data.topAssignees} loading={isFetching} />
+            </Col>
+          </Row>
+        </>
+      ) : (
+        <Alert
+          type="info"
+          showIcon
+          message="Chào mừng đến với GSDT"
+          description="Sử dụng menu bên trái để quản lý dự án đầu tư (DA trong nước, ODA, PPP, DNNN, NĐT, FDI)."
+          style={{ marginTop: 16 }}
+        />
+      )}
     </div>
   );
 }

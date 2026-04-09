@@ -12,7 +12,7 @@ const BASE_URL = import.meta.env.VITE_API_BASE_URL ?? '';
 let isRedirectingToLogin = false;
 
 export const apiClient = axios.create({
-  baseURL: BASE_URL || '/api/v1',
+  baseURL: BASE_URL ? `${BASE_URL}/api/v1` : '/api/v1',
   headers: { 'Content-Type': 'application/json' },
   timeout: 30_000,
 });
