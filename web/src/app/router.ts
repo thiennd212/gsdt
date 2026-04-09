@@ -61,6 +61,14 @@ import { dnnnProjectsRoute } from '@/routes/dnnn-projects-list-page';
 import { dnnnProjectCreateRoute } from '@/routes/dnnn-projects-create-page';
 import { dnnnProjectDetailRoute } from '@/routes/dnnn-projects-detail-page';
 import { dnnnProjectEditRoute } from '@/routes/dnnn-projects-edit-page';
+import { ndtProjectsRoute } from '@/routes/ndt-projects-list-page';
+import { ndtProjectCreateRoute } from '@/routes/ndt-projects-create-page';
+import { ndtProjectDetailRoute } from '@/routes/ndt-projects-detail-page';
+import { ndtProjectEditRoute } from '@/routes/ndt-projects-edit-page';
+import { fdiProjectsRoute } from '@/routes/fdi-projects-list-page';
+import { fdiProjectCreateRoute } from '@/routes/fdi-projects-create-page';
+import { fdiProjectDetailRoute } from '@/routes/fdi-projects-detail-page';
+import { fdiProjectEditRoute } from '@/routes/fdi-projects-edit-page';
 
 // Route tree — public routes + authenticated subtree + admin guard subtree
 const routeTree = rootRoute.addChildren([
@@ -93,6 +101,14 @@ const routeTree = rootRoute.addChildren([
     dnnnProjectCreateRoute,
     dnnnProjectEditRoute,
     dnnnProjectDetailRoute,
+    ndtProjectsRoute,
+    ndtProjectCreateRoute,
+    ndtProjectEditRoute,
+    ndtProjectDetailRoute,
+    fdiProjectsRoute,
+    fdiProjectCreateRoute,
+    fdiProjectEditRoute,
+    fdiProjectDetailRoute,
     // Admin routes — nested under adminRoute (enforces Admin/SystemAdmin role)
     adminRoute.addChildren([
       adminDashboardRoute,

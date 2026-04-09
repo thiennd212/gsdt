@@ -58,7 +58,9 @@
     "domesticProjects": "Domestic Projects",
     "odaProjects": "ODA Projects",
     "pppProjects": "PPP Projects",
-    "dnnnProjects": "DNNN Projects"
+    "dnnnProjects": "DNNN Projects",
+    "ndtProjects": "NDT Projects",
+    "fdiProjects": "FDI Projects"
   },
   "common": {
     "add": "Add New",

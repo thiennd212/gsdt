@@ -61,6 +61,14 @@ public sealed class InvestmentProjectsDbContext(
     public DbSet<DnnnInvestmentDecision> DnnnInvestmentDecisions => Set<DnnnInvestmentDecision>();
     public DbSet<RegistrationCertificate> RegistrationCertificates => Set<RegistrationCertificate>();
 
+    // NĐT-specific children
+    public DbSet<NdtProject> NdtProjects => Set<NdtProject>();
+    public DbSet<NdtInvestmentDecision> NdtInvestmentDecisions => Set<NdtInvestmentDecision>();
+
+    // FDI-specific children
+    public DbSet<FdiProject> FdiProjects => Set<FdiProject>();
+    public DbSet<FdiInvestmentDecision> FdiInvestmentDecisions => Set<FdiInvestmentDecision>();
+
     // Cross-type shared entities (PPP + DNNN)
     public DbSet<InvestorSelection> InvestorSelections => Set<InvestorSelection>();
     public DbSet<InvestorSelectionInvestor> InvestorSelectionInvestors => Set<InvestorSelectionInvestor>();
@@ -80,5 +88,7 @@ public sealed class InvestmentProjectsDbContext(
         modelBuilder.Entity<OdaProject>().HasQueryFilter(null!);
         modelBuilder.Entity<PppProject>().HasQueryFilter(null!);
         modelBuilder.Entity<DnnnProject>().HasQueryFilter(null!);
+        modelBuilder.Entity<NdtProject>().HasQueryFilter(null!);
+        modelBuilder.Entity<FdiProject>().HasQueryFilter(null!);
     }
 }

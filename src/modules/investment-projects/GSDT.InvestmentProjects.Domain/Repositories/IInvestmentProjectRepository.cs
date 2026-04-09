@@ -117,6 +117,30 @@ public interface IInvestmentProjectRepository
     /// </summary>
     Task<InvestmentProject?> GetByIdWithCertificatesAsync(Guid id, CancellationToken ct = default);
 
+    /// <summary>
+    /// Returns an NdtProject with all child collections eagerly loaded, or null if not found.
+    /// Used by GetNdtProjectById query handler.
+    /// </summary>
+    Task<NdtProject?> GetNdtByIdWithDetailsAsync(Guid id, Guid tenantId, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked NdtProject with InvestmentDecisions loaded.
+    /// Used by AddNdtDecision / DeleteNdtDecision command handlers.
+    /// </summary>
+    Task<NdtProject?> GetNdtByIdWithDecisionsAsync(Guid id, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns an FdiProject with all child collections eagerly loaded, or null if not found.
+    /// Used by GetFdiProjectById query handler.
+    /// </summary>
+    Task<FdiProject?> GetFdiByIdWithDetailsAsync(Guid id, Guid tenantId, CancellationToken ct = default);
+
+    /// <summary>
+    /// Returns a tracked FdiProject with InvestmentDecisions loaded.
+    /// Used by AddFdiDecision / DeleteFdiDecision command handlers.
+    /// </summary>
+    Task<FdiProject?> GetFdiByIdWithDecisionsAsync(Guid id, CancellationToken ct = default);
+
     /// <summary>Returns true if an active (non-deleted) project with the given ID exists.</summary>
     Task<bool> ExistsAsync(Guid id, CancellationToken ct = default);
 

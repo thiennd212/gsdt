@@ -58,7 +58,9 @@
     "domesticProjects": "DA trong nước",
     "odaProjects": "DA ODA",
     "pppProjects": "DA PPP",
-    "dnnnProjects": "DA DNNN"
+    "dnnnProjects": "DA DNNN",
+    "ndtProjects": "DA NĐT",
+    "fdiProjects": "DA FDI"
   },
   "common": {
     "add": "Thêm mới",
