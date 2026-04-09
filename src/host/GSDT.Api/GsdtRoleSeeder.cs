@@ -16,12 +16,12 @@ internal sealed class GsdtRoleSeeder(
     IWebHostEnvironment env,
     ILogger<GsdtRoleSeeder> logger) : IHostedService
 {
-    // Role definitions: (Code/Name, DisplayName, Description)
+    // Role definitions: Name = Code (used by [Authorize(Roles=...)]), Description = Vietnamese display
     private static readonly (string Code, string Name, string Description)[] GsdtRoles =
     [
-        ("BTC",  "Bo Tai chinh",      "Quan tri he thong — toan quyen doc/ghi toan bo du an"),
-        ("CQCQ", "Co quan chu quan",  "Chi doc du an trong pham vi co quan chu quan"),
-        ("CDT",  "Chu dau tu",        "Doc va sua du an cua chinh don vi chu dau tu"),
+        ("BTC",  "BTC",  "Bo Tai chinh — Quan tri he thong, toan quyen doc/ghi toan bo du an"),
+        ("CQCQ", "CQCQ", "Co quan chu quan — Chi doc du an trong pham vi co quan chu quan"),
+        ("CDT",  "CDT",  "Chu dau tu — Doc va sua du an cua chinh don vi chu dau tu"),
     ];
 
     // Test users: (UserName, FullName, Role)
@@ -32,7 +32,7 @@ internal sealed class GsdtRoleSeeder(
         ("test.cdt@gsdt.gov.vn",  "Test CDT User",  "CDT"),
     ];
 
-    private const string TestPassword = "Dev@12345!";
+    private const string TestPassword = "Dev@12345678!";
 
     public async Task StartAsync(CancellationToken ct)
     {
@@ -50,7 +50,7 @@ internal sealed class GsdtRoleSeeder(
     {
         foreach (var (code, name, description) in GsdtRoles)
         {
-            // Skip if role already exists (idempotent)
+            // Skip if role already exists with correct name (idempotent)
             if (await roleManager.RoleExistsAsync(name)) continue;
 
             var role = new ApplicationRole
