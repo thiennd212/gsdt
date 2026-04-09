@@ -140,6 +140,11 @@ public static class InfrastructureRegistration
         // --- Permission-code authorization handler ---
         services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
 
+        // --- Dynamic permission policy provider (resolves PERM:{code} policies at runtime) ---
+        // Singleton per ASP.NET Core requirement. Falls back to DefaultAuthorizationPolicyProvider
+        // for non-PERM policies (Admin, GovOfficer, etc.)
+        services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
+
         // RTBF PII anonymizer
         services.AddScoped<IModulePiiAnonymizer, IdentityPiiAnonymizer>();
 
