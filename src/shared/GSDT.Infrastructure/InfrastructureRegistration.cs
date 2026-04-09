@@ -108,7 +108,7 @@ public static class InfrastructureRegistration
                     .GetSection("Cors:AllowedOrigins").Get<string[]>()
                     ?? ["http://localhost:3000", "http://localhost:4200", "http://localhost:5173"];
                 policy.WithOrigins(origins)
-                    .WithHeaders("Content-Type", "Authorization", "X-Api-Key", "X-XSRF-TOKEN", "Accept", "Accept-Language")
+                    .WithHeaders("Content-Type", "Authorization", "X-Api-Key", "X-XSRF-TOKEN", "X-Correlation-Id", "X-Tenant-Id", "Accept", "Accept-Language")
                     .WithMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                     .AllowCredentials();
             });
