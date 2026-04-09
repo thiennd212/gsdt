@@ -2,6 +2,7 @@ import { Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { useNavigate } from '@tanstack/react-router';
 import { AdminPageHeader } from '@/shared/components/admin-page-header';
+import { PermissionGate } from '@/shared/components/permission-gate';
 import { useFdiProject } from './fdi-project-api';
 import { FdiProjectTabsContainer } from './fdi-project-tabs-container';
 
@@ -20,12 +21,14 @@ export function FdiProjectDetailPage({ projectId }: DetailPageProps) {
         title={project ? project.projectName : 'Đang tải...'}
         description={project ? `Mã DA: ${project.projectCode}` : undefined}
         actions={
-          <Button
-            icon={<EditOutlined />}
-            onClick={() => navigate({ to: `/fdi-projects/${projectId}/edit` })}
-          >
-            Chỉnh sửa
-          </Button>
+          <PermissionGate permission="INV.FDI.WRITE">
+            <Button
+              icon={<EditOutlined />}
+              onClick={() => navigate({ to: `/fdi-projects/${projectId}/edit` })}
+            >
+              Chỉnh sửa
+            </Button>
+          </PermissionGate>
         }
       />
       <FdiProjectTabsContainer projectId={projectId} mode="detail" />

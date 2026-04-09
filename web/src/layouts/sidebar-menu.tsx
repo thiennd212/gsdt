@@ -49,13 +49,13 @@ function getMenuEntries(t: (key: string) => string): MenuEntry[] {
         { key: '/integration/message-logs', label: t('nav.integrationMessageLogs'), icon: <MessageOutlined /> },
       ],
     },
-    { key: '/roles', label: t('nav.roles'), icon: <SafetyCertificateOutlined />, requiredPermission: 'roles.read' },
-    { key: '/audit/logs', label: t('nav.audit'), icon: <AuditOutlined />, requiredPermission: 'audit.read' },
+    { key: '/roles', label: t('nav.roles'), icon: <SafetyCertificateOutlined />, requiredPermission: 'ADMIN.ROLE.READ' },
+    { key: '/audit/logs', label: t('nav.audit'), icon: <AuditOutlined />, requiredPermission: 'AUDIT.LOG.READ' },
     {
       key: 'admin',
       label: t('nav.admin'),
       icon: <SettingOutlined />,
-      requiredPermission: 'admin.read',
+      requiredPermission: 'ADMIN.ROLE.READ',
       children: getAdminMenuChildren(t),
     },
     { key: '/consent', label: t('nav.consent'), icon: <SolutionOutlined /> },
@@ -74,16 +74,11 @@ interface SidebarMenuProps {
   collapsed?: boolean;
 }
 
-// Permission-to-role mapping: if user has Admin/SystemAdmin role, grant admin.* permissions
+// hasAccess: allow if user holds the permission directly OR is Admin/SystemAdmin (bypass all).
+// Admin/SystemAdmin roles are superusers — they see all permission-gated menu items.
 function hasAccess(perm: string, permissions: string[], roles: string[]): boolean {
   if (permissions.includes(perm)) return true;
-  // Admin/SystemAdmin roles grant all admin.* permissions
-  if (perm.startsWith('admin.') && (roles.includes('Admin') || roles.includes('SystemAdmin'))) return true;
-  // GovOfficer role grants audit/roles read
-  if (
-    (perm === 'audit.read' || perm === 'roles.read') &&
-    (roles.includes('GovOfficer') || roles.includes('Admin') || roles.includes('SystemAdmin'))
-  ) return true;
+  if (roles.includes('Admin') || roles.includes('SystemAdmin')) return true;
   return false;
 }
 

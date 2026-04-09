@@ -7,6 +7,7 @@ import { AdminPageHeader } from '@/shared/components/admin-page-header';
 import { AdminContentCard } from '@/shared/components/admin-content-card';
 import { PageBreadcrumb } from '@/shared/components/page-breadcrumb';
 import { EmptyState } from '@/shared/components/empty-state';
+import { PermissionGate } from '@/shared/components/permission-gate';
 import { FdiProjectListFilters } from './fdi-project-list-filters';
 import { useFdiProjects, useDeleteFdiProject } from './fdi-project-api';
 import type { FdiProjectListItem, FdiProjectListParams } from './fdi-project-types';
@@ -107,21 +108,25 @@ export function FdiProjectListPage() {
             icon={<EyeOutlined />}
             onClick={() => navigate({ to: `/fdi-projects/${record.id}` })}
           />
-          <Button
-            size="small"
-            icon={<EditOutlined />}
-            onClick={() => navigate({ to: `/fdi-projects/${record.id}/edit` })}
-          />
-          <Popconfirm
-            title="Xác nhận xóa"
-            description={`Bạn chắc chắn muốn xóa dự án: ${record.projectName}?`}
-            onConfirm={() => handleDelete(record.id, record.projectName)}
-            okText="Xóa"
-            cancelText="Hủy"
-            okButtonProps={{ danger: true }}
-          >
-            <Button size="small" danger icon={<DeleteOutlined />} />
-          </Popconfirm>
+          <PermissionGate permission="INV.FDI.WRITE">
+            <Button
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => navigate({ to: `/fdi-projects/${record.id}/edit` })}
+            />
+          </PermissionGate>
+          <PermissionGate permission="INV.FDI.DELETE">
+            <Popconfirm
+              title="Xác nhận xóa"
+              description={`Bạn chắc chắn muốn xóa dự án: ${record.projectName}?`}
+              onConfirm={() => handleDelete(record.id, record.projectName)}
+              okText="Xóa"
+              cancelText="Hủy"
+              okButtonProps={{ danger: true }}
+            >
+              <Button size="small" danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+          </PermissionGate>
         </Space>
       ),
     },
@@ -135,14 +140,16 @@ export function FdiProjectListPage() {
         description="Quản lý danh sách dự án đầu tư của nhà đầu tư nước ngoài"
         stats={{ total: data?.totalCount }}
         actions={
-          <Button
-            data-testid="fdi-btn-create"
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => navigate({ to: '/fdi-projects/new' })}
-          >
-            Thêm mới
-          </Button>
+          <PermissionGate permission="INV.FDI.WRITE">
+            <Button
+              data-testid="fdi-btn-create"
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => navigate({ to: '/fdi-projects/new' })}
+            >
+              Thêm mới
+            </Button>
+          </PermissionGate>
         }
       />
       <AdminContentCard noPadding>

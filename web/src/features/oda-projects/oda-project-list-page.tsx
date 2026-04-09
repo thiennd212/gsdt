@@ -8,6 +8,7 @@ import { AdminPageHeader } from '@/shared/components/admin-page-header';
 import { AdminContentCard } from '@/shared/components/admin-content-card';
 import { PageBreadcrumb } from '@/shared/components/page-breadcrumb';
 import { EmptyState } from '@/shared/components/empty-state';
+import { PermissionGate } from '@/shared/components/permission-gate';
 import { useOdaProjects, useDeleteOdaProject, useSeedCatalog, useDynamicCatalog } from './oda-project-api';
 import type { OdaProjectListItem, OdaProjectListParams } from './oda-project-types';
 
@@ -43,15 +44,19 @@ export function OdaProjectListPage() {
       render: (_, record) => (
         <Space size="small">
           <Button size="small" icon={<EyeOutlined />} onClick={() => navigate({ to: `/oda-projects/${record.id}` })} />
-          <Button size="small" icon={<EditOutlined />} onClick={() => navigate({ to: `/oda-projects/${record.id}/edit` })} />
-          <Popconfirm
-            title="Xác nhận xóa"
-            description={`Bạn xác nhận xóa dự án: ${record.projectName}? Hành động không thể hoàn tác.`}
-            onConfirm={() => handleDelete(record.id, record.projectName)}
-            okText="Xóa" cancelText="Hủy" okButtonProps={{ danger: true }}
-          >
-            <Button size="small" danger icon={<DeleteOutlined />} />
-          </Popconfirm>
+          <PermissionGate permission="INV.ODA.WRITE">
+            <Button size="small" icon={<EditOutlined />} onClick={() => navigate({ to: `/oda-projects/${record.id}/edit` })} />
+          </PermissionGate>
+          <PermissionGate permission="INV.ODA.DELETE">
+            <Popconfirm
+              title="Xác nhận xóa"
+              description={`Bạn xác nhận xóa dự án: ${record.projectName}? Hành động không thể hoàn tác.`}
+              onConfirm={() => handleDelete(record.id, record.projectName)}
+              okText="Xóa" cancelText="Hủy" okButtonProps={{ danger: true }}
+            >
+              <Button size="small" danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+          </PermissionGate>
         </Space>
       ),
     },
@@ -64,7 +69,11 @@ export function OdaProjectListPage() {
         title="Dự án ODA"
         description="Quản lý dự án sử dụng vốn ODA và vốn vay ưu đãi"
         stats={{ total: data?.totalCount }}
-        actions={<Button type="primary" icon={<PlusOutlined />} onClick={() => navigate({ to: '/oda-projects/new' })}>Thêm mới</Button>}
+        actions={
+          <PermissionGate permission="INV.ODA.WRITE">
+            <Button type="primary" icon={<PlusOutlined />} onClick={() => navigate({ to: '/oda-projects/new' })}>Thêm mới</Button>
+          </PermissionGate>
+        }
       />
       <AdminContentCard noPadding>
         <Flex wrap gap={8} align="center" style={{ padding: '12px 24px' }}>

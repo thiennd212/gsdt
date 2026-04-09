@@ -7,6 +7,7 @@ import { AdminPageHeader } from '@/shared/components/admin-page-header';
 import { AdminContentCard } from '@/shared/components/admin-content-card';
 import { PageBreadcrumb } from '@/shared/components/page-breadcrumb';
 import { EmptyState } from '@/shared/components/empty-state';
+import { PermissionGate } from '@/shared/components/permission-gate';
 import { NdtProjectListFilters } from './ndt-project-list-filters';
 import { useNdtProjects, useDeleteNdtProject } from './ndt-project-api';
 import type { NdtProjectListItem, NdtProjectListParams } from './ndt-project-types';
@@ -107,21 +108,25 @@ export function NdtProjectListPage() {
             icon={<EyeOutlined />}
             onClick={() => navigate({ to: `/ndt-projects/${record.id}` })}
           />
-          <Button
-            size="small"
-            icon={<EditOutlined />}
-            onClick={() => navigate({ to: `/ndt-projects/${record.id}/edit` })}
-          />
-          <Popconfirm
-            title="Xác nhận xóa"
-            description={`Bạn chắc chắn muốn xóa dự án: ${record.projectName}?`}
-            onConfirm={() => handleDelete(record.id, record.projectName)}
-            okText="Xóa"
-            cancelText="Hủy"
-            okButtonProps={{ danger: true }}
-          >
-            <Button size="small" danger icon={<DeleteOutlined />} />
-          </Popconfirm>
+          <PermissionGate permission="INV.NDT.WRITE">
+            <Button
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => navigate({ to: `/ndt-projects/${record.id}/edit` })}
+            />
+          </PermissionGate>
+          <PermissionGate permission="INV.NDT.DELETE">
+            <Popconfirm
+              title="Xác nhận xóa"
+              description={`Bạn chắc chắn muốn xóa dự án: ${record.projectName}?`}
+              onConfirm={() => handleDelete(record.id, record.projectName)}
+              okText="Xóa"
+              cancelText="Hủy"
+              okButtonProps={{ danger: true }}
+            >
+              <Button size="small" danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+          </PermissionGate>
         </Space>
       ),
     },
@@ -135,14 +140,16 @@ export function NdtProjectListPage() {
         description="Quản lý danh sách dự án đầu tư của nhà đầu tư trong nước"
         stats={{ total: data?.totalCount }}
         actions={
-          <Button
-            data-testid="ndt-btn-create"
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => navigate({ to: '/ndt-projects/new' })}
-          >
-            Thêm mới
-          </Button>
+          <PermissionGate permission="INV.NDT.WRITE">
+            <Button
+              data-testid="ndt-btn-create"
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => navigate({ to: '/ndt-projects/new' })}
+            >
+              Thêm mới
+            </Button>
+          </PermissionGate>
         }
       />
       <AdminContentCard noPadding>

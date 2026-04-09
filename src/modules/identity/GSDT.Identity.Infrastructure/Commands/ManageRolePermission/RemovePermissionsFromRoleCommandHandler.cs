@@ -30,36 +30,8 @@ public sealed class RemovePermissionsFromRoleCommandHandler(
         }
 
         // 2. Invalidate cache for all users who hold this role directly or via groups
-        await InvalidateCacheForRoleUsersAsync(cmd.RoleId, ct);
+        await RolePermissionCacheInvalidator.InvalidateForRoleUsersAsync(db, permissionService, versionService, cmd.RoleId, ct);
 
         return Result.Ok();
-    }
-
-    private async Task InvalidateCacheForRoleUsersAsync(Guid roleId, CancellationToken ct)
-    {
-        // Direct role assignments via AspNetUserRoles
-        var directUserIds = await db.UserRoles
-            .Where(ur => ur.RoleId == roleId)
-            .Select(ur => ur.UserId)
-            .ToListAsync(ct);
-
-        // Indirect via groups: GroupRoleAssignments → UserGroupMemberships
-        var groupIds = await db.GroupRoleAssignments
-            .Where(gra => gra.RoleId == roleId)
-            .Select(gra => gra.GroupId)
-            .ToListAsync(ct);
-
-        var groupUserIds = await db.UserGroupMemberships
-            .Where(m => groupIds.Contains(m.GroupId))
-            .Select(m => m.UserId)
-            .ToListAsync(ct);
-
-        var allUserIds = directUserIds.Union(groupUserIds).Distinct();
-
-        foreach (var userId in allUserIds)
-        {
-            await permissionService.InvalidateAsync(userId);
-            await versionService.IncrementAsync(userId);
-        }
     }
 }

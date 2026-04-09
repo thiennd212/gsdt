@@ -7,6 +7,7 @@ import { AdminPageHeader } from '@/shared/components/admin-page-header';
 import { AdminContentCard } from '@/shared/components/admin-content-card';
 import { PageBreadcrumb } from '@/shared/components/page-breadcrumb';
 import { EmptyState } from '@/shared/components/empty-state';
+import { PermissionGate } from '@/shared/components/permission-gate';
 import { DnnnProjectListFilters } from './dnnn-project-list-filters';
 import { useDnnnProjects, useDeleteDnnnProject } from './dnnn-project-api';
 import type { DnnnProjectListItem, DnnnProjectListParams } from './dnnn-project-types';
@@ -107,21 +108,25 @@ export function DnnnProjectListPage() {
             icon={<EyeOutlined />}
             onClick={() => navigate({ to: `/dnnn-projects/${record.id}` })}
           />
-          <Button
-            size="small"
-            icon={<EditOutlined />}
-            onClick={() => navigate({ to: `/dnnn-projects/${record.id}/edit` })}
-          />
-          <Popconfirm
-            title="Xác nhận xóa"
-            description={`Bạn chắc chắn muốn xóa dự án: ${record.projectName}?`}
-            onConfirm={() => handleDelete(record.id, record.projectName)}
-            okText="Xóa"
-            cancelText="Hủy"
-            okButtonProps={{ danger: true }}
-          >
-            <Button size="small" danger icon={<DeleteOutlined />} />
-          </Popconfirm>
+          <PermissionGate permission="INV.DNNN.WRITE">
+            <Button
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => navigate({ to: `/dnnn-projects/${record.id}/edit` })}
+            />
+          </PermissionGate>
+          <PermissionGate permission="INV.DNNN.DELETE">
+            <Popconfirm
+              title="Xác nhận xóa"
+              description={`Bạn chắc chắn muốn xóa dự án: ${record.projectName}?`}
+              onConfirm={() => handleDelete(record.id, record.projectName)}
+              okText="Xóa"
+              cancelText="Hủy"
+              okButtonProps={{ danger: true }}
+            >
+              <Button size="small" danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+          </PermissionGate>
         </Space>
       ),
     },
@@ -135,14 +140,16 @@ export function DnnnProjectListPage() {
         description="Quản lý danh sách dự án đầu tư của doanh nghiệp nhà nước"
         stats={{ total: data?.totalCount }}
         actions={
-          <Button
-            data-testid="dnnn-btn-create"
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => navigate({ to: '/dnnn-projects/new' })}
-          >
-            Thêm mới
-          </Button>
+          <PermissionGate permission="INV.DNNN.WRITE">
+            <Button
+              data-testid="dnnn-btn-create"
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => navigate({ to: '/dnnn-projects/new' })}
+            >
+              Thêm mới
+            </Button>
+          </PermissionGate>
         }
       />
       <AdminContentCard noPadding>

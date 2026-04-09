@@ -62,7 +62,7 @@ public sealed class AssignPermissionsToRoleCommandHandler(
         }
 
         // 4. Invalidate cache for all users who hold this role directly or via groups
-        await InvalidateCacheForRoleUsersAsync(cmd.RoleId, ct);
+        await RolePermissionCacheInvalidator.InvalidateForRoleUsersAsync(db, permissionService, versionService, cmd.RoleId, ct);
 
         // 5. Return updated permission list for the role
         var updated = await db.RolePermissions
@@ -75,33 +75,5 @@ public sealed class AssignPermissionsToRoleCommandHandler(
             .ToListAsync(ct);
 
         return Result.Ok<IReadOnlyList<PermissionDto>>(updated);
-    }
-
-    private async Task InvalidateCacheForRoleUsersAsync(Guid roleId, CancellationToken ct)
-    {
-        // Direct role assignments via AspNetUserRoles
-        var directUserIds = await db.UserRoles
-            .Where(ur => ur.RoleId == roleId)
-            .Select(ur => ur.UserId)
-            .ToListAsync(ct);
-
-        // Indirect via groups: GroupRoleAssignments → UserGroupMemberships
-        var groupIds = await db.GroupRoleAssignments
-            .Where(gra => gra.RoleId == roleId)
-            .Select(gra => gra.GroupId)
-            .ToListAsync(ct);
-
-        var groupUserIds = await db.UserGroupMemberships
-            .Where(m => groupIds.Contains(m.GroupId))
-            .Select(m => m.UserId)
-            .ToListAsync(ct);
-
-        var allUserIds = directUserIds.Union(groupUserIds).Distinct();
-
-        foreach (var userId in allUserIds)
-        {
-            await permissionService.InvalidateAsync(userId);
-            await versionService.IncrementAsync(userId);
-        }
     }
 }

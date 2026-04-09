@@ -8,6 +8,7 @@ import { AdminPageHeader } from '@/shared/components/admin-page-header';
 import { AdminContentCard } from '@/shared/components/admin-content-card';
 import { PageBreadcrumb } from '@/shared/components/page-breadcrumb';
 import { EmptyState } from '@/shared/components/empty-state';
+import { PermissionGate } from '@/shared/components/permission-gate';
 import { DomesticProjectListFilters } from './domestic-project-list-filters';
 import { useDomesticProjects, useDeleteDomesticProject } from './domestic-project-api';
 import type { DomesticProjectListItem, DomesticProjectListParams } from './domestic-project-types';
@@ -98,21 +99,25 @@ export function DomesticProjectListPage() {
             icon={<EyeOutlined />}
             onClick={() => navigate({ to: `/domestic-projects/${record.id}` })}
           />
-          <Button
-            size="small"
-            icon={<EditOutlined />}
-            onClick={() => navigate({ to: `/domestic-projects/${record.id}/edit` })}
-          />
-          <Popconfirm
-            title="Xác nhận xóa"
-            description={`Bạn xác nhận chắc chắn xóa dự án: ${record.projectName}? Lưu ý: Hành động này không thể hoàn tác.`}
-            onConfirm={() => handleDelete(record.id, record.projectName)}
-            okText="Xóa"
-            cancelText="Hủy"
-            okButtonProps={{ danger: true }}
-          >
-            <Button size="small" danger icon={<DeleteOutlined />} />
-          </Popconfirm>
+          <PermissionGate permission="INV.DOMESTIC.WRITE">
+            <Button
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => navigate({ to: `/domestic-projects/${record.id}/edit` })}
+            />
+          </PermissionGate>
+          <PermissionGate permission="INV.DOMESTIC.DELETE">
+            <Popconfirm
+              title="Xác nhận xóa"
+              description={`Bạn xác nhận chắc chắn xóa dự án: ${record.projectName}? Lưu ý: Hành động này không thể hoàn tác.`}
+              onConfirm={() => handleDelete(record.id, record.projectName)}
+              okText="Xóa"
+              cancelText="Hủy"
+              okButtonProps={{ danger: true }}
+            >
+              <Button size="small" danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+          </PermissionGate>
         </Space>
       ),
     },
@@ -126,14 +131,16 @@ export function DomesticProjectListPage() {
         description="Quản lý danh sách dự án đầu tư công trong nước"
         stats={{ total: data?.totalCount }}
         actions={
-          <Button
-            data-testid="domestic-btn-create"
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => navigate({ to: '/domestic-projects/new' })}
-          >
-            Thêm mới
-          </Button>
+          <PermissionGate permission="INV.DOMESTIC.WRITE">
+            <Button
+              data-testid="domestic-btn-create"
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => navigate({ to: '/domestic-projects/new' })}
+            >
+              Thêm mới
+            </Button>
+          </PermissionGate>
         }
       />
       <AdminContentCard noPadding>

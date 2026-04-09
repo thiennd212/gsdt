@@ -2,6 +2,7 @@ import { Button } from 'antd';
 import { EditOutlined } from '@ant-design/icons';
 import { useNavigate } from '@tanstack/react-router';
 import { AdminPageHeader } from '@/shared/components/admin-page-header';
+import { PermissionGate } from '@/shared/components/permission-gate';
 import { useDomesticProject } from './domestic-project-api';
 import { DomesticProjectTabsContainer } from './domestic-project-tabs-container';
 
@@ -20,12 +21,14 @@ export function DomesticProjectDetailPage({ projectId }: DetailPageProps) {
         title={project ? project.projectName : 'Đang tải...'}
         description={project ? `Mã DA: ${project.projectCode}` : undefined}
         actions={
-          <Button
-            icon={<EditOutlined />}
-            onClick={() => navigate({ to: `/domestic-projects/${projectId}/edit` })}
-          >
-            Chỉnh sửa
-          </Button>
+          <PermissionGate permission="INV.DOMESTIC.WRITE">
+            <Button
+              icon={<EditOutlined />}
+              onClick={() => navigate({ to: `/domestic-projects/${projectId}/edit` })}
+            >
+              Chỉnh sửa
+            </Button>
+          </PermissionGate>
         }
       />
       <DomesticProjectTabsContainer projectId={projectId} mode="detail" />

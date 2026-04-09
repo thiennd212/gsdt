@@ -8,6 +8,7 @@ import { AdminPageHeader } from '@/shared/components/admin-page-header';
 import { AdminContentCard } from '@/shared/components/admin-content-card';
 import { PageBreadcrumb } from '@/shared/components/page-breadcrumb';
 import { EmptyState } from '@/shared/components/empty-state';
+import { PermissionGate } from '@/shared/components/permission-gate';
 import { PppProjectListFilters } from './ppp-project-list-filters';
 import { usePppProjects, useDeletePppProject } from './ppp-project-api';
 import { PPP_CONTRACT_TYPE_LABELS } from './ppp-project-types';
@@ -109,21 +110,25 @@ export function PppProjectListPage() {
             icon={<EyeOutlined />}
             onClick={() => navigate({ to: `/ppp-projects/${record.id}` })}
           />
-          <Button
-            size="small"
-            icon={<EditOutlined />}
-            onClick={() => navigate({ to: `/ppp-projects/${record.id}/edit` })}
-          />
-          <Popconfirm
-            title="Xác nhận xóa"
-            description={`Bạn chắc chắn muốn xóa dự án: ${record.projectName}? Hành động này không thể hoàn tác.`}
-            onConfirm={() => handleDelete(record.id, record.projectName)}
-            okText="Xóa"
-            cancelText="Hủy"
-            okButtonProps={{ danger: true }}
-          >
-            <Button size="small" danger icon={<DeleteOutlined />} />
-          </Popconfirm>
+          <PermissionGate permission="INV.PPP.WRITE">
+            <Button
+              size="small"
+              icon={<EditOutlined />}
+              onClick={() => navigate({ to: `/ppp-projects/${record.id}/edit` })}
+            />
+          </PermissionGate>
+          <PermissionGate permission="INV.PPP.DELETE">
+            <Popconfirm
+              title="Xác nhận xóa"
+              description={`Bạn chắc chắn muốn xóa dự án: ${record.projectName}? Hành động này không thể hoàn tác.`}
+              onConfirm={() => handleDelete(record.id, record.projectName)}
+              okText="Xóa"
+              cancelText="Hủy"
+              okButtonProps={{ danger: true }}
+            >
+              <Button size="small" danger icon={<DeleteOutlined />} />
+            </Popconfirm>
+          </PermissionGate>
         </Space>
       ),
     },
@@ -137,14 +142,16 @@ export function PppProjectListPage() {
         description="Quản lý danh sách dự án đầu tư theo phương thức đối tác công tư"
         stats={{ total: data?.totalCount }}
         actions={
-          <Button
-            data-testid="ppp-btn-create"
-            type="primary"
-            icon={<PlusOutlined />}
-            onClick={() => navigate({ to: '/ppp-projects/new' })}
-          >
-            Thêm mới
-          </Button>
+          <PermissionGate permission="INV.PPP.WRITE">
+            <Button
+              data-testid="ppp-btn-create"
+              type="primary"
+              icon={<PlusOutlined />}
+              onClick={() => navigate({ to: '/ppp-projects/new' })}
+            >
+              Thêm mới
+            </Button>
+          </PermissionGate>
         }
       />
       <AdminContentCard noPadding>
