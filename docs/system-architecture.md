@@ -69,7 +69,7 @@ Browser (Chrome, Safari, Mobile)
                   • Integration (Partners, webhooks, YARP)
                   • MasterData (Hierarchies, dictionaries, GovernmentAgency, Investor)
                   • Organization (OrgUnits, staff, positions)
-                  • InvestmentProjects (Domestic, ODA, PPP, DNNN types; DesignEstimate + RegistrationCertificate shared)
+                  • InvestmentProjects (Domestic, ODA, PPP, DNNN, NĐT, FDI types; DesignEstimate + RegistrationCertificate shared)
 
     ├─ React SPA (Vite + TS + Ant Design)
     └─► 90+ Routes, 46 Feature Modules

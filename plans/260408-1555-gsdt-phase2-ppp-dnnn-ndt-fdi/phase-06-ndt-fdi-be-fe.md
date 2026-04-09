@@ -7,7 +7,7 @@
 
 ## Overview
 - **Priority:** P2
-- **Status:** Pending
+- **Status:** Complete
 - **Effort:** 3-5 days (NĐT: 2-3d, FDI: 1-2d)
 - **Blocker:** Phase 4 (DNNN BE) + Phase 5 (DNNN FE)
 - **Description:** NĐT = DNNN clone minus 3 features (TKTT, HĐ NĐT, Nghĩa vụ TC). FDI = NĐT clone with label changes. SRS says "tương tự" for both — no dedicated field tables. ~85% code reuse from DNNN.
@@ -311,29 +311,29 @@ Files listed in Architecture section above.
 ## Todo Checklist
 
 ### Backend
-- [ ] ProjectType enum: add Ndt=5, Fdi=6
-- [ ] NdtProject entity + factory
-- [ ] FdiProject entity + factory
-- [ ] NdtInvestmentDecision entity
-- [ ] FdiInvestmentDecision entity
-- [ ] EF configs for all 4 new entities
-- [ ] DbContext: register 4 new DbSets
-- [ ] EF migration
-- [ ] NĐT: command/handler/validator (create + update)
-- [ ] FDI: command/handler/validator (create + update)
-- [ ] NĐT: decision commands, queries, DTOs
-- [ ] FDI: decision commands, queries, DTOs
-- [ ] NdtProjectsController
-- [ ] FdiProjectsController
-- [ ] Compile check
+- [x] ProjectType enum: add Ndt=5, Fdi=6
+- [x] NdtProject entity + factory
+- [x] FdiProject entity + factory
+- [x] NdtInvestmentDecision entity
+- [x] FdiInvestmentDecision entity
+- [x] EF configs for all 4 new entities
+- [x] DbContext: register 4 new DbSets
+- [x] EF migration (dotnet ef migrations add AddNdtFdiProjectTypes)
+- [x] NĐT: command/handler/validator (create + update)
+- [x] FDI: command/handler/validator (create + update)
+- [x] NĐT: decision commands, queries, DTOs
+- [x] FDI: decision commands, queries, DTOs
+- [x] NdtProjectsController
+- [x] FdiProjectsController
+- [x] Compile check
 
 ### Frontend
-- [ ] NĐT: types, api, all tab components
-- [ ] NĐT: tabs-container (5-tab), list, create/edit/detail pages
-- [ ] FDI: clone from NĐT, rename
-- [ ] FDI: tabs-container, list, create/edit/detail pages
-- [ ] Routes + sidebar for both
-- [ ] Compile check
+- [x] NĐT: types, api, all tab components
+- [x] NĐT: tabs-container (5-tab), list, create/edit/detail pages
+- [x] FDI: clone from NĐT, rename
+- [x] FDI: tabs-container, list, create/edit/detail pages
+- [x] Routes + sidebar for both
+- [x] Compile check
 
 ## Success Criteria
 - `POST /api/v1/ndt-projects` creates NĐT with ProjectType=Ndt

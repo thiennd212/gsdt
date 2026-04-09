@@ -50,6 +50,25 @@ All notable changes to this project documented. Format: date, version, feature/f
 
 ---
 
+## GSDT Phase 2 — NĐT + FDI Project Types (2026-04-09)
+
+**P2-06 COMPLETE. 2 NEW PROJECT TYPES + 4 DB TABLES + 24 API ENDPOINTS + 20 FE COMPONENTS.**
+
+### P2-06 — NĐT + FDI BE/FE (2026-04-09)
+- **NdtProject entity** (Table-Per-Type inheritance): Extends InvestmentProject with ProjectType=5, adds capital structure (PrelimTotalInvestment, PrelimEquityCapital, PrelimOdaLoanCapital, PrelimCreditLoanCapital), investor info (InvestorName, StateOwnershipRatio), authority/status/group refs, scale fields (AreaHectares, Capacity, MainItems, ImplementationTimeline, ProgressDescription), project suspension tracking (StopContent, StopDecisionNumber, StopDecisionDate, StopFileId).
+- **FdiProject entity** (Table-Per-Type inheritance): Identical structure to NĐT with ProjectType=6, enables Nhà đầu tư nước ngoài (Foreign Direct Investment) classification.
+- **NdtInvestmentDecision + FdiInvestmentDecision entities:** Capital structure tracking (same DNNN pattern: EquityCapital, OdaLoanCapital, CreditLoanCapital, Ratios). Reuses RegistrationCertificate shared entity (FK to base InvestmentProject).
+- **Removed from PPP pattern:** DesignEstimate (no TKTT popup), InvestorSelection (no HĐ NĐT tab). Both NĐT and FDI have 5 tabs only (general info, THTH, Thanh tra, Khai thác, Tài liệu).
+- **24 REST API endpoints:** `POST/GET /api/v1/ndt-projects`, `PUT/DELETE /api/v1/ndt-projects/{id}`, decision/location/certificate CRUD (12 endpoints each type), reuse bid-packages + documents. Identical FDI endpoint structure (`api/v1/fdi-projects`).
+- **EF migration:** AddNdtFdiProjectTypes (4 new tables: NdtProjects, FdiProjects, NdtInvestmentDecisions, FdiInvestmentDecisions; indices, FK constraints, RLS policies, soft-delete).
+- **ProjectType enum updated:** Domestic=1, ODA=2, Ppp=3, Dnnn=4, Ndt=5, Fdi=6.
+- **20 React components** split across 2 feature modules (`web/src/features/ndt-projects/`, `web/src/features/fdi-projects/`): NĐT 10 components (types, api, list, filters, create/edit/detail pages, 5-tab container, tab components), FDI 10 components (cloned from NĐT with label adjustments). Tabs: Tab1 general+decisions+locations+certificates, Tab2 implementation, shared Tabs 3-5 (inspection/operation/documents).
+- **Shared DesignEstimate modal:** Removed for NĐT/FDI (no TKTT features). RegistrationCertificate CRUD reused in Tab1.
+- **Routes + sidebar:** `/ndt-projects`, `/ndt-projects/:id`, `/ndt-projects/:id/edit` (FDI equivalent). Menu entries integrated. Capital structure inline edit (currency formatting). GCNĐKĐT inline CRUD modal.
+- **Code reuse:** ~85% from DNNN (copy-adapt pattern). NĐT = DNNN minus 2 features. FDI = NĐT with labels. Separate TPT entities (not base class) follow established monolith pattern.
+
+---
+
 ## Documentation Cleanup — GSDT P1 & E2E Completion Tracking (2026-04-08)
 
 **Roadmap synced with completed GSDT Phase 1 (10 phases, all marked Complete). E2E-PW row added. All 120 E2E tests passing.**
