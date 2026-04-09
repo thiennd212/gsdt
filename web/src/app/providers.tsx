@@ -1,5 +1,10 @@
 import { useEffect } from 'react';
-import { ConfigProvider, App as AntApp, theme } from 'antd';
+import { ConfigProvider, App as AntApp, theme, message } from 'antd';
+
+// Dev mode: increase toast duration to 6s for debugging (default is 3s)
+if (import.meta.env.DEV) {
+  message.config({ duration: 6 });
+}
 import { QueryClientProvider } from '@tanstack/react-query';
 import enUS from 'antd/locale/en_US';
 import viVN from 'antd/locale/vi_VN';

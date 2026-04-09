@@ -82,7 +82,12 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
   const showStopFields = selectedStatus && STOP_STATUS_NAMES.includes(selectedStatus.name);
 
   async function handleSave() {
-    const values = await form.validateFields();
+    let values;
+    try {
+      values = await form.validateFields();
+    } catch {
+      return; // Ant Design shows inline validation errors — just stop here
+    }
     const payload = {
       ...values,
       policyDecisionDate: values.policyDecisionDate?.format('YYYY-MM-DD') ?? null,

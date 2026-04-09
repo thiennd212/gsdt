@@ -49,7 +49,12 @@ export function PppTab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjec
   }, [project, mode, form]);
 
   async function handleSave() {
-    const values = await form.validateFields();
+    let values;
+    try {
+      values = await form.validateFields();
+    } catch {
+      return;
+    }
     if (mode === 'create') {
       createMutation.mutate(values, {
         onSuccess: (data) => {

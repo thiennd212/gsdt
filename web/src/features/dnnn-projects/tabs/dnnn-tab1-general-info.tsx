@@ -55,7 +55,12 @@ export function DnnnTab1GeneralInfo({ projectId, mode, onSaved, onDirty }: Tab1P
   }, [project, mode, form]);
 
   async function handleSave() {
-    const values = await form.validateFields();
+    let values;
+    try {
+      values = await form.validateFields();
+    } catch {
+      return;
+    }
     if (mode === 'create') {
       createMutation.mutate(values, {
         onSuccess: (data) => {

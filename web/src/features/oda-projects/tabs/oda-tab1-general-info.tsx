@@ -52,7 +52,12 @@ export function OdaTab1GeneralInfo({ projectId, mode, onSaved, onDirty }: OdaTab
   const grantPercent = Form.useWatch('grantMechanismPercent', form) ?? 0;
 
   async function handleSave() {
-    const values = await form.validateFields();
+    let values;
+    try {
+      values = await form.validateFields();
+    } catch {
+      return;
+    }
     const payload = {
       ...values,
       policyDecisionDate: values.policyDecisionDate?.format('YYYY-MM-DD') ?? null,
