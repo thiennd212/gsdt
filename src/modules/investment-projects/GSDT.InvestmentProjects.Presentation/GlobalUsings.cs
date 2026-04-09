@@ -4,6 +4,8 @@ global using MediatR;
 global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Mvc;
 
+global using GSDT.Identity.Application.Authorization;
+
 global using GSDT.SharedKernel.Presentation;
 
 global using GSDT.InvestmentProjects.Application.Commands.CreateDomesticProject;

@@ -8,5 +8,6 @@
     <PackageReference Include="MediatR" />
     <ProjectReference Include="..\GSDT.InvestmentProjects.Application\GSDT.InvestmentProjects.Application.csproj" />
     <ProjectReference Include="..\..\..\shared\GSDT.SharedKernel\GSDT.SharedKernel.csproj" />
+    <ProjectReference Include="..\..\identity\GSDT.Identity.Application\GSDT.Identity.Application.csproj" />
   </ItemGroup>
 </Project>
