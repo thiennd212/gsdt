@@ -110,7 +110,27 @@ vi.mock('@/features/profile/profile-api', () => ({
   useChangePassword: () => ({ mutateAsync: vi.fn(), isPending: false }),
 }));
 
-// TC-FE-ROLE-001: Roles page is static — no API mocks needed
+// TC-FE-ROLE-001: Roles — mock all hooks used by RolesPage and its sub-components
+vi.mock('@/features/roles/roles-api', () => ({
+  useRoles: () => ({
+    data: [
+      { id: '1', code: 'SystemAdmin', name: 'SystemAdmin', description: 'System administrator', roleType: 'System', isActive: true, permissionCount: 42 },
+      { id: '2', code: 'GovOfficer', name: 'GovOfficer', description: 'Government officer', roleType: 'Custom', isActive: true, permissionCount: 10 },
+    ],
+    isLoading: false,
+  }),
+  useRoleById: () => ({ data: null, isLoading: false }),
+  useCreateRole: () => ({ mutateAsync: vi.fn(), isPending: false }),
+  useUpdateRole: () => ({ mutateAsync: vi.fn(), isPending: false }),
+  useDeleteRole: () => ({ mutateAsync: vi.fn(), isPending: false, mutate: vi.fn() }),
+}));
+
+vi.mock('@/features/roles/permissions-api', () => ({
+  usePermissionsByModule: () => ({ data: [], isLoading: false }),
+  useRolePermissions: () => ({ data: [], isLoading: false }),
+  useAssignPermissions: () => ({ mutateAsync: vi.fn(), isPending: false }),
+  useRemovePermissions: () => ({ mutateAsync: vi.fn(), isPending: false }),
+}));
 
 // ──────────────────────────────────────────────────────────────────────────────
 // Imports — after mocks
