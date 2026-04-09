@@ -52,6 +52,7 @@ global using GSDT.Identity.Application.Commands.UpdateExternalIdentity;
 global using GSDT.Identity.Application.Commands.UpdateJitProviderConfig;
 global using GSDT.Identity.Application.Commands.UpdateUser;
 global using GSDT.Identity.Application.Commands.WithdrawConsent;
+global using GSDT.Identity.Application.Commands.ManageRole;
 
 // ── Identity.Application Queries ─────────────────────────────────────────────
 global using GSDT.Identity.Application.Queries.GetCredentialPolicyById;
@@ -59,6 +60,7 @@ global using GSDT.Identity.Application.Queries.GetExternalIdentityById;
 global using GSDT.Identity.Application.Queries.GetGroupById;
 global using GSDT.Identity.Application.Queries.GetJitProviderConfigByScheme;
 global using GSDT.Identity.Application.Queries.GetRoleDataScopes;
+global using GSDT.Identity.Application.Queries.GetRoleById;
 global using GSDT.Identity.Application.Queries.GetRoles;
 global using GSDT.Identity.Application.Queries.GetUserById;
 global using GSDT.Identity.Application.Queries.GetUserEffectivePermissions;

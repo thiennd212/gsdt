@@ -15,13 +15,16 @@ public sealed class GetRolesQueryHandler(IReadDbConnection db)
         CancellationToken cancellationToken)
     {
         const string sql = """
-            SELECT Id, Name, NULL AS Description
-            FROM [identity].AspNetRoles
-            ORDER BY Name
+            SELECT r.Id, r.Code, r.Name, r.Description, r.RoleType, r.IsActive,
+                   COUNT(rp.RoleId) AS PermissionCount
+            FROM [identity].AspNetRoles r
+            LEFT JOIN [identity].RolePermissions rp ON rp.RoleId = r.Id
+            GROUP BY r.Id, r.Code, r.Name, r.Description, r.RoleType, r.IsActive
+            ORDER BY r.Name
             """;
 
         var roles = (await db.QueryAsync<RoleRow>(sql, cancellationToken: cancellationToken))
-            .Select(r => new RoleDefinitionDto(r.Id, r.Name, r.Description))
+            .Select(r => new RoleDefinitionDto(r.Id, r.Code, r.Name, r.Description, r.RoleType, r.IsActive, r.PermissionCount))
             .ToList();
 
         return Result.Ok<IReadOnlyList<RoleDefinitionDto>>(roles);
@@ -30,7 +33,11 @@ public sealed class GetRolesQueryHandler(IReadDbConnection db)
     private sealed class RoleRow
     {
         public Guid Id { get; set; }
+        public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string? Description { get; set; }
+        public string RoleType { get; set; } = string.Empty;
+        public bool IsActive { get; set; }
+        public int PermissionCount { get; set; }
     }
 }
