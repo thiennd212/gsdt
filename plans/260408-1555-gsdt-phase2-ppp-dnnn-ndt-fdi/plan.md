@@ -35,6 +35,7 @@ red-team-notes: "11 findings addressed (3 critical fixed, 4 high fixed, 4 medium
 | 6 | [NDT + FDI (BE+FE)](phase-06-ndt-fdi-be-fe.md) | Complete | 3-5d | (merged) | 2026-04-09 |
 | 7 | [Testing](phase-07-testing.md) | Complete | 3-5d | (merged) | 2026-04-09 |
 | 8 | [Buffer & Polish](phase-08-buffer-polish.md) | Complete | 2-3d | (merged) | 2026-04-09 |
+| 9 | [EF Migration Verification](phase-09-migration-verify.md) | Complete | <1d | (verified 2026-04-09) | 2026-04-09 |
 
 ## Dependency Graph
 

@@ -60,12 +60,13 @@
 
 ### Migration Verification Matrix
 
-| Scenario | Test |
-|----------|------|
-| Fresh DB (no data) | Apply all migrations from scratch |
-| Existing Phase 1 DB | Apply Phase 2 migrations on top of existing data |
-| Province/Ward with existing seed data | Verify new columns are nullable, existing data preserved |
-| Rollback Phase 2 migrations | `dotnet ef migrations remove` in reverse order |
+| Scenario | Test | Status |
+|----------|------|--------|
+| Fresh DB (no data) | Apply all migrations from scratch | ✓ Verified |
+| Existing Phase 1 DB | Apply Phase 2 migrations on top of existing data | ✓ Verified |
+| NĐT/FDI tables (AddNdtFdiProjectTypes) | NdtProjects, FdiProjects, NdtInvestmentDecisions, FdiInvestmentDecisions in __EFMigrationsHistory | ✓ Verified 2026-04-09 |
+| Province/Ward with existing seed data | Verify new columns are nullable, existing data preserved | ✓ Verified |
+| Rollback Phase 2 migrations | `dotnet ef migrations remove` in reverse order | ✓ Verified |
 
 ## Implementation Steps
 
@@ -147,6 +148,8 @@
 ### Integration
 - [x] Fresh DB migration test
 - [x] Incremental migration test (on Phase 1 DB)
+- [x] EF migration AddNdtFdiProjectTypes verified applied (4 tables: NdtProjects, FdiProjects, NdtInvestmentDecisions, FdiInvestmentDecisions)
+- [x] InvestmentProjectsDbContext added to run-migrations.sh
 - [x] All 6 project types: end-to-end create flow
 - [x] Sidebar navigation: all types accessible
 - [x] Province/Ward: verify existing data preserved

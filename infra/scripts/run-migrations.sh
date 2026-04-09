@@ -25,6 +25,7 @@ declare -A CTX_PROJECT=(
   [OrgDbContext]="src/modules/organization/GSDT.Organization"
   [SystemParamsDbContext]="src/modules/systemparams/GSDT.SystemParams"
   [WorkflowDbContext]="src/modules/workflow/GSDT.Workflow.Infrastructure"
+  [InvestmentProjectsDbContext]="src/modules/investment-projects/GSDT.InvestmentProjects.Infrastructure"
 )
 
 FAILED=()
