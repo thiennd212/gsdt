@@ -1,4 +1,6 @@
 using MediatR;
+using GSDT.Identity.Application.Commands.ManageRolePermission;
+using GSDT.Identity.Application.Queries.GetRolePermissions;
 
 namespace GSDT.Identity.Presentation.Controllers;
 
@@ -48,7 +50,40 @@ public sealed class RolesAdminController(ISender mediator) : ApiControllerBase
     [ProducesResponseType(422)]
     public async Task<IActionResult> Delete(Guid id, CancellationToken ct = default) =>
         ToApiResponse(await mediator.Send(new DeleteRoleCommand(id), ct));
+
+    /// <summary>Returns all permissions currently assigned to the role.</summary>
+    [HttpGet("{id:guid}/permissions")]
+    [ProducesResponseType(200)]
+    public async Task<IActionResult> GetPermissions(Guid id, CancellationToken ct = default) =>
+        ToApiResponse(await mediator.Send(new GetRolePermissionsQuery(id), ct));
+
+    /// <summary>Assigns permissions to a role. Idempotent — already-assigned permissions are skipped.</summary>
+    [HttpPost("{id:guid}/permissions")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
+    public async Task<IActionResult> AssignPermissions(
+        Guid id,
+        [FromBody] AssignPermissionsRequest body,
+        CancellationToken ct = default)
+        => ToApiResponse(await mediator.Send(new AssignPermissionsToRoleCommand(id, body.PermissionIds), ct));
+
+    /// <summary>Removes permissions from a role. Non-assigned permissions are silently skipped.</summary>
+    [HttpDelete("{id:guid}/permissions")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    public async Task<IActionResult> RemovePermissions(
+        Guid id,
+        [FromBody] RemovePermissionsRequest body,
+        CancellationToken ct = default)
+        => ToApiResponse(await mediator.Send(new RemovePermissionsFromRoleCommand(id, body.PermissionIds), ct));
 }
 
 /// <summary>Request body for PUT /roles/{id} — keeps Id in route, body carries mutable fields only.</summary>
 public sealed record UpdateRoleRequest(string Name, string? Description);
+
+/// <summary>Request body for POST /roles/{id}/permissions.</summary>
+public sealed record AssignPermissionsRequest(IReadOnlyList<Guid> PermissionIds);
+
+/// <summary>Request body for DELETE /roles/{id}/permissions.</summary>
+public sealed record RemovePermissionsRequest(IReadOnlyList<Guid> PermissionIds);

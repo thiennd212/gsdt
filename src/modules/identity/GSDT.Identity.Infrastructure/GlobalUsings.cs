@@ -62,11 +62,14 @@ global using GSDT.Identity.Application.Commands.ManageGroup;
 global using GSDT.Identity.Application.Commands.ManageMenu;
 global using GSDT.Identity.Application.Commands.ManageDataScope;
 global using GSDT.Identity.Application.Commands.ManagePolicyRule;
+global using GSDT.Identity.Application.Commands.ManageRolePermission;
 global using GSDT.Identity.Application.Commands.ManageSodRule;
 
 // ── Identity Application Queries ──────────────────────────────────────────────
 global using GSDT.Identity.Application.Queries.GetGroupById;
+global using GSDT.Identity.Application.Queries.GetPermissions;
 global using GSDT.Identity.Application.Queries.GetRoleDataScopes;
+global using GSDT.Identity.Application.Queries.GetRolePermissions;
 global using GSDT.Identity.Application.Queries.ListMenus;
 global using GSDT.Identity.Application.Queries.ListDataScopeTypes;
 global using GSDT.Identity.Application.Queries.ListGroups;
