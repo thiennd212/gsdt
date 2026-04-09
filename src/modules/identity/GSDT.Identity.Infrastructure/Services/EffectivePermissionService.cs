@@ -59,22 +59,23 @@ public sealed class EffectivePermissionService : IEffectivePermissionService
 
     private async Task<EffectivePermissionSummary> BuildFromDbAsync(Guid userId, CancellationToken ct)
     {
-        // 1. Direct roles
+        // 1. Direct roles — C1 fix: filter IsActive to exclude soft-deleted roles
         var directRoles = await _db.UserRoles
             .Where(ur => ur.UserId == userId)
-            .Join(_db.Roles,
+            .Join(_db.Roles.Where(r => r.IsActive),
                   ur => ur.RoleId,
                   r => r.Id,
                   (_, r) => new RoleInfo(r.Id, r.Code, r.Name ?? string.Empty, r.RoleType))
             .ToListAsync(ct);
 
-        // 2. Group roles (membership → assignment → role)
+        // 2. Group roles (membership → assignment → role) — C1 fix: filter IsActive
         var groupRoles = await _db.UserGroupMemberships
             .Where(m => m.UserId == userId)
             .Join(_db.GroupRoleAssignments,
                   m => m.GroupId,
                   gra => gra.GroupId,
                   (m, gra) => new { m.GroupId, m.Group, gra.RoleId, gra.Role })
+            .Where(x => x.Role.IsActive)
             .Select(x => new GroupRoleInfo(
                 x.GroupId,
                 x.Group.Code,

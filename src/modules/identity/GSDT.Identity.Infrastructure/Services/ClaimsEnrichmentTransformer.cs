@@ -19,17 +19,20 @@ public sealed class ClaimsEnrichmentTransformer : IClaimsTransformation
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly IdentityDbContext _dbContext;
     private readonly IConnectionMultiplexer _redis;
+    private readonly IEffectivePermissionService _effectivePermissionService;
     private readonly ILogger<ClaimsEnrichmentTransformer> _logger;
 
     public ClaimsEnrichmentTransformer(
         UserManager<ApplicationUser> userManager,
         IdentityDbContext dbContext,
         IConnectionMultiplexer redis,
+        IEffectivePermissionService effectivePermissionService,
         ILogger<ClaimsEnrichmentTransformer> logger)
     {
         _userManager = userManager;
         _dbContext = dbContext;
         _redis = redis;
+        _effectivePermissionService = effectivePermissionService;
         _logger = logger;
     }
 
@@ -49,6 +52,9 @@ public sealed class ClaimsEnrichmentTransformer : IClaimsTransformation
 
         await AddRoleClaimsAsync(identity, userId);
 
+        // C2 fix: Inject permission claims so FE usePermissions() hook can read them from JWT profile
+        await AddPermissionClaimsAsync(identity, userId);
+
         // C6/F-16: Re-inject clearance_level from DB/cache to override stale JWT claim
         await RefreshClearanceLevelClaimAsync(identity, userId);
 
@@ -67,6 +73,30 @@ public sealed class ClaimsEnrichmentTransformer : IClaimsTransformation
         var roles = await GetRolesFromCacheOrDbAsync(userId);
         foreach (var role in roles)
             identity.AddClaim(new Claim(ClaimTypes.Role, role));
+    }
+
+    // --- C2: Permission claims (FE reads "permission" from JWT profile) ---
+
+    /// <summary>
+    /// Injects permission codes as "permission" claims via EffectivePermissionService.
+    /// FE usePermissions() hook reads these from the user profile object.
+    /// </summary>
+    private async Task AddPermissionClaimsAsync(ClaimsIdentity identity, Guid userId)
+    {
+        // Skip if permission claims already present (re-entrant guard)
+        if (identity.HasClaim(c => c.Type == "permission"))
+            return;
+
+        try
+        {
+            var summary = await _effectivePermissionService.GetSummaryAsync(userId);
+            foreach (var code in summary.PermissionCodes)
+                identity.AddClaim(new Claim("permission", code));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogWarning(ex, "Failed to inject permission claims for user:{UserId}", userId);
+        }
     }
 
     // --- C6/F-16: Clearance level refresh ---
