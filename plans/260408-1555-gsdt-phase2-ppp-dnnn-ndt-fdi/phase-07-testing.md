@@ -7,9 +7,9 @@
 
 ## Overview
 - **Priority:** P2
-- **Status:** Pending
+- **Status:** Complete
 - **Effort:** 3-5 days
-- **Blocker:** Phases 3, 5, 6 (all FE+BE must be complete)
+- **Blocker:** None (all dependencies resolved 2026-04-09)
 - **Description:** Unit tests for BE domain logic + validators. E2E tests for all 4 new project types (PPP, DNNN, NĐT, FDI) covering CRUD, sub-entity operations, list/filter, and admin catalog CRUD (GovernmentAgency, Investor).
 
 ## Key Insights
@@ -245,29 +245,29 @@ tests/
 ## Todo Checklist
 
 ### BE Unit Tests
-- [ ] PppCapitalValidationTests (4 tests)
-- [ ] DnnnCapitalValidationTests (4 tests)
-- [ ] DesignEstimateSumValidationTests (3 tests)
-- [ ] EquityRatioCalculationTests (3 tests)
-- [ ] ProjectFactoryTests (4 tests)
+- [x] PppCapitalValidationTests (4 tests)
+- [x] DnnnCapitalValidationTests (4 tests)
+- [x] DesignEstimateSumValidationTests (3 tests)
+- [x] EquityRatioCalculationTests (3 tests)
+- [x] ProjectFactoryTests (4 tests)
 
 ### E2E Tests
-- [ ] PPP: crud, decisions, investor-selection, contract-info (P1)
-- [ ] PPP: design-estimates, revenue-reports, sub-entities (P1/P2)
-- [ ] PPP: list-filters (P1)
-- [ ] DNNN: crud, decisions, certificates, sub-entities, list-filters
-- [ ] NĐT: crud, sub-entities
-- [ ] FDI: crud, sub-entities
-- [ ] Admin: government-agency CRUD + tree
-- [ ] Admin: investor CRUD
-- [ ] Admin: province/ward status
-- [ ] Regression: TN + ODA still work
+- [x] PPP: crud, decisions, investor-selection, contract-info (P1)
+- [x] PPP: design-estimates, revenue-reports, sub-entities (P1/P2)
+- [x] PPP: list-filters (P1)
+- [x] DNNN: crud, decisions, certificates, sub-entities, list-filters
+- [x] NĐT: crud, sub-entities
+- [x] FDI: crud, sub-entities
+- [x] Admin: government-agency CRUD + tree
+- [x] Admin: investor CRUD
+- [x] Admin: province/ward status
+- [x] Regression: TN + ODA still work
 
 ### Verification
-- [ ] All new tests pass
-- [ ] All existing 120 tests still pass
-- [ ] No test-to-test state leaks
-- [ ] CI pipeline green
+- [x] All new tests pass
+- [x] All existing 120 tests still pass
+- [x] No test-to-test state leaks
+- [x] CI pipeline green
 
 ## Success Criteria
 - ~95-105 new tests written and passing
