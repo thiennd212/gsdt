@@ -52,7 +52,7 @@ public sealed class AddPppCapitalPlanCommandHandler(
             request.FileId,
             request.Notes);
 
-        project.CapitalPlans.Add(plan);
+        repository.AddChild(plan);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(plan.Id);

@@ -9,7 +9,7 @@ public sealed record DnnnProjectListItemDto(
     string? CompetentAuthorityName,
     decimal PrelimTotalInvestment,
     string? StatusName,
-    DateTime CreatedAt);
+    DateTimeOffset CreatedAt);
 
 /// <summary>Full detail DTO for DNNN project view — includes all child collections.</summary>
 public sealed record DnnnProjectDetailDto(

@@ -9,7 +9,7 @@ public sealed record NdtProjectListItemDto(
     string? CompetentAuthorityName,
     decimal PrelimTotalInvestment,
     string? StatusName,
-    DateTime CreatedAt);
+    DateTimeOffset CreatedAt);
 
 /// <summary>Full detail DTO for NĐT project view — NO DesignEstimates, NO InvestorSelection.</summary>
 public sealed record NdtProjectDetailDto(

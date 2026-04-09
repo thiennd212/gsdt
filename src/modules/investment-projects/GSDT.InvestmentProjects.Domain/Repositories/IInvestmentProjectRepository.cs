@@ -157,6 +157,14 @@ public interface IInvestmentProjectRepository
     /// <summary>Stages a new project for insertion — call SaveChanges to persist.</summary>
     void Add(InvestmentProject project);
 
+    /// <summary>
+    /// Explicitly marks a new child entity as Added in the EF Core change tracker.
+    /// Use instead of collection.Add() to guarantee EF Core generates INSERT (not UPDATE).
+    /// Background: collection.Add() on a tracked collection may use TrackGraph which can
+    /// default to Unchanged for entities with non-sentinel Guid keys.
+    /// </summary>
+    void AddChild(object entity);
+
     /// <summary>Marks a project for soft-delete — call SaveChanges to persist.</summary>
     void Remove(InvestmentProject project);
 

@@ -7,7 +7,7 @@ public sealed record OdaProjectListItemDto(
     string ProjectName,
     string ShortName,
     string? OdaProjectTypeName,
-    DateTime CreatedAt,
+    DateTimeOffset CreatedAt,
     string? StatusName);
 
 /// <summary>Full detail DTO for ODA project view — includes all child collections.</summary>

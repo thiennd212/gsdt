@@ -48,7 +48,7 @@ public sealed class AddPppExecutionCommandHandler(
             request.BidPackageId,
             request.ContractId);
 
-        project.ExecutionRecords.Add(record);
+        repository.AddChild(record);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(record.Id);

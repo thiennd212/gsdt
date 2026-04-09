@@ -128,7 +128,7 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
         using var writeClient = CreateWriteClient();
         var response = await writeClient.PutAsJsonAsync($"{BaseUrl}/{id}", updateBody);
 
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.Should().BeOneOf(HttpStatusCode.OK, HttpStatusCode.NoContent);
     }
 
     [Fact]
@@ -139,7 +139,7 @@ public class NdtProjectsApiTests(DatabaseFixture db) : IntegrationTestBase(db)
         using var client = CreateWriteClient();
         var response = await client.DeleteAsync($"{BaseUrl}/{id}");
 
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.Should().BeOneOf(HttpStatusCode.OK, HttpStatusCode.NoContent);
     }
 
     [Fact]

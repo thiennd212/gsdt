@@ -83,7 +83,7 @@ public sealed class AddDesignEstimateCommandHandler(
         estimate.ApprovalSummary = request.ApprovalSummary;
         estimate.ApprovalFileId = request.ApprovalFileId;
 
-        project.DesignEstimates.Add(estimate);
+        repository.AddChild(estimate);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(estimate.Id);

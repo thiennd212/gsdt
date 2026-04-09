@@ -9,7 +9,7 @@ public sealed record FdiProjectListItemDto(
     string? CompetentAuthorityName,
     decimal PrelimTotalInvestment,
     string? StatusName,
-    DateTime CreatedAt);
+    DateTimeOffset CreatedAt);
 
 /// <summary>Full detail DTO for FDI project view — NO DesignEstimates, NO InvestorSelection.</summary>
 public sealed record FdiProjectDetailDto(

@@ -84,7 +84,7 @@ public sealed class AddPppDecisionCommandHandler(
             request.Notes,
             request.FileId);
 
-        project.InvestmentDecisions.Add(decision);
+        repository.AddChild(decision);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(decision.Id);

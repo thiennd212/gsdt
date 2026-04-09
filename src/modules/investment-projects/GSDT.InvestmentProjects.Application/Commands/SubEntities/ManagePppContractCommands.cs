@@ -48,11 +48,11 @@ public sealed class UpsertInvestorSelectionCommandHandler(
                 request.SelectionDecisionDate,
                 request.SelectionFileId);
 
-            foreach (var inv in request.Investors)
-                selection.Investors.Add(InvestorSelectionInvestor.Create(
-                    selection.ProjectId, inv.InvestorId, inv.SortOrder));
-
             project.InvestorSelection = selection;
+            repository.AddChild(selection);
+            foreach (var inv in request.Investors)
+                repository.AddChild(InvestorSelectionInvestor.Create(
+                    selection.ProjectId, inv.InvestorId, inv.SortOrder));
         }
         else
         {
@@ -66,7 +66,7 @@ public sealed class UpsertInvestorSelectionCommandHandler(
             // Replace investor list entirely
             sel.Investors.Clear();
             foreach (var inv in request.Investors)
-                sel.Investors.Add(InvestorSelectionInvestor.Create(
+                repository.AddChild(InvestorSelectionInvestor.Create(
                     sel.ProjectId, inv.InvestorId, inv.SortOrder));
         }
 
@@ -136,11 +136,13 @@ public sealed class UpsertPppContractInfoCommandHandler(
 
         if (project.ContractInfo is null)
         {
-            project.ContractInfo = PppContractInfo.Create(
+            var newContractInfo = PppContractInfo.Create(
                 request.ProjectId, tenantId,
                 request.TotalInvestment, request.StateCapital,
                 request.CentralBudget, request.LocalBudget,
                 request.OtherStateBudget, request.EquityCapital, request.LoanCapital);
+            project.ContractInfo = newContractInfo;
+            repository.AddChild(newContractInfo);
         }
         else
         {

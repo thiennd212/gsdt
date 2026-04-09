@@ -44,7 +44,7 @@ public sealed class AddPppDisbursementCommandHandler(
             request.EquityCapitalPeriod, request.EquityCapitalCumulative,
             request.LoanCapitalPeriod, request.LoanCapitalCumulative);
 
-        project.DisbursementRecords.Add(record);
+        repository.AddChild(record);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(record.Id);

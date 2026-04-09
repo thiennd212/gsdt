@@ -64,7 +64,7 @@ public sealed class AddRegistrationCertificateCommandHandler(
             request.Notes,
             request.FileId);
 
-        project.RegistrationCertificates.Add(cert);
+        repository.AddChild(cert);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(cert.Id);

@@ -39,7 +39,7 @@ public sealed class AddProjectLocationCommandHandler(
             tenantId, request.ProjectId, request.ProvinceId,
             request.DistrictId, request.WardId, request.Address);
 
-        project.Locations.Add(location);
+        repository.AddChild(location);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(location.Id);

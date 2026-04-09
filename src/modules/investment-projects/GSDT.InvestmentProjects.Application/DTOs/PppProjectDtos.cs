@@ -10,7 +10,7 @@ public sealed record PppProjectListItemDto(
     string? PreparationUnit,
     decimal PrelimTotalInvestment,
     string? StatusName,
-    DateTime CreatedAt);
+    DateTimeOffset CreatedAt);
 
 /// <summary>Full detail DTO for PPP project view — includes all child collections.</summary>
 public sealed record PppProjectDetailDto(

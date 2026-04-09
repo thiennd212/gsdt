@@ -57,7 +57,7 @@ public sealed class AddBidPackageCommandHandler(
             request.EstimatedPrice,
             request.Notes);
 
-        project.BidPackages.Add(bidPackage);
+        repository.AddChild(bidPackage);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(bidPackage.Id);

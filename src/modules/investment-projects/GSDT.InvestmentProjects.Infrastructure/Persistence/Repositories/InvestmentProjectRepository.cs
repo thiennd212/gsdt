@@ -234,6 +234,13 @@ internal sealed class InvestmentProjectRepository(InvestmentProjectsDbContext co
     public void Add(InvestmentProject project)
         => context.InvestmentProjects.Add(project);
 
+    /// <summary>
+    /// Explicitly marks a child entity as Added in EF Core change tracker.
+    /// context.Add() bypasses TrackGraph and guarantees INSERT (not UPDATE).
+    /// </summary>
+    public void AddChild(object entity)
+        => context.Add(entity);
+
     public void Remove(InvestmentProject project)
         => project.SoftDelete();
 

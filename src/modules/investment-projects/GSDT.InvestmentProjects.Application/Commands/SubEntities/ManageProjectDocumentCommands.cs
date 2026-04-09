@@ -44,7 +44,7 @@ public sealed class AddProjectDocumentCommandHandler(
             request.Title.Trim(),
             request.Notes);
 
-        project.Documents.Add(document);
+        repository.AddChild(document);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(document.Id);

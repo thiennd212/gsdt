@@ -66,7 +66,7 @@ public sealed class AddRevenueReportCommandHandler(
             request.RevenueIncreaseSharing, request.RevenueDecreaseSharing,
             request.Difficulties, request.Recommendations);
 
-        project.RevenueReports.Add(report);
+        repository.AddChild(report);
         await repository.SaveChangesAsync(cancellationToken);
 
         return Result.Ok(report.Id);
