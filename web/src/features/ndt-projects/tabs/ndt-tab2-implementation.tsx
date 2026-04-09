@@ -6,15 +6,15 @@ import { useAddNdtBidPackage, useDeleteNdtBidPackage, useNdtProject } from '../n
 import { BidPackageFormModal } from '@/features/domestic-projects/tabs/bid-package-form-modal';
 import type { NdtBidPackageDto } from '../ndt-project-types';
 
-interface Tab3Props {
+interface Tab2Props {
   projectId: string;
   mode: 'create' | 'edit' | 'detail';
   onSaved?: () => void;
 }
 
-// NdtTab3Implementation — Tình hình TH for NĐT projects.
+// NdtTab2Implementation — Tình hình TH for NĐT projects.
 // Simpler than PPP Tab3: bid packages section only, no capital plans.
-export function NdtTab3Implementation({ projectId, mode }: Tab3Props) {
+export function NdtTab2Implementation({ projectId, mode }: Tab2Props) {
   const isReadonly = mode === 'detail';
   const { data: project } = useNdtProject(projectId);
   const bidPackages = project?.bidPackages ?? [];

@@ -6,15 +6,15 @@ import { useAddFdiBidPackage, useDeleteFdiBidPackage, useFdiProject } from '../f
 import { BidPackageFormModal } from '@/features/domestic-projects/tabs/bid-package-form-modal';
 import type { FdiBidPackageDto } from '../fdi-project-types';
 
-interface Tab3Props {
+interface Tab2Props {
   projectId: string;
   mode: 'create' | 'edit' | 'detail';
   onSaved?: () => void;
 }
 
-// FdiTab3Implementation — Tình hình TH for FDI projects.
+// FdiTab2Implementation — Tình hình TH for FDI projects.
 // Simpler than PPP Tab3: bid packages section only, no capital plans.
-export function FdiTab3Implementation({ projectId, mode }: Tab3Props) {
+export function FdiTab2Implementation({ projectId, mode }: Tab2Props) {
   const isReadonly = mode === 'detail';
   const { data: project } = useFdiProject(projectId);
   const bidPackages = project?.bidPackages ?? [];
