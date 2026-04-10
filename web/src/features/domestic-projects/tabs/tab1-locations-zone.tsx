@@ -66,7 +66,7 @@ export function Tab1LocationsZone({ rows, onChange, disabled }: LocationsZonePro
       title: 'Xã / Phường', key: 'ward', width: 220,
       render: (_, row) => disabled ? (row.wardCode ?? '—') : (
         <WardSelect
-          provinceCode={row.provinceId}
+          provinceCode={provinces.find((p) => p.id === row.provinceId)?.code ?? null}
           value={row.wardCode}
           onChange={(v) => handleUpdate(row.key, { wardCode: v })}
         />
