@@ -47,8 +47,11 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
   const updateMutation = useUpdateDomesticProject();
   const saving = createMutation.isPending || updateMutation.isPending;
 
-  // Local state for locations — saved with project payload, no separate API calls
-  const [locationRows, setLocationRows] = useState<LocalLocationRow[]>([]);
+  // Local state for locations — saved with project payload, no separate API calls.
+  // Default 1 empty row so users can start entering immediately per SRS design.
+  const [locationRows, setLocationRows] = useState<LocalLocationRow[]>([
+    { key: 'default-1', provinceId: null, districtId: null, address: '' },
+  ]);
 
   // Pre-fill form + locations on edit/detail
   useEffect(() => {
