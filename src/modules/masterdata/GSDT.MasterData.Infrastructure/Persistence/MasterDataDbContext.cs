@@ -53,11 +53,13 @@ public class MasterDataDbContext(DbContextOptions<MasterDataDbContext> options, 
             e.ToTable("Wards");
             e.HasKey(x => x.Id);
             e.Property(x => x.Code).HasMaxLength(10).IsRequired();
-            e.Property(x => x.DistrictCode).HasMaxLength(10).IsRequired();
+            e.Property(x => x.DistrictCode).HasMaxLength(20); // nullable for new 2-tier wards
+            e.Property(x => x.ProvinceCode).HasMaxLength(20); // nullable for old 3-tier wards
             e.Property(x => x.NameVi).HasMaxLength(200).IsRequired();
             e.Property(x => x.NameEn).HasMaxLength(200).IsRequired();
             e.HasIndex(x => x.Code).IsUnique();
             e.HasIndex(x => x.DistrictCode);
+            e.HasIndex(x => x.ProvinceCode);
         });
 
         modelBuilder.Entity<AdministrativeUnit>(e =>
