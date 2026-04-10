@@ -49,42 +49,42 @@ export function Tab1Zone2Budget({ publicInvestment, totalInvestment }: Tab1Zone2
         </Col>
       </Row>
 
-      {/* Row 2: Vốn khác + purple badge label */}
-      <Row gutter={8} align="middle" style={{ marginBottom: 16 }}>
-        <Col flex="1 1 0">
+      {/* Row 2: Vốn khác + VỐN ĐTC badge (left) | Total summary box (right) — per SRS mockup */}
+      <Row gutter={16} align="middle">
+        <Col span={8}>
           <Form.Item name="prelimOtherCapital" label="Vốn khác" rules={[{ required: true }]} style={{ marginBottom: 0 }}>
             <MoneyInput />
           </Form.Item>
         </Col>
-        <Col flex="none" style={{ paddingTop: 30, paddingLeft: 8 }}>
+        <Col flex="none" style={{ paddingTop: 30 }}>
           <div style={{ background: '#ede9fe', color: '#5B21B6', padding: '2px 8px', borderRadius: 4, whiteSpace: 'nowrap', fontSize: 13, fontWeight: 600 }}>
             + VỐN ĐTC
           </div>
         </Col>
-        <Col flex="3 1 0" />
-      </Row>
-
-      {/* Total investment box — purple gradient, large number */}
-      <div style={{
-        background: 'linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%)',
-        borderRadius: 10,
-        padding: '20px 28px',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        boxShadow: '0 4px 12px rgba(91, 33, 182, 0.3)',
-      }}>
-        <div style={{ color: '#e9d5ff', fontSize: 13, fontWeight: 600, maxWidth: 200, lineHeight: 1.4 }}>
-          SƠ BỘ TỔNG MỨC ĐẦU TƯ<br />
-          <span style={{ fontSize: 11, color: '#c4b5fd' }}>(VỐN ĐTC + VỐN KHÁC)</span>
-        </div>
-        <div style={{ textAlign: 'right' }}>
-          <div style={{ color: '#fff', fontSize: 36, fontWeight: 800, letterSpacing: '0.02em', lineHeight: 1 }}>
-            {totalInvestment.toLocaleString('vi-VN', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}
+        <Col flex="1">
+          {/* Total investment box — purple gradient, compact inline per SRS */}
+          <div style={{
+            background: 'linear-gradient(135deg, #5B21B6 0%, #7C3AED 100%)',
+            borderRadius: 10,
+            padding: '16px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            boxShadow: '0 4px 12px rgba(91, 33, 182, 0.3)',
+          }}>
+            <div style={{ color: '#e9d5ff', fontSize: 12, fontWeight: 600, lineHeight: 1.4 }}>
+              SƠ BỘ TỔNG MỨC ĐẦU TƯ<br />
+              <span style={{ fontSize: 11, color: '#c4b5fd' }}>(VỐN ĐTC + VỐN KHÁC)</span>
+            </div>
+            <div style={{ textAlign: 'right' }}>
+              <div style={{ color: '#fff', fontSize: 28, fontWeight: 800, letterSpacing: '0.02em', lineHeight: 1 }}>
+                {totalInvestment.toLocaleString('vi-VN', { minimumFractionDigits: 3, maximumFractionDigits: 3 })}
+              </div>
+              <div style={{ color: '#c4b5fd', fontSize: 12, marginTop: 2 }}>TRIỆU VND</div>
+            </div>
           </div>
-          <div style={{ color: '#c4b5fd', fontSize: 13, marginTop: 4 }}>TRIỆU VND</div>
-        </div>
-      </div>
+        </Col>
+      </Row>
     </>
   );
 }

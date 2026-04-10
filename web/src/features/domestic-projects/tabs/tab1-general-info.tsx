@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Form, Input, Row, Col, Button, message } from 'antd';
+import { SaveOutlined } from '@ant-design/icons';
 import { useNavigate } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { DatePickerMaxToday, FileUploadField } from '@/features/shared/components';
@@ -194,6 +195,15 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
         <div style={{ background: '#fff', border: '1px solid #f0f0f0', borderRadius: 8, padding: '20px 24px', marginBottom: 16 }}>
           {zoneTitle('Tổng mức đầu tư & Cơ cấu nguồn vốn')}
           <Tab1Zone2Budget publicInvestment={publicInvestment} totalInvestment={totalInvestment} />
+          {/* Per SRS mockup: green save button aligned left below "Vốn khác" */}
+          {!isReadonly && (
+            <div style={{ marginTop: 16 }}>
+              <Button icon={<SaveOutlined />} type="primary" onClick={handleSave} loading={saving}
+                style={{ background: '#10b981', borderColor: '#10b981', height: 44, paddingLeft: 48, paddingRight: 48, fontWeight: 600, fontSize: 15, borderRadius: 8 }}>
+                Lưu thông tin
+              </Button>
+            </div>
+          )}
         </div>
 
         {/* Zone 3: Phân cấp & Chủ thể — purple-border div matching Zones 1 & 2 */}
@@ -221,21 +231,15 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
           When projectId exists: fully interactive. When null (create mode): disabled placeholder state. */}
       <Tab1DecisionsZone projectId={projectId} disabled={isReadonly || !projectId} />
 
-      {/* Action buttons — "Quay lại" (outline) left + "CẬP NHẬT" (blue primary) right, per SRS */}
+      {/* Action buttons — "Quay lại" left + "Cập nhật" right */}
       {!isReadonly && (
         <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 24, marginBottom: 8 }}>
-          <Button
-            onClick={() => navigate({ to: '/domestic-projects' })}
-            style={{ height: 40, paddingLeft: 24, paddingRight: 24 }}
-          >
+          <Button onClick={() => navigate({ to: '/domestic-projects' })}
+            style={{ height: 40, paddingLeft: 24, paddingRight: 24 }}>
             Quay lại
           </Button>
-          <Button
-            type="primary"
-            onClick={handleSave}
-            loading={saving}
-            style={{ height: 40, paddingLeft: 32, paddingRight: 32, fontWeight: 600 }}
-          >
+          <Button type="primary" onClick={handleSave} loading={saving}
+            style={{ height: 40, paddingLeft: 32, paddingRight: 32, fontWeight: 600 }}>
             Cập nhật
           </Button>
         </div>
