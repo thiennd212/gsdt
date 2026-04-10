@@ -172,6 +172,32 @@ public sealed class EffectivePermissionService : IEffectivePermissionService
 
     private static readonly JsonSerializerOptions JsonOptions = new()
     {
-        PropertyNameCaseInsensitive = true
+        PropertyNameCaseInsensitive = true,
+        // IReadOnlySet<string> cannot be deserialized directly — converters handle abstract types.
+        // HashSet<string> is the concrete type used at serialization time (BuildFromDbAsync assigns .ToHashSet()).
+        Converters = { new ReadOnlySetJsonConverter() },
     };
+}
+
+/// <summary>
+/// Converts JSON arrays to/from IReadOnlySet{string}.
+/// System.Text.Json cannot deserialize abstract collection interfaces directly;
+/// this converter maps IReadOnlySet{string} ↔ HashSet{string} transparently.
+/// </summary>
+internal sealed class ReadOnlySetJsonConverter : System.Text.Json.Serialization.JsonConverter<IReadOnlySet<string>>
+{
+    public override IReadOnlySet<string> Read(
+        ref Utf8JsonReader reader,
+        Type typeToConvert,
+        JsonSerializerOptions options)
+    {
+        var list = JsonSerializer.Deserialize<HashSet<string>>(ref reader, options);
+        return list ?? new HashSet<string>();
+    }
+
+    public override void Write(
+        Utf8JsonWriter writer,
+        IReadOnlySet<string> value,
+        JsonSerializerOptions options)
+        => JsonSerializer.Serialize(writer, value, typeof(HashSet<string>), options);
 }

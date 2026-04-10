@@ -4,6 +4,29 @@ All notable changes to this project documented. Format: date, version, feature/f
 
 ---
 
+## Hardening Sprint — Permission Tests & Infrastructure (2026-04-10)
+
+**v2.47 COMPLETE. 75 NEW TESTS. 4 PHASES + DOCS SYNC.**
+
+### Phase 0: Test Infrastructure Fix
+- TestPermissionSeeder: Public static seeder using PermissionSeedDefinitions + RoleManager/UserManager. Idempotent. No production code changes. Seeds 3 test roles (BTC, CQCQ, CDT) + 3 test users + 23 permissions + role-permission mappings.
+
+### Phase 1: Permission HTTP Integration Tests
+- 32 tests: 6 unauthenticated (Theory), 6 BTC READ, 6 CQCQ READ, 6 CQCQ write-denied (Theory), 2 BTC write+delete, 6 admin endpoint tests.
+- Bug fix: ReadOnlySetJsonConverter for EffectivePermissionService Redis deserialization.
+
+### Phase 2: Contract Tests
+- 19 tests: 6 InvestmentProject DTOs (DomesticDetail shape + RoundTrip + ListItem minimum fields), 9 PermissionDto + RoleDetailDto + error envelope shapes.
+- ProjectReference added: GSDT.InvestmentProjects.Application to contract test project.
+
+### Phase 3: Security Boundary Tests
+- 24 tests: 12 CQCQ read-only enforcement (6 PUT + 6 DELETE via Theory), 2 cross-tenant isolation (BTC role), 4 permission escalation (real permission codes from Permissions class), 2 delegation expiry, 2 system role protection (seed matrix validation), 2 cache invalidation.
+
+### Phase 4: Docs Sync
+- system-architecture.md: Added "### GSDT Permission Implementation (v2.46)" subsection. Flow diagram ([RequirePermission] → PermissionPolicyProvider → PermissionAuthorizationHandler → EffectivePermissionService), permission code format table (MODULE.RESOURCE.ACTION), role-permission matrix (BTC=18, CQCQ=6, CDT=18, Admin=23), caching strategy (L1 in-process ConcurrentDictionary, L2 Redis TTL 600s), invalidation triggers, key files.
+
+---
+
 ## GSDT Phase 2 — Investment Project Types: Catalogs, PPP, DNNN (2026-04-08)
 
 **P2-01 through P2-05 COMPLETE (5 PHASES). 5 COMMITS. 1 NEW SCHEMA + 14 TABLES + 50+ APIs + 38+ FE COMPONENTS + 38 INVESTMENT ENTITIES.**

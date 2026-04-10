@@ -148,6 +148,14 @@ public class ApiFactory(DatabaseFixture db) : WebApplicationFactory<Program>
         var systemParamSeeder = sp.GetService<SystemParamSeeder>();
         if (systemParamSeeder != null)
             await systemParamSeeder.StartAsync(CancellationToken.None);
+
+        // Seed GSDT roles (BTC/CQCQ/CDT), test users, 23 permissions, and role-permission
+        // mappings. Uses public PermissionSeedDefinitions — bypasses internal sealed seeders.
+        // Required for [RequirePermission] integration tests: PermissionAuthorizationHandler
+        // queries DB via EffectivePermissionService, so real users with real role assignments needed.
+        // Pass root Services (not scoped sp) — seeder creates its own scope to avoid
+        // disposed IdentityDbContext from the migration loop above.
+        await TestPermissionSeeder.SeedAsync(Services);
     }
 
     /// <summary>
@@ -178,12 +186,31 @@ public class ApiFactory(DatabaseFixture db) : WebApplicationFactory<Program>
     /// <summary>
     /// Creates an HttpClient with test identity headers pre-populated.
     /// The TestAuthHandler reads these headers to build ClaimsPrincipal.
+    /// When userId is null and roles are provided, auto-resolves to a seeded test user
+    /// so EffectivePermissionService can find the user in DB with role-permission assignments.
     /// </summary>
     public HttpClient CreateAuthenticatedClient(
         string? userId = null,
         string[]? roles = null,
-        string? tenantId = null)
+        string? tenantId = null,
+        string? managingAuthorityId = null,
+        string? projectOwnerId = null)
     {
+        // Auto-resolve userId from seeded test users when not explicitly provided.
+        // Required because PermissionAuthorizationHandler calls EffectivePermissionService
+        // which queries DB by userId — random GUIDs return empty permissions → 403.
+        if (userId is null && roles?.Length > 0)
+        {
+            foreach (var role in roles)
+            {
+                if (TestPermissionSeeder.RoleUserIds.TryGetValue(role, out var seededId))
+                {
+                    userId = seededId;
+                    break;
+                }
+            }
+        }
+
         var client = CreateClient(new WebApplicationFactoryClientOptions
         {
             AllowAutoRedirect = false,
@@ -202,6 +229,16 @@ public class ApiFactory(DatabaseFixture db) : WebApplicationFactory<Program>
             client.DefaultRequestHeaders.Add(
                 TestAuthHandler.TenantIdHeader,
                 tenantId);
+
+        if (managingAuthorityId != null)
+            client.DefaultRequestHeaders.Add(
+                TestAuthHandler.ManagingAuthorityIdHeader,
+                managingAuthorityId);
+
+        if (projectOwnerId != null)
+            client.DefaultRequestHeaders.Add(
+                TestAuthHandler.ProjectOwnerIdHeader,
+                projectOwnerId);
 
         return client;
     }

@@ -23,6 +23,7 @@
     <ProjectReference Include="..\..\..\src\modules\audit\GSDT.Audit.Application\GSDT.Audit.Application.csproj" />
     <ProjectReference Include="..\..\..\src\modules\files\GSDT.Files.Application\GSDT.Files.Application.csproj" />
     <ProjectReference Include="..\..\..\src\modules\identity\GSDT.Identity.Application\GSDT.Identity.Application.csproj" />
+    <ProjectReference Include="..\..\..\src\modules\investment-projects\GSDT.InvestmentProjects.Application\GSDT.InvestmentProjects.Application.csproj" />
     <ProjectReference Include="..\..\..\src\modules\notifications\GSDT.Notifications.Application\GSDT.Notifications.Application.csproj" />
     <ProjectReference Include="..\..\..\src\modules\organization\GSDT.Organization\GSDT.Organization.csproj" />
     <!-- NOTE: Cases, Forms, Workflow, Reporting modules not yet implemented — contract tests excluded below -->

@@ -17,6 +17,8 @@ public class TestAuthHandler(
     public const string UserIdHeader = "X-Test-UserId";
     public const string RolesHeader = "X-Test-Roles";
     public const string TenantIdHeader = "X-Test-TenantId";
+    public const string ManagingAuthorityIdHeader = "X-Test-ManagingAuthorityId";
+    public const string ProjectOwnerIdHeader = "X-Test-ProjectOwnerId";
 
     protected override Task<AuthenticateResult> HandleAuthenticateAsync()
     {
@@ -37,6 +39,12 @@ public class TestAuthHandler(
         };
         claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
         if (tenantId != null) claims.Add(new("tenant_id", tenantId));
+
+        var managingAuthorityId = Request.Headers[ManagingAuthorityIdHeader].FirstOrDefault();
+        if (managingAuthorityId != null) claims.Add(new("managing_authority_id", managingAuthorityId));
+
+        var projectOwnerId = Request.Headers[ProjectOwnerIdHeader].FirstOrDefault();
+        if (projectOwnerId != null) claims.Add(new("project_owner_id", projectOwnerId));
 
         var identity = new ClaimsIdentity(claims, SchemeName);
         var principal = new ClaimsPrincipal(identity);

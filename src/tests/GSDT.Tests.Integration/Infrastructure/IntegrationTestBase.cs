@@ -23,8 +23,10 @@ public abstract class IntegrationTestBase(DatabaseFixture db) : IAsyncLifetime
     protected HttpClient CreateAuthenticatedClient(
         string? userId = null,
         string[]? roles = null,
-        string? tenantId = null) =>
-        Factory.CreateAuthenticatedClient(userId, roles, tenantId);
+        string? tenantId = null,
+        string? managingAuthorityId = null,
+        string? projectOwnerId = null) =>
+        Factory.CreateAuthenticatedClient(userId, roles, tenantId, managingAuthorityId, projectOwnerId);
 
     // Fixed tenant id used for the default SystemAdmin client.
     // Must be provided because controllers resolve tenant from JWT claims (F-01 rule)
@@ -33,10 +35,10 @@ public abstract class IntegrationTestBase(DatabaseFixture db) : IAsyncLifetime
 
     public virtual Task InitializeAsync()
     {
-        // SystemAdmin is the widest role — individual tests can narrow via CreateAuthenticatedClient.
-        // A tenantId is required because FilesController and others resolve tenant from JWT (not
-        // from query params) per the F-01 security rule; without it they return 403 Forbidden.
-        Client = CreateAuthenticatedClient(roles: ["SystemAdmin"], tenantId: DefaultTenantId.ToString());
+        // Admin + SystemAdmin roles: Admin provides all 23 permissions via DB lookup,
+        // SystemAdmin satisfies [Authorize(Roles = "SystemAdmin")] on specific endpoints.
+        // Auto-resolves to seeded admin user via ApiFactory.CreateAuthenticatedClient.
+        Client = CreateAuthenticatedClient(roles: ["Admin", "SystemAdmin"], tenantId: DefaultTenantId.ToString());
         return Task.CompletedTask;
     }
 

@@ -20,6 +20,10 @@
     <ProjectReference Include="..\..\..\src\modules\files\GSDT.Files.Infrastructure\GSDT.Files.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\src\modules\identity\GSDT.Identity.Domain\GSDT.Identity.Domain.csproj" />
     <ProjectReference Include="..\..\..\src\modules\identity\GSDT.Identity.Application\GSDT.Identity.Application.csproj" />
-    <ProjectReference Include="..\..\..\src\modules\cases\GSDT.Cases.Application\GSDT.Cases.Application.csproj" />
+    <!-- GSDT.Cases.Application not yet implemented — removed pending module creation -->
+  </ItemGroup>
+  <ItemGroup>
+    <!-- Exclude InputValidationTests — depends on GSDT.Cases.Application which is not yet implemented -->
+    <Compile Remove="Injection\InputValidationTests.cs" />
   </ItemGroup>
 </Project>

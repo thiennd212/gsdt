@@ -508,6 +508,42 @@ PolicyRule:
   PermissionCode: "AUTH.REPORT.EXECUTE"
 ```
 
+### GSDT Permission Implementation (v2.46)
+
+Attribute-based enforcement replaces `[Authorize(Roles)]` with type-safe permission checks:
+
+```
+[RequirePermission(Permissions.Inv.DomesticRead)]
+  → RequirePermissionAttribute sets Policy = "PERM:INV.DOMESTIC.READ"
+  → PermissionPolicyProvider (ConcurrentDictionary cache)
+    → builds AuthorizationPolicy with PermissionRequirement
+  → PermissionAuthorizationHandler
+    → IEffectivePermissionService.GetSummaryAsync(userId)
+    → checks summary.PermissionCodes.Contains(code)
+  → EffectivePermissionService (Redis "perm:{userId}", TTL 10min)
+    → cache miss: DB join UserRoles+GroupRoles+Delegations → RolePermissions → Permissions
+```
+
+**Permission Code Format:** `MODULE.RESOURCE.ACTION`
+
+| Module | Resources | Actions | Example |
+|--------|-----------|---------|---------|
+| INV | DOMESTIC, ODA, PPP, DNNN, NDT, FDI | READ, WRITE, DELETE | `INV.DOMESTIC.READ` |
+| ADMIN | ROLE, PERM | READ, WRITE, DELETE, ASSIGN | `ADMIN.ROLE.WRITE` |
+
+**Role-Permission Seed Matrix (23 permissions):**
+
+| Role | Investment (18) | Admin (5) | Total |
+|------|----------------|-----------|-------|
+| BTC | R+W+D × 6 types | — | 18 |
+| CDT | R+W+D × 6 types | — | 18 |
+| CQCQ | 6 READ only | — | 6 |
+| Admin | All 18 | All 5 | 23 |
+
+**Caching:** L1 `PermissionPolicyProvider` ConcurrentDictionary (process-lifetime). L2 `EffectivePermissionService` Redis `perm:{userId}` TTL 600s. Invalidated by `RolePermissionCacheInvalidator` after assign/remove mutations.
+
+**Key files:** `Identity.Application/Authorization/` (PermissionConstants, RequirePermissionAttribute, PermissionPolicyProvider, PermissionAuthorizationHandler, PermissionSeedDefinitions), `Identity.Infrastructure/Services/EffectivePermissionService.cs`, `GSDT.Api/GsdtPermissionSeeder.cs`.
+
 ---
 
 ## Repository Pattern Enforcement
