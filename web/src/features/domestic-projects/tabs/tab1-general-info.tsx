@@ -50,7 +50,7 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
   // Local state for locations — saved with project payload, no separate API calls.
   // Default 1 empty row so users can start entering immediately per SRS design.
   const [locationRows, setLocationRows] = useState<LocalLocationRow[]>([
-    { key: 'default-1', provinceId: null, districtId: null, address: '' },
+    { key: 'default-1', provinceId: null, wardCode: null, address: '' },
   ]);
 
   // Pre-fill form + locations on edit/detail
@@ -66,7 +66,7 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
         setLocationRows(project.locations.map((loc, i) => ({
           key: loc.id ?? `existing-${i}`,
           provinceId: loc.provinceId,
-          districtId: loc.districtId ?? null,
+          wardCode: loc.wardCode ?? loc.districtId ?? null,
           address: loc.address ?? '',
         })));
       }
@@ -93,7 +93,7 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
       .filter((r) => r.provinceId) // only rows with province selected
       .map((r) => ({
         provinceId: r.provinceId!,
-        districtId: r.districtId ?? undefined,
+        wardCode: r.wardCode ?? undefined,
         address: r.address || undefined,
       }));
 

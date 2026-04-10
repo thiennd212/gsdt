@@ -1,13 +1,14 @@
 import { Table, Button, Select, Input, Popconfirm } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
-import { useProvinces, useDistricts } from '@/features/master-data/master-data-api';
+import { useProvinces, useWardsByProvince } from '@/features/master-data/master-data-api';
 
 // Client-side location row — no API calls, parent manages persistence
 export interface LocalLocationRow {
   key: string;
   provinceId: string | null;
-  districtId: string | null;
+  /** Xã/Phường code (new 2-tier model, QĐ 19/2025) */
+  wardCode: string | null;
   address: string;
 }
 
@@ -28,7 +29,7 @@ export function Tab1LocationsZone({ rows, onChange, disabled }: LocationsZonePro
   const { data: provinces = [] } = useProvinces();
 
   function handleAdd() {
-    onChange([...rows, { key: `loc-${nextKey++}`, provinceId: null, districtId: null, address: '' }]);
+    onChange([...rows, { key: `loc-${nextKey++}`, provinceId: null, wardCode: null, address: '' }]);
   }
 
   function handleUpdate(key: string, patch: Partial<LocalLocationRow>) {
@@ -54,7 +55,7 @@ export function Tab1LocationsZone({ rows, onChange, disabled }: LocationsZonePro
       render: (_, row) => disabled ? getProvinceName(row.provinceId ?? '') : (
         <Select
           placeholder="-- Chọn --" size="small" value={row.provinceId}
-          onChange={(v) => handleUpdate(row.key, { provinceId: v, districtId: null })}
+          onChange={(v) => handleUpdate(row.key, { provinceId: v, wardCode: null })}
           allowClear showSearch style={{ width: '100%' }}
           filterOption={(input, opt) => String(opt?.label ?? '').toLowerCase().includes(input.toLowerCase())}
           options={provinces.map((p) => ({ value: p.id, label: p.name }))}
@@ -62,12 +63,12 @@ export function Tab1LocationsZone({ rows, onChange, disabled }: LocationsZonePro
       ),
     },
     {
-      title: 'Quận / Huyện / Xã', key: 'district', width: 220,
-      render: (_, row) => disabled ? (row.districtId ?? '—') : (
-        <DistrictSelect
-          provinceId={row.provinceId}
-          value={row.districtId}
-          onChange={(v) => handleUpdate(row.key, { districtId: v })}
+      title: 'Xã / Phường', key: 'ward', width: 220,
+      render: (_, row) => disabled ? (row.wardCode ?? '—') : (
+        <WardSelect
+          provinceCode={row.provinceId}
+          value={row.wardCode}
+          onChange={(v) => handleUpdate(row.key, { wardCode: v })}
         />
       ),
     },
@@ -115,20 +116,20 @@ export function Tab1LocationsZone({ rows, onChange, disabled }: LocationsZonePro
   );
 }
 
-// Sub-component: District select that loads districts based on provinceId
-function DistrictSelect({ provinceId, value, onChange }: {
-  provinceId: string | null;
+// Sub-component: Ward/commune select that loads wards by province (new 2-tier model)
+function WardSelect({ provinceCode, value, onChange }: {
+  provinceCode: string | null;
   value: string | null;
   onChange: (v: string | null) => void;
 }) {
-  const { data: districts = [] } = useDistricts(provinceId);
+  const { data: wards = [] } = useWardsByProvince(provinceCode);
   return (
     <Select
       placeholder="-- Chọn --" size="small" value={value}
-      onChange={onChange} allowClear showSearch disabled={!provinceId}
+      onChange={onChange} allowClear showSearch disabled={!provinceCode}
       style={{ width: '100%' }}
       filterOption={(input, opt) => String(opt?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-      options={districts.map((d) => ({ value: d.id, label: d.name }))}
+      options={wards.map((w) => ({ value: w.code, label: w.nameVi }))}
     />
   );
 }

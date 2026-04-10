@@ -8,6 +8,7 @@ export const masterDataKeys = {
   provinces: ['master-data', 'provinces'] as const,
   districts: (provinceId: string) => ['master-data', 'districts', provinceId] as const,
   wards: (districtId: string) => ['master-data', 'wards', districtId] as const,
+  wardsByProvince: (provinceCode: string) => ['master-data', 'wards-by-province', provinceCode] as const,
 };
 
 // ─── Queries ─────────────────────────────────────────────────────────────────
@@ -44,6 +45,19 @@ export function useWards(districtId: string | null) {
         .get<WardDto[]>(`/masterdata/districts/${districtId}/wards`)
         .then((r) => r.data),
     enabled: Boolean(districtId),
+    staleTime: 10 * 60 * 1000,
+  });
+}
+
+/** GET /api/v1/masterdata/provinces/{provinceCode}/wards — new 2-tier model (QĐ 19/2025) */
+export function useWardsByProvince(provinceCode: string | null) {
+  return useQuery({
+    queryKey: masterDataKeys.wardsByProvince(provinceCode ?? ''),
+    queryFn: () =>
+      apiClient
+        .get<WardDto[]>(`/masterdata/provinces/${provinceCode}/wards`)
+        .then((r) => r.data),
+    enabled: Boolean(provinceCode),
     staleTime: 10 * 60 * 1000,
   });
 }

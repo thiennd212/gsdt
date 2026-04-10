@@ -40,6 +40,20 @@ public class MasterDataController(
         return Ok(ApiResponse<object>.Ok(result));
     }
 
+    /// <summary>New 2-tier model (QĐ 19/2025): get wards directly by province code.</summary>
+    [HttpGet("provinces/{provinceCode}/wards")]
+    [OutputCache(PolicyName = "MasterData")]
+    [AllowAnonymous]
+    public IActionResult GetWardsByProvince(string provinceCode)
+    {
+        var wards = memoryCache.Get<List<Ward>>("masterdata:wards") ?? [];
+        var result = wards
+            .Where(w => w.ProvinceCode == provinceCode && w.IsActive)
+            .Select(w => new { w.Code, w.NameVi, w.NameEn, w.SortOrder })
+            .ToList();
+        return Ok(ApiResponse<object>.Ok(result));
+    }
+
     [HttpGet("provinces/{provinceCode}/districts/{districtCode}/wards")]
     [OutputCache(PolicyName = "MasterData")]
     [AllowAnonymous]
