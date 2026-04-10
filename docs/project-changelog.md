@@ -19,6 +19,8 @@ All notable changes to this project documented. Format: date, version, feature/f
 - **Tab 3 (Locations Zone):** Converted from table-per-row to inline-editable location rows (client-side state management). Add/delete location rows client-side, batch submit on form save.
 - **Tab 5 (Zones 3 + 5):** Tab 3 Zone 3 (financing structure) + Tab 5 Zone 5 (execution records) redesigned with SRS card layouts.
 - **Client-Side Location Rows:** Each location row has client-side ID (uuid), edit state, error markers. Deleted rows marked isDeleted:true, batch upsert on form submit (ApiService.submitLocations). Default 1 empty row on form load.
+- **BUGFIX:** Ward dropdown now receives province code (not UUID) from useWardsByProvince API. Fixed empty ward list when selecting province (c40c1c1).
+- **LAYOUT REFINEMENT:** Budget zone (Zone 2) now matches SRS mockup: "Vốn khác" + "VỐN ĐTC" badge inline, total investment box compacted. Green "Lưu thông tin" save button positioned inside Zone 2 (not full-width, left-aligned). Ensures visual alignment with SRS design (258a5db).
 
 ### Feature 3: Dual Admin Division Model Support
 - **3-tier model:** Province → District → Ward (standard, most deployments)
@@ -26,7 +28,7 @@ All notable changes to this project documented. Format: date, version, feature/f
 - **Ward.DistrictCode:** Changed from required to nullable (EF migration). Allows Ward parent to be Province directly (2-tier deployments).
 - **API Compatibility:** List endpoints return both 'id' + 'name' fields (FE compatibility, replaces older 'code' field references)
 
-### 16 Commits in Session
+### 18 Commits in Session
 - `cdd31de` — test(security): 75 permission tests + TestPermissionSeeder
 - `cb655a8` — fix(auth): OIDC returnUrl loss + Admin scope bypass
 - `87ba1fd` — feat(masterdata): DynamicCatalogsController
@@ -43,6 +45,8 @@ All notable changes to this project documented. Format: date, version, feature/f
 - `a0d3d20` — feat(masterdata): support 3-tier + 2-tier admin models
 - `2c4d786` — fix(masterdata): Ward.DistrictCode nullable
 - `6a03ad3` — fix(masterdata): return 'name' in API for FE
+- `c40c1c1` — fix(masterdata): pass province code to ward dropdown API
+- `258a5db` — fix(domestic): match SRS mockup for budget zone layout + save button
 
 ---
 
