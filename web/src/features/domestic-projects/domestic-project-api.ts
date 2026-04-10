@@ -18,7 +18,7 @@ export const domesticProjectKeys = {
   all: ['domestic-projects'] as const,
   list: (params: DomesticProjectListParams) => ['domestic-projects', 'list', params] as const,
   detail: (id: string) => ['domestic-projects', 'detail', id] as const,
-  seed: (type: string) => ['seed-catalogs', type] as const,
+  seed: (type: string) => ['catalogs', type] as const,
 };
 
 // ─── List query ──────────────────────────────────────────────────────────────
@@ -159,7 +159,7 @@ export function useSeedCatalog(type: string) {
     queryKey: domesticProjectKeys.seed(type),
     queryFn: () =>
       apiClient
-        .get<SeedCatalogItem[]>(`/masterdata/seed-catalogs/${type}`)
+        .get<SeedCatalogItem[]>(`/masterdata/catalogs/${type}`)
         .then((r) => r.data),
     staleTime: 10 * 60 * 1000, // seed data rarely changes
   });
