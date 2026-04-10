@@ -129,7 +129,7 @@ function WardSelect({ provinceCode, value, onChange }: {
       onChange={onChange} allowClear showSearch disabled={!provinceCode}
       style={{ width: '100%' }}
       filterOption={(input, opt) => String(opt?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-      options={wards.map((w) => ({ value: w.code, label: w.nameVi }))}
+      options={wards.map((w) => ({ value: w.code, label: w.name }))}
     />
   );
 }

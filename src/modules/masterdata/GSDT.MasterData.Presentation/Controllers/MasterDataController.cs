@@ -23,7 +23,7 @@ public class MasterDataController(
         var provinces = memoryCache.Get<List<Province>>("masterdata:provinces") ?? [];
         return Ok(ApiResponse<IReadOnlyList<object>>.Ok(
             provinces.Where(p => p.IsActive)
-                     .Select(p => new { p.Code, p.NameVi, p.NameEn, p.SortOrder })
+                     .Select(p => new { p.Id, p.Code, Name = p.NameVi, p.SortOrder })
                      .ToList<object>()));
     }
 
@@ -49,7 +49,7 @@ public class MasterDataController(
         var wards = memoryCache.Get<List<Ward>>("masterdata:wards") ?? [];
         var result = wards
             .Where(w => w.ProvinceCode == provinceCode && w.IsActive)
-            .Select(w => new { w.Code, w.NameVi, w.NameEn, w.SortOrder })
+            .Select(w => new { w.Id, w.Code, Name = w.NameVi, w.SortOrder })
             .ToList();
         return Ok(ApiResponse<object>.Ok(result));
     }
