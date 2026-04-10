@@ -65,5 +65,6 @@ public static class PermissionSeedDefinitions
             ["CDT"] = InvestmentPermissions.Select(p => p.Code).ToArray(),
             ["CQCQ"] = InvestmentPermissions.Where(p => p.ActionCode == "READ").Select(p => p.Code).ToArray(),
             ["Admin"] = InvestmentPermissions.Concat(AdminPermissions).Select(p => p.Code).ToArray(),
+            ["SystemAdmin"] = InvestmentPermissions.Concat(AdminPermissions).Select(p => p.Code).ToArray(),
         };
 }

@@ -65,6 +65,7 @@ public sealed class PermissionSeedDefinitionsTests
     [InlineData("CQCQ", 6)]
     [InlineData("CDT", 18)]
     [InlineData("Admin", 23)]
+    [InlineData("SystemAdmin", 23)]
     public void RolePermissionMap_HasCorrectCounts(string role, int expectedCount)
     {
         PermissionSeedDefinitions.RolePermissionMap.Should().ContainKey(role);

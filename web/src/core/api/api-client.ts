@@ -60,7 +60,9 @@ apiClient.interceptors.response.use(
     // 401 — session expired; redirect to OIDC login (deduplicated — only one redirect per session)
     if (status === 401 && !isRedirectingToLogin) {
       isRedirectingToLogin = true;
-      userManager.signinRedirect().catch(() => {
+      userManager.signinRedirect({
+        state: { returnUrl: window.location.pathname + window.location.search },
+      }).catch(() => {
         window.location.href = '/login';
       });
     }

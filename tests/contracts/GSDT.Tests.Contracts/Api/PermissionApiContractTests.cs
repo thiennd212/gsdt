@@ -201,6 +201,9 @@ public sealed class PermissionApiContractTests
 
         // Admin: all 23 permissions
         map["Admin"].Should().HaveCount(23, because: "Admin has all investment + all admin permissions");
+
+        // SystemAdmin: same as Admin
+        map["SystemAdmin"].Should().HaveCount(23, because: "SystemAdmin has same permissions as Admin");
     }
 
     // ── Helpers ───────────────────────────────────────────────────────────────

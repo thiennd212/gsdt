@@ -56,7 +56,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
           <button
             onClick={() => {
               n?.destroy('session-renew-failed');
-              userManager.signinRedirect();
+              userManager.signinRedirect({
+                state: { returnUrl: window.location.pathname + window.location.search },
+              });
             }}
             style={{
               cursor: 'pointer',
@@ -140,7 +142,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
   }, [user]);
 
   const login = useCallback(async () => {
-    await userManager.signinRedirect();
+    await userManager.signinRedirect({
+      state: { returnUrl: window.location.pathname + window.location.search },
+    });
   }, []);
 
   const logout = useCallback(async () => {

@@ -26,7 +26,7 @@ export function CallbackPage() {
         const raw = (user.state as { returnUrl?: string } | undefined)
           ?.returnUrl ?? '/';
         // Enforce relative path only — blocks open redirect (absolute URLs, protocol-relative, javascript:)
-        const returnUrl = (raw.startsWith('/') && !raw.startsWith('//')) ? raw : '/';
+        const returnUrl = (raw.startsWith('/') && !raw.startsWith('//') && raw !== '/callback') ? raw : '/';
         // Full page reload instead of SPA navigate — eliminates race condition
         // between signinRedirectCallback and AuthProvider state update.
         window.location.replace(returnUrl);

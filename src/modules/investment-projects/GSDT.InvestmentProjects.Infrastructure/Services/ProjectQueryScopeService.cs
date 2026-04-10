@@ -13,6 +13,11 @@ public sealed class ProjectQueryScopeService(
 {
     public (string WhereClause, object Parameters) GetScopeFilter(string projectAlias = "p")
     {
+        // Admin/SystemAdmin = system-wide access, no scope restriction.
+        // Matches bypass pattern in AbacAuthorizationHandler, DepartmentAccessRequirement.
+        if (currentUser.Roles.Contains("Admin") || currentUser.Roles.Contains("SystemAdmin"))
+            return ("", new { });
+
         // BTC = system-wide access, no additional filter
         if (currentUser.Roles.Contains("BTC"))
             return ("", new { });
@@ -45,6 +50,10 @@ public sealed class ProjectQueryScopeService(
 
     public async Task<bool> CanModifyProjectAsync(Guid projectId, CancellationToken ct = default)
     {
+        // Admin/SystemAdmin = full system-wide write access
+        if (currentUser.Roles.Contains("Admin") || currentUser.Roles.Contains("SystemAdmin"))
+            return true;
+
         // BTC has full system-wide write access
         if (currentUser.Roles.Contains("BTC"))
             return true;

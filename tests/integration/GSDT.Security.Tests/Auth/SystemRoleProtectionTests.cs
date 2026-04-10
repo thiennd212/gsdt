@@ -32,6 +32,8 @@ public sealed partial class SystemRoleProtectionTests
             "CDT has all 6 project types × 3 actions");
         map["Admin"].Should().HaveCount(23,
             "Admin has 18 investment + 5 admin permissions");
+        map["SystemAdmin"].Should().HaveCount(23,
+            "SystemAdmin has same permissions as Admin");
     }
 
     [Fact]

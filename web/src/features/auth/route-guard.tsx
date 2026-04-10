@@ -20,7 +20,9 @@ export function RouteGuard({ children, requiredRoles, requiredPermissions }: Rou
   useEffect(() => {
     if (!isLoading && !isAuthenticated && !redirecting.current) {
       redirecting.current = true;
-      userManager.signinRedirect();
+      userManager.signinRedirect({
+        state: { returnUrl: window.location.pathname + window.location.search },
+      });
     }
   }, [isLoading, isAuthenticated]);
 
