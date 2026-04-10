@@ -44,24 +44,23 @@ public sealed class ClaimsEnrichmentTransformer : IClaimsTransformation
         if (string.IsNullOrEmpty(userIdStr) || !Guid.TryParse(userIdStr, out var userId))
             return principal;
 
-        // Avoid double-enrichment if roles already present
-        if (principal.HasClaim(c => c.Type == ClaimTypes.Role))
-            return principal;
-
         var identity = (ClaimsIdentity)principal.Identity!;
 
-        await AddRoleClaimsAsync(identity, userId);
+        // Only add role claims if not already present (avoids double-enrichment from JWT)
+        if (!principal.HasClaim(c => c.Type == ClaimTypes.Role))
+        {
+            await AddRoleClaimsAsync(identity, userId);
+            // C6/F-16: Re-inject clearance_level from DB/cache to override stale JWT claim
+            await RefreshClearanceLevelClaimAsync(identity, userId);
+            await AddDelegationClaimsAsync(identity, userId);
+            // Add org/employee/auth-source claims from user entity
+            await AddProfileClaimsAsync(identity, userId);
+        }
 
-        // C2 fix: Inject permission claims so FE usePermissions() hook can read them from JWT profile
+        // C2 fix: ALWAYS inject permission claims so FE usePermissions() hook works.
+        // Permission claims are separate from role claims — must run even when roles
+        // are already present in JWT (PermissionGate reads these to show/hide UI).
         await AddPermissionClaimsAsync(identity, userId);
-
-        // C6/F-16: Re-inject clearance_level from DB/cache to override stale JWT claim
-        await RefreshClearanceLevelClaimAsync(identity, userId);
-
-        await AddDelegationClaimsAsync(identity, userId);
-
-        // Add org/employee/auth-source claims from user entity
-        await AddProfileClaimsAsync(identity, userId);
 
         return principal;
     }

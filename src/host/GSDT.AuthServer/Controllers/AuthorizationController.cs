@@ -1,5 +1,7 @@
 using System.Security.Claims;
+using GSDT.Identity.Infrastructure.Persistence;
 using Microsoft.AspNetCore;  // OpenIddictServerAspNetCoreHelpers.GetOpenIddictServerRequest (OpenIddict 7.x moved helper class to Microsoft.AspNetCore namespace)
+using Microsoft.EntityFrameworkCore;
 using OpenIddict.Abstractions;
 using OpenIddict.Server.AspNetCore;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -13,7 +15,8 @@ namespace GSDT.AuthServer.Controllers;
 public class AuthorizationController(
     UserManager<ApplicationUser> userManager,
     SignInManager<ApplicationUser> signInManager,
-    IAuditService auditService) : Controller
+    IAuditService auditService,
+    IdentityDbContext identityDb) : Controller
 {
     // GET /connect/authorize — PKCE authorization code flow
     [HttpGet("/connect/authorize"), HttpPost("/connect/authorize")]
@@ -259,6 +262,23 @@ public class AuthorizationController(
         foreach (var role in roles)
             identity.AddClaim(Claims.Role, role);
 
+        // Add permission claims so FE usePermissions() hook reads them from id_token profile.
+        // Query DB directly (AuthServer has no Redis/EffectivePermissionService).
+        var roleIds = await identityDb.UserRoles
+            .Where(ur => ur.UserId == user.Id)
+            .Select(ur => ur.RoleId)
+            .ToListAsync();
+        if (roleIds.Count > 0)
+        {
+            var permCodes = await identityDb.RolePermissions
+                .Where(rp => roleIds.Contains(rp.RoleId))
+                .Select(rp => rp.Permission.Code)
+                .Distinct()
+                .ToListAsync();
+            foreach (var code in permCodes)
+                identity.AddClaim("permission", code);
+        }
+
         // Add tenant claim if user belongs to a tenant
         if (user.TenantId.HasValue)
             identity.AddClaim("tenant_id", user.TenantId.Value.ToString());
@@ -277,6 +297,9 @@ public class AuthorizationController(
                     new[] { Destinations.AccessToken, Destinations.IdentityToken },
                 // Tenant ID needed by API for tenant-scoped operations
                 "tenant_id" =>
+                    new[] { Destinations.AccessToken, Destinations.IdentityToken },
+                // Permissions needed by FE PermissionGate + usePermissions() hook
+                "permission" =>
                     new[] { Destinations.AccessToken, Destinations.IdentityToken },
                 _ => new[] { Destinations.AccessToken }
             });
