@@ -4,6 +4,48 @@ All notable changes to this project documented. Format: date, version, feature/f
 
 ---
 
+## MasterData + SRS UI Refinement — Catalogs Unification + Domestic Project Redesign (2026-04-10)
+
+**v2.48 COMPLETE. 6 COMMITS. SEED DATA + UI REDESIGN + ADMIN MODEL DUAL SUPPORT.**
+
+### Feature 1: DynamicCatalogsController & Seed Data
+- **DynamicCatalogsController:** New endpoint-based catalog lookup per tenant + type (replaces static admin endpoints, enables FE dynamic discovery)
+- **Unified CatalogsController:** Merged seed (static) + dynamic patterns into single controller (seed on startup, dynamic on-demand)
+- **seed-masterdata.sql:** Complete seed script for 12 catalog tables (Provinces, Districts, Wards, GovernmentAgency, Investor, Project Status, Investor Type, etc.)
+- **34 Provinces + 3321 Wards:** QĐ 19/2025 post-merger data seeded (replaces old 63-province model). Districts (huyện) structure updated. Spatial hierarchies validated.
+
+### Feature 2: Domestic Project Tab 1-5 Redesign per SRS
+- **Tab 1 (Investment Decision Zone):** Redesigned layout per SRS mockup (Title, InvestorName, StateOwnershipRatio, MainItems, ImplementationTimeline horizontal cards). GCNĐKĐT (RegistrationCertificate) inline CRUD modal added (create/edit/delete within tab).
+- **Tab 3 (Locations Zone):** Converted from table-per-row to inline-editable location rows (client-side state management). Add/delete location rows client-side, batch submit on form save.
+- **Tab 5 (Zones 3 + 5):** Tab 3 Zone 3 (financing structure) + Tab 5 Zone 5 (execution records) redesigned with SRS card layouts.
+- **Client-Side Location Rows:** Each location row has client-side ID (uuid), edit state, error markers. Deleted rows marked isDeleted:true, batch upsert on form submit (ApiService.submitLocations). Default 1 empty row on form load.
+
+### Feature 3: Dual Admin Division Model Support
+- **3-tier model:** Province → District → Ward (standard, most deployments)
+- **2-tier model:** Province → Ward (skip District, legacy variants). Both supported via nullable fields + EF configuration.
+- **Ward.DistrictCode:** Changed from required to nullable (EF migration). Allows Ward parent to be Province directly (2-tier deployments).
+- **API Compatibility:** List endpoints return both 'id' + 'name' fields (FE compatibility, replaces older 'code' field references)
+
+### 16 Commits in Session
+- `cdd31de` — test(security): 75 permission tests + TestPermissionSeeder
+- `cb655a8` — fix(auth): OIDC returnUrl loss + Admin scope bypass
+- `87ba1fd` — feat(masterdata): DynamicCatalogsController
+- `85ae581` — refactor(masterdata): unify seed + dynamic catalogs
+- `033439b` — fix(auth): inject permission claims into OIDC token
+- `1c896b2` — chore(masterdata): seed-masterdata.sql
+- `ed37a05` — feat(fe): redesign domestic project Tab 1 SRS mockup
+- `a462188` — feat(fe): redesign Tab 1 Zone 3 + Zone 5
+- `7945bf8` — feat(fe): redesign locations zone inline editable
+- `4b73774` — feat(fe): client-side location rows
+- `dfd841c` — fix(fe): default 1 empty location row
+- `13b2ea2` — seed 34 provinces (QĐ 19/2025)
+- `9bfbf9a` — seed 34 provinces + 3321 wards
+- `a0d3d20` — feat(masterdata): support 3-tier + 2-tier admin models
+- `2c4d786` — fix(masterdata): Ward.DistrictCode nullable
+- `6a03ad3` — fix(masterdata): return 'name' in API for FE
+
+---
+
 ## Hardening Sprint — Permission Tests & Infrastructure (2026-04-10)
 
 **v2.47 COMPLETE. 75 NEW TESTS. 4 PHASES + DOCS SYNC.**

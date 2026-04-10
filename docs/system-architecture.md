@@ -206,6 +206,14 @@ Browser (Chrome, Safari, Mobile)
 - **Audit Trail:** JitProvisioningService logs provision attempts + failures to Audit module via IAuditService
 - **ExternalLogin Integration:** ExternalLoginController.Callback() invokes JitProvisioningService before returning token
 
+**Dual Administrative Division Model Support (v2.48):**
+- **3-tier hierarchy (standard):** Province → District → Ward (supported in all deployments, legacy 63-province model)
+- **2-tier hierarchy (simplified):** Province → Ward (skip District, for legacy or regional variants)
+- **EF Configuration:** Ward.DistrictCode changed from required to nullable (allows Ward parent reference to be Province directly)
+- **Data Seeding:** QĐ 19/2025 post-merger data includes 34 provinces + 3,321 wards + district hierarchy. CatalogsController auto-seeds both tiers on startup.
+- **API Compatibility:** All catalog endpoints return `id` + `name` fields (FE-compatible), replaces older code-based references
+- **DynamicCatalogsController:** Per-tenant catalog lookup enables FE dynamic discovery of either 2-tier or 3-tier structure based on tenant config
+
 **V2 Features:**
 - **Health Check Dashboard** (/admin/health) — monitor API, AuthServer, DB, Redis, RabbitMQ, MinIO health
 - **User Role Assignment** (POST /admin/users/{id}/roles) — admins grant/revoke roles dynamically
