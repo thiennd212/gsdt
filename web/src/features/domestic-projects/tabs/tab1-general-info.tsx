@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { Form, Input, Row, Col, Button, Card, message } from 'antd';
+import { Form, Input, Row, Col, Button, message } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import { useNavigate } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { DatePickerMaxToday, FileUploadField } from '@/features/shared/components';
@@ -171,8 +172,9 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
           <Tab1Zone2Budget publicInvestment={publicInvestment} totalInvestment={totalInvestment} />
         </div>
 
-        {/* Zone 3: Phân cấp & Chủ thể */}
-        <Card size="small" title="Phân cấp & Chủ thể" style={{ marginBottom: 16 }}>
+        {/* Zone 3: Phân cấp & Chủ thể — purple-border div matching Zones 1 & 2 */}
+        <div style={{ background: '#fff', border: '1px solid #f0f0f0', borderRadius: 8, padding: '20px 24px', marginBottom: 16 }}>
+          {zoneTitle('Phân cấp & Chủ thể Quản lý')}
           <Tab1Zone3Classification
             industrySectors={industrySectors}
             projectGroups={projectGroups}
@@ -182,43 +184,51 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
             projectOwners={projectOwners}
             pmus={pmus}
           />
-        </Card>
+        </div>
       </Form>
 
-      {/* Zone 4: Địa điểm thực hiện (inline table) */}
-      {projectId && (
-        <Card size="small" title="Địa điểm thực hiện" style={{ marginBottom: 16 }}>
+      {/* Zone 4: Địa điểm thực hiện — always visible per SRS mockup.
+          When projectId exists: show inline table. When null (create mode): show placeholder. */}
+      <div style={{ background: '#fff', border: '1px solid #f0f0f0', borderRadius: 8, padding: '20px 24px', marginBottom: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 0 }}>
+          <div style={{ flex: 1 }}>
+            {zoneTitle('Địa điểm thực hiện đầu tư')}
+          </div>
+          {projectId && !isReadonly && (
+            <Button type="primary" icon={<PlusOutlined />} size="small" style={{ marginTop: 2 }}>
+              Thêm địa điểm
+            </Button>
+          )}
+        </div>
+        {projectId ? (
           <Tab1LocationsZone projectId={projectId} disabled={isReadonly} />
-        </Card>
-      )}
+        ) : (
+          <div style={{ color: '#94a3b8', fontSize: 13, textAlign: 'center', padding: '16px 0' }}>
+            Lưu thông tin dự án trước để thêm địa điểm thực hiện.
+          </div>
+        )}
+      </div>
 
-      {/* Zone 5: QĐ Đầu tư (inline form + table) */}
-      {projectId && (
-        <Card size="small" title="Quyết định đầu tư" style={{ marginBottom: 16 }}>
-          <Tab1DecisionsZone projectId={projectId} disabled={isReadonly} />
-        </Card>
-      )}
+      {/* Zone 5: QĐ Đầu tư — always visible per SRS mockup.
+          When projectId exists: fully interactive. When null (create mode): disabled placeholder state. */}
+      <Tab1DecisionsZone projectId={projectId} disabled={isReadonly || !projectId} />
 
-      {/* Action button — green/teal gradient, centered */}
+      {/* Action buttons — "Quay lại" (outline) left + "CẬP NHẬT" (blue primary) right, per SRS */}
       {!isReadonly && (
-        <div style={{ textAlign: 'center', marginTop: 24, marginBottom: 8 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 24, marginBottom: 8 }}>
           <Button
+            onClick={() => navigate({ to: '/domestic-projects' })}
+            style={{ height: 40, paddingLeft: 24, paddingRight: 24 }}
+          >
+            Quay lại
+          </Button>
+          <Button
+            type="primary"
             onClick={handleSave}
             loading={saving}
-            style={{
-              background: 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
-              border: 'none',
-              color: '#fff',
-              fontWeight: 700,
-              fontSize: 15,
-              height: 44,
-              paddingLeft: 48,
-              paddingRight: 48,
-              borderRadius: 8,
-              boxShadow: '0 4px 12px rgba(5, 150, 105, 0.35)',
-            }}
+            style={{ height: 40, paddingLeft: 32, paddingRight: 32, fontWeight: 600 }}
           >
-            Lưu thông tin
+            Cập nhật
           </Button>
         </div>
       )}
