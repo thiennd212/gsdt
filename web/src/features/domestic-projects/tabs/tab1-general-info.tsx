@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Form, Input, Row, Col, Button, message } from 'antd';
 import { useNavigate } from '@tanstack/react-router';
 import dayjs from 'dayjs';
@@ -10,7 +10,7 @@ import {
   useUpdateDomesticProject,
   useDomesticProject,
 } from '../domestic-project-api';
-import { Tab1LocationsZone } from './tab1-locations-zone';
+import { Tab1LocationsZone, type LocalLocationRow } from './tab1-locations-zone';
 import { Tab1DecisionsZone } from './tab1-decisions-zone';
 import { Tab1Zone2Budget } from './tab1-zone2-budget';
 import { Tab1Zone3Classification } from './tab1-zone3-classification';
@@ -47,7 +47,10 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
   const updateMutation = useUpdateDomesticProject();
   const saving = createMutation.isPending || updateMutation.isPending;
 
-  // Pre-fill form on edit/detail
+  // Local state for locations — saved with project payload, no separate API calls
+  const [locationRows, setLocationRows] = useState<LocalLocationRow[]>([]);
+
+  // Pre-fill form + locations on edit/detail
   useEffect(() => {
     if (project && mode !== 'create') {
       form.setFieldsValue({
@@ -55,6 +58,15 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
         policyDecisionDate: project.policyDecisionDate ? dayjs(project.policyDecisionDate) : null,
         stopDecisionDate: project.stopDecisionDate ? dayjs(project.stopDecisionDate) : null,
       });
+      // Initialize location rows from existing project data
+      if (project.locations?.length) {
+        setLocationRows(project.locations.map((loc, i) => ({
+          key: loc.id ?? `existing-${i}`,
+          provinceId: loc.provinceId,
+          districtId: loc.districtId ?? null,
+          address: loc.address ?? '',
+        })));
+      }
     }
   }, [project, mode, form]);
 
@@ -73,10 +85,20 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
     } catch {
       return; // Ant Design shows inline validation errors — just stop here
     }
+    // Include locations from local state — sent with project payload
+    const locations = locationRows
+      .filter((r) => r.provinceId) // only rows with province selected
+      .map((r) => ({
+        provinceId: r.provinceId!,
+        districtId: r.districtId ?? undefined,
+        address: r.address || undefined,
+      }));
+
     const payload = {
       ...values,
       policyDecisionDate: values.policyDecisionDate?.format('YYYY-MM-DD') ?? null,
       stopDecisionDate: values.stopDecisionDate?.format('YYYY-MM-DD') ?? null,
+      locations,
     };
 
     if (mode === 'create') {
@@ -186,10 +208,10 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
         </div>
       </Form>
 
-      {/* Zone 4: Địa điểm thực hiện — SRS inline editable table with "Thêm địa điểm" button */}
+      {/* Zone 4: Địa điểm thực hiện — client-side editable table, saved with project payload */}
       <div style={{ background: '#fff', border: '1px solid #f0f0f0', borderRadius: 8, padding: '20px 24px', marginBottom: 16 }}>
         {zoneTitle('Địa điểm thực hiện đầu tư')}
-        <Tab1LocationsZone projectId={projectId} disabled={isReadonly} />
+        <Tab1LocationsZone rows={locationRows} onChange={(rows) => { setLocationRows(rows); onDirty?.(); }} disabled={isReadonly} />
       </div>
 
       {/* Zone 5: QĐ Đầu tư — always visible per SRS mockup.

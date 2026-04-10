@@ -1,81 +1,49 @@
-import { useState } from 'react';
-import { Table, Button, Select, Input, Popconfirm, message } from 'antd';
+import { Table, Button, Select, Input, Popconfirm } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import { useProvinces, useDistricts } from '@/features/master-data/master-data-api';
-import { useAddLocation, useDeleteLocation, useDomesticProject } from '../domestic-project-api';
-import type { ProjectLocationDto } from '../domestic-project-types';
 
-interface LocationsZoneProps {
-  projectId: string | null;
-  disabled?: boolean;
-}
-
-// Inline new-row state for the SRS-style editable table row
-interface NewLocationRow {
+// Client-side location row — no API calls, parent manages persistence
+export interface LocalLocationRow {
+  key: string;
   provinceId: string | null;
   districtId: string | null;
   address: string;
 }
 
-// Zone 4: Địa điểm thực hiện đầu tư — SRS mockup style.
-// Inline table with cascading Province → District selects directly in table rows.
-// "Thêm địa điểm" button adds a new editable row at the bottom.
-export function Tab1LocationsZone({ projectId, disabled }: LocationsZoneProps) {
-  const { data: project } = useDomesticProject(projectId ?? undefined);
-  const locations = project?.locations ?? [];
+interface LocationsZoneProps {
+  /** Local rows managed by parent via state */
+  rows: LocalLocationRow[];
+  /** Callback when rows change */
+  onChange: (rows: LocalLocationRow[]) => void;
+  disabled?: boolean;
+}
 
-  const [newRows, setNewRows] = useState<NewLocationRow[]>([]);
-  const [savingIdx, setSavingIdx] = useState<number | null>(null);
+let nextKey = 1;
 
+// Zone 4: Địa điểm thực hiện đầu tư — fully client-side editable table.
+// Rows stored in parent state, included in create/update payload.
+// No API calls — parent handles persistence when saving the project.
+export function Tab1LocationsZone({ rows, onChange, disabled }: LocationsZoneProps) {
   const { data: provinces = [] } = useProvinces();
-  const addMutation = useAddLocation();
-  const deleteMutation = useDeleteLocation();
 
-  function handleAddRow() {
-    setNewRows((prev) => [...prev, { provinceId: null, districtId: null, address: '' }]);
+  function handleAdd() {
+    onChange([...rows, { key: `loc-${nextKey++}`, provinceId: null, districtId: null, address: '' }]);
   }
 
-  function updateNewRow(idx: number, patch: Partial<NewLocationRow>) {
-    setNewRows((prev) => prev.map((r, i) => (i === idx ? { ...r, ...patch } : r)));
+  function handleUpdate(key: string, patch: Partial<LocalLocationRow>) {
+    onChange(rows.map((r) => (r.key === key ? { ...r, ...patch } : r)));
   }
 
-  function handleSaveRow(idx: number) {
-    const row = newRows[idx];
-    if (!row?.provinceId) { message.warning('Vui lòng chọn Tỉnh/TP'); return; }
-    if (!projectId) return;
-    setSavingIdx(idx);
-    addMutation.mutate(
-      { projectId, provinceId: row.provinceId, districtId: row.districtId ?? undefined, address: row.address || undefined },
-      {
-        onSuccess: () => {
-          message.success('Thêm địa điểm thành công');
-          setNewRows((prev) => prev.filter((_, i) => i !== idx));
-          setSavingIdx(null);
-        },
-        onError: () => { message.error('Thêm thất bại'); setSavingIdx(null); },
-      },
-    );
+  function handleDelete(key: string) {
+    onChange(rows.filter((r) => r.key !== key));
   }
 
-  function handleDelete(locationId: string) {
-    if (!projectId) return;
-    deleteMutation.mutate({ projectId, locationId }, {
-      onSuccess: () => message.success('Đã xóa'),
-      onError: () => message.error('Xóa thất bại'),
-    });
+  function getProvinceName(id: string) {
+    return provinces.find((p) => p.id === id)?.name ?? id;
   }
 
-  function getProvinceName(id: string) { return provinces.find((p) => p.id === id)?.name ?? id; }
-
-  // Combine saved locations + new editable rows for display
-  type DisplayRow = { key: string; isNew: boolean; idx: number; data: ProjectLocationDto | NewLocationRow };
-  const displayRows: DisplayRow[] = [
-    ...locations.map((loc, i) => ({ key: loc.id, isNew: false, idx: i, data: loc })),
-    ...newRows.map((nr, i) => ({ key: `new-${i}`, isNew: true, idx: i, data: nr })),
-  ];
-
-  const columns: ColumnsType<DisplayRow> = [
+  const columns: ColumnsType<LocalLocationRow> = [
     {
       title: 'STT', key: 'stt', width: 50, align: 'center' as const,
       render: (_, __, i) => i + 1,
@@ -83,85 +51,62 @@ export function Tab1LocationsZone({ projectId, disabled }: LocationsZoneProps) {
     {
       title: <span>Tỉnh / Thành phố <span style={{ color: '#ff4d4f' }}>*</span></span>,
       key: 'province', width: 220,
-      render: (_, row) => {
-        if (row.isNew) {
-          const nr = row.data as NewLocationRow;
-          return (
-            <Select
-              placeholder="-- Chọn --" size="small" value={nr.provinceId}
-              onChange={(v) => updateNewRow(row.idx, { provinceId: v, districtId: null })}
-              allowClear showSearch style={{ width: '100%' }}
-              filterOption={(input, opt) => String(opt?.label ?? '').toLowerCase().includes(input.toLowerCase())}
-              options={provinces.map((p) => ({ value: p.id, label: p.name }))}
-            />
-          );
-        }
-        return getProvinceName((row.data as ProjectLocationDto).provinceId);
-      },
+      render: (_, row) => disabled ? getProvinceName(row.provinceId ?? '') : (
+        <Select
+          placeholder="-- Chọn --" size="small" value={row.provinceId}
+          onChange={(v) => handleUpdate(row.key, { provinceId: v, districtId: null })}
+          allowClear showSearch style={{ width: '100%' }}
+          filterOption={(input, opt) => String(opt?.label ?? '').toLowerCase().includes(input.toLowerCase())}
+          options={provinces.map((p) => ({ value: p.id, label: p.name }))}
+        />
+      ),
     },
     {
       title: 'Quận / Huyện / Xã', key: 'district', width: 220,
-      render: (_, row) => {
-        if (row.isNew) {
-          const nr = row.data as NewLocationRow;
-          return <DistrictSelect provinceId={nr.provinceId} value={nr.districtId} onChange={(v) => updateNewRow(row.idx, { districtId: v })} />;
-        }
-        return (row.data as ProjectLocationDto).districtId ?? '—';
-      },
+      render: (_, row) => disabled ? (row.districtId ?? '—') : (
+        <DistrictSelect
+          provinceId={row.provinceId}
+          value={row.districtId}
+          onChange={(v) => handleUpdate(row.key, { districtId: v })}
+        />
+      ),
     },
     {
       title: 'Chi tiết địa điểm / Ghi chú', key: 'address',
-      render: (_, row) => {
-        if (row.isNew) {
-          const nr = row.data as NewLocationRow;
-          return (
-            <Input
-              size="small" placeholder="Số nhà, tên công trình..." value={nr.address}
-              onChange={(e) => updateNewRow(row.idx, { address: e.target.value })}
-              onPressEnter={() => handleSaveRow(row.idx)}
-            />
-          );
-        }
-        return (row.data as ProjectLocationDto).address ?? '—';
-      },
+      render: (_, row) => disabled ? (row.address || '—') : (
+        <Input
+          size="small" placeholder="Số nhà, tên công trình..."
+          value={row.address}
+          onChange={(e) => handleUpdate(row.key, { address: e.target.value })}
+        />
+      ),
     },
     {
       title: '', key: 'actions', width: 60, align: 'center' as const,
-      render: (_, row) => {
-        if (disabled) return null;
-        if (row.isNew) {
-          return (
-            <Button size="small" type="link" onClick={() => handleSaveRow(row.idx)} loading={savingIdx === row.idx}>
-              Lưu
-            </Button>
-          );
-        }
-        return (
-          <Popconfirm title="Xóa địa điểm?" onConfirm={() => handleDelete((row.data as ProjectLocationDto).id)} okText="Xóa" cancelText="Hủy">
-            <Button size="small" danger icon={<DeleteOutlined />} />
-          </Popconfirm>
-        );
-      },
+      render: (_, row) => disabled ? null : (
+        <Popconfirm title="Xóa địa điểm?" onConfirm={() => handleDelete(row.key)} okText="Xóa" cancelText="Hủy">
+          <Button size="small" danger icon={<DeleteOutlined />} />
+        </Popconfirm>
+      ),
     },
   ];
 
   return (
     <div>
-      {/* "Thêm địa điểm" button — top-right per SRS */}
-      {!disabled && projectId && (
+      {!disabled && (
         <div style={{ textAlign: 'right', marginBottom: 8 }}>
-          <Button type="primary" icon={<PlusOutlined />} size="small" onClick={handleAddRow}>
+          <Button type="primary" icon={<PlusOutlined />} size="small" onClick={handleAdd}>
             Thêm địa điểm
           </Button>
         </div>
       )}
-      <Table<DisplayRow>
+      <Table<LocalLocationRow>
         rowKey="key"
         columns={columns}
-        dataSource={displayRows}
+        dataSource={rows}
         size="small"
         pagination={false}
-        locale={{ emptyText: projectId ? 'Chưa có địa điểm' : 'Lưu dự án trước để thêm địa điểm' }}
+        locale={{ emptyText: 'Chưa có địa điểm — nhấn "Thêm địa điểm" để thêm' }}
       />
       <div style={{ color: '#94a3b8', fontSize: 12, marginTop: 6, fontStyle: 'italic' }}>
         * Bạn có thể thêm nhiều địa điểm nếu dự án trải dài trên nhiều địa bàn khác nhau.
@@ -171,7 +116,11 @@ export function Tab1LocationsZone({ projectId, disabled }: LocationsZoneProps) {
 }
 
 // Sub-component: District select that loads districts based on provinceId
-function DistrictSelect({ provinceId, value, onChange }: { provinceId: string | null; value: string | null; onChange: (v: string | null) => void }) {
+function DistrictSelect({ provinceId, value, onChange }: {
+  provinceId: string | null;
+  value: string | null;
+  onChange: (v: string | null) => void;
+}) {
   const { data: districts = [] } = useDistricts(provinceId);
   return (
     <Select
