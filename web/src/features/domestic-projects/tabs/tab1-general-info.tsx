@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { Form, Input, Row, Col, Button, message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
 import { useNavigate } from '@tanstack/react-router';
 import dayjs from 'dayjs';
 import { DatePickerMaxToday, FileUploadField } from '@/features/shared/components';
@@ -187,26 +186,10 @@ export function Tab1GeneralInfo({ projectId, mode, onSaved, onDirty, onProjectCr
         </div>
       </Form>
 
-      {/* Zone 4: Địa điểm thực hiện — always visible per SRS mockup.
-          When projectId exists: show inline table. When null (create mode): show placeholder. */}
+      {/* Zone 4: Địa điểm thực hiện — SRS inline editable table with "Thêm địa điểm" button */}
       <div style={{ background: '#fff', border: '1px solid #f0f0f0', borderRadius: 8, padding: '20px 24px', marginBottom: 16 }}>
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 0 }}>
-          <div style={{ flex: 1 }}>
-            {zoneTitle('Địa điểm thực hiện đầu tư')}
-          </div>
-          {projectId && !isReadonly && (
-            <Button type="primary" icon={<PlusOutlined />} size="small" style={{ marginTop: 2 }}>
-              Thêm địa điểm
-            </Button>
-          )}
-        </div>
-        {projectId ? (
-          <Tab1LocationsZone projectId={projectId} disabled={isReadonly} />
-        ) : (
-          <div style={{ color: '#94a3b8', fontSize: 13, textAlign: 'center', padding: '16px 0' }}>
-            Lưu thông tin dự án trước để thêm địa điểm thực hiện.
-          </div>
-        )}
+        {zoneTitle('Địa điểm thực hiện đầu tư')}
+        <Tab1LocationsZone projectId={projectId} disabled={isReadonly} />
       </div>
 
       {/* Zone 5: QĐ Đầu tư — always visible per SRS mockup.
